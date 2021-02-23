@@ -1,0 +1,79 @@
+body{
+    background-color: #fff !important;
+}
+
+
+#header{
+    padding-top: 1rem;
+    padding-left: 1rem;
+    display: flex;
+
+    justify-content:  space-between;
+    background-color: #fff;
+    #logo{
+        display: flex;
+
+        .logo-img{
+            width: 75px;
+            margin-top: rem;
+        }
+
+        div{
+            padding-top: 1rem;
+            font-size: 1.5rem;
+            color:#2E3094;
+            font-weight: bold;  
+            text-shadow: .6rem .6rem .37rem #999;
+        }
+    }
+    #login{
+        display: flex;
+        justify-content: center;
+    }
+
+}
+#menu{
+    z-index: 10000;
+}
+
+.blue-group{
+    /*border:  #DBDBDB 1px solid;*/
+    border-radius: 5px;
+    margin-bottom: 20px;
+    word-break: break-all; 
+    box-shadow:  .2rem .5rem .5rem #999;
+    word-wrap: break-word;
+
+    .blue-title{
+        background-color: #02195a;
+        min-height:  40px; 
+        /*color: #1c7aa6;*/
+        /*color:  #063764*/
+        /*        border-left: 8px solid #063764;
+                border-top: 2px solid #063764;*/
+        background-image: url("./scss/img/title-bg.jpg");
+        background-repeat: no-repeat;
+        /*background-attachment: fixed;*/
+        background-position: right; 
+        border-bottom:  3px solid #1c7aa6;
+        /*margin-top:-11px;*/
+        border-radius: 5px  5px 0  0;
+        overflow: hidden;
+        letter-spacing: 1.5px
+    }
+
+    h3.blue-title-text{
+        font-weight: bold;
+        color: #ffffff;
+        margin-left: 1em;
+        margin-right: 0.5em;
+        margin-top: 0.5em;
+        float: left;
+        font-size: 18px;
+
+    }
+    .blue-content{
+        font-size: 1.5rem;
+        padding: 15px 10px;
+    }
+}
