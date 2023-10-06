@@ -11,7 +11,7 @@ get_header();
     <div class="col-xl-9 col-lg-9 col-md-8 col-sm-12 ">
         <div class='head-title'>
             <div class="title">
-                <h2 class="head"> <?php echo __('Other Information') ?> </h2>
+                <h2 class="head"> <?php echo __('行程資訊') ?> </h2>
             </div>
         </div>
         <div class="info-bg">

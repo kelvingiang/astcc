@@ -2,12 +2,14 @@
 
 date_default_timezone_set(get_option('time_zone'));
 
-function toBack($msg) {
+function toBack($msg)
+{
     $url = 'admin.php?page=' . $_REQUEST['page'] . '&msg=' . $msg;
     wp_redirect($url);
 }
 
-function get_country($countryCode) {
+function get_country($countryCode)
+{
     switch ($countryCode) {
         case '081':
             $country = '日本';
@@ -64,17 +66,21 @@ function get_country($countryCode) {
     return $country;
 }
 
-function get_guests_country() {
-    $countryArr = array('00' => '選擇國家', '081' => '日本', '062' => '印尼', '091' => '印度',
+function get_guests_country()
+{
+    $countryArr = array(
+        '00' => '選擇國家', '081' => '日本', '062' => '印尼', '091' => '印度',
         '673' => '汶萊', '880' => '孟加拉', '855' => '柬埔寨',
         '852' => '香港', '856' => '寮國', '060' => '馬來西亞',
         '063' => '菲律賓', '084' => '越南', '065' => '新加坡',
         '066' => '泰國', '095' => '緬甸', '853' => '澳門',
-        '001' => '關島', '670' => '東帝汶');
+        '001' => '關島', '670' => '東帝汶'
+    );
     return $countryArr;
 }
 
-function Chang_Url() {
+function Chang_Url()
+{
     if ($_SERVER['HTTP_HOST'] === 'localhost') {
         $url = 'http://localhost/astcc/';
     } else {
@@ -86,60 +92,62 @@ function Chang_Url() {
 // STRAT VOTE THE FUNCTION
 //==== FUNCTIONS  IS FOR VOTE ============================================
 
-function VoteExportToExcel($kid) {
+function VoteExportToExcel($kid)
+{
     require_once DIR_CLASS . 'PHPExcel.php';
     $exExport = new PHPExcel();
 
-// TAO COT TITLE
+    // TAO COT TITLE
     $exExport->setActiveSheetIndex(0);
     $sheet = $exExport->getActiveSheet()->setTitle("check in");
     $sheet->setCellValue('A1', '姓名');
     $sheet->setCellValue('B1', '公司名稱');
     $sheet->setCellValue('C1', '票數');
 
-// set kich thuoc cot  
+    // set kich thuoc cot  
     $sheet->getColumnDimension('A')->setWidth(10);
     $sheet->getColumnDimension('B')->setAutoSize(true);
     $sheet->getColumnDimension('C')->setWidth(15);
 
-// set chieu cao cua dong
+    // set chieu cao cua dong
     $sheet->getRowDimension('1')->setRowHeight(30);
-// set to dam chu
+    // set to dam chu
     $sheet->getStyle('A')->getFont()->setBold(TRUE);
     $sheet->getStyle('A1:C1')->getFont()->setBold(TRUE);
-// set nen backgroup cho dong
+    // set nen backgroup cho dong
     $sheet->getStyle('A1:C1')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('0008bdf8');
-// set chu canh giua
+    // set chu canh giua
     $sheet->getStyle('A1:C1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
     $sheet->getStyle('A1:C1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 
 
-// TAO NOI DUNG CHEN TU DONG 2
+    // TAO NOI DUNG CHEN TU DONG 2
     $i = 2;
     $list = getVoteResult($kid);
 
     foreach ($list as $row) {
         $exExport->setActiveSheetIndex(0)
-                ->setCellValueExplicit('A' . $i, $row['name'])
-                ->setCellValue('B' . $i, $row['company'])
-                ->setCellValueExplicit('C' . $i, $row['vote_total'], PHPExcel_Cell_DataType::TYPE_STRING);
+            ->setCellValueExplicit('A' . $i, $row['name'])
+            ->setCellValue('B' . $i, $row['company'])
+            ->setCellValueExplicit('C' . $i, $row['vote_total'], PHPExcel_Cell_DataType::TYPE_STRING);
         $i++;
-// phan set border 
-        $styleArray = array('borders' => array(
+        // phan set border 
+        $styleArray = array(
+            'borders' => array(
                 'allborders' => array(
                     'style' => PHPExcel_Style_Border::BORDER_THIN
                 )
             )
         );
-//cho tat ca 
+        //cho tat ca 
         $sheet->getStyle('A1:' . 'C' . ($i - 1))->applyFromArray($styleArray);
     }
 
-// TAO FILE EXCEL VA SAVE LAI THEO PATH
-//$objWriter = PHPExcel_IOFactory::createWriter($exExport, 'Excel2007');
-//$full_path = DIR_EXPORT . date("YmdHis") . '_report.xlsx'; //duong dan file
-//$objWriter->save($full_path);
-// TAO FILE EXCEL VA DOWN TRUC TIEP XUONG CLINET
+    // TAO FILE EXCEL VA SAVE LAI THEO PATH
+    //$objWriter = PHPExcel_IOFactory::createWriter($exExport, 'Excel2007');
+    //$full_path = DIR_EXPORT . date("YmdHis") . '_report.xlsx'; //duong dan file
+    //$objWriter->save($full_path);
+    // TAO FILE EXCEL VA DOWN TRUC TIEP XUONG CLINET
     $kidID = $kid == 1 ? "lishi" : 'jianshi';
     $filename = $kidID . '_vote_' . date("ymdHis") . '.xlsx';
     $objWriter = PHPExcel_IOFactory::createWriter($exExport, 'Excel2007');
@@ -147,11 +155,12 @@ function VoteExportToExcel($kid) {
     header("Content-Disposition: attachment;filename=$filename");
     header('Cache-Control: max-age=0');
     ob_end_clean();
-//        ob_start();
+    //        ob_start();
     $objWriter->save('php://output');
 }
 
-function OptionVoteTotal() {
+function OptionVoteTotal()
+{
     update_option('_vote_total', 2);
     return get_option('_vote_total');
 }
@@ -164,7 +173,8 @@ function OptionVoteTotal() {
 //    return $row;
 //}
 
-function getVoteFinalResult() {
+function getVoteFinalResult()
+{
     global $wpdb;
     $table = $wpdb->prefix . 'vote';
     $sql = "SELECT * FROM $table WHERE `position` != '0' AND `status` = 1 ORDER BY `position` DESC";
@@ -172,7 +182,8 @@ function getVoteFinalResult() {
     return $row;
 }
 
-function getVoteResult($kid) {
+function getVoteResult($kid)
+{
     global $wpdb;
     $table = $wpdb->prefix . 'vote';
     $sql = "SELECT * FROM $table WHERE `kid` = $kid AND `status` = 1 ORDER BY `vote_total` DESC";
@@ -180,7 +191,8 @@ function getVoteResult($kid) {
     return $row;
 }
 
-function getVoteListByKid($kid) {
+function getVoteListByKid($kid)
+{
     global $wpdb;
     $table = $wpdb->prefix . 'vote';
     $sql = "SELECT * FROM $table WHERE `kid` = $kid AND `status` = 1";
@@ -188,7 +200,8 @@ function getVoteListByKid($kid) {
     return $row;
 }
 
-function voteLogin($user, $pass) {
+function voteLogin($user, $pass)
+{
     global $wpdb;
     $table = $wpdb->prefix . 'guests';
     $sql = "SELECT ID, full_name, barcode FROM $table WHERE `full_name` = '$user' AND `barcode` = '$pass' AND `status` = 1 AND `check_in` = 0";
@@ -201,17 +214,19 @@ function voteLogin($user, $pass) {
     }
 }
 
-function updateVoteCount($id) {
+function updateVoteCount($id)
+{
     global $wpdb;
-//PLUS VOTE COUNT
+    //PLUS VOTE COUNT
     $table = $wpdb->prefix . 'vote';
     $updateSql = "UPDATE $table SET vote_total=vote_total + 1 WHERE ID=$id";
     $wpdb->query($updateSql);
 }
 
-function userVoteSuccess() {
+function userVoteSuccess()
+{
     global $wpdb;
-// SET USER VOTED
+    // SET USER VOTED
     $table = $wpdb->prefix . 'guests';
     $updateSql = "UPDATE $table SET check_in = 1 WHERE ID = " . $_SESSION['voteLogin']['ID'];
     $wpdb->query($updateSql);
@@ -222,51 +237,59 @@ function userVoteSuccess() {
 // END
 
 
-function get_barcode_img($barcode = '') {
+function get_barcode_img($barcode = '')
+{
     return get_template_directory_uri() . '/images/barcode/' . $barcode . '.png';
 }
 
-function get_qrcode_img($barcode = '') {
+function get_qrcode_img($barcode = '')
+{
     return get_template_directory_uri() . '/images/qrcode/' . $barcode . '.png';
 }
 
-function get_guests_img($img = '') {
+function get_guests_img($img = '')
+{
     return get_template_directory_uri() . '/images/guests/' . $img;
 }
 
-function get_vote_img($img = '') {
+function get_vote_img($img = '')
+{
     return get_template_directory_uri() . '/images/vote/' . $img;
 }
 
-function get_member_img($img = '') {
+function get_member_img($img = '')
+{
     return get_template_directory_uri() . '/images/member/' . $img;
 }
 
-function getParams($name = null) {
+function getParams($name = null)
+{
     if ($name == null || empty($name)) {
         return $_REQUEST; // TRA VE GIA TRI REQUEST
     } else {
-// TRUONG HOP name DC CHUYEN VAO 
-// KIEM TRA name CO TON TAI TRA VE name NGUOI ''
+        // TRUONG HOP name DC CHUYEN VAO 
+        // KIEM TRA name CO TON TAI TRA VE name NGUOI ''
         $val = (isset($_REQUEST[$name])) ? $_REQUEST[$name] : ' ';
         return $val;
     }
 }
 
 // KIEM TRA DU LIEU CO CHINH XAC VA LOI KHONG
-function getValidate($filename = '', $dir = '') {
+function getValidate($filename = '', $dir = '')
+{
     $obj = new stdClass();
     $file = DIR_VALIDATE . $dir . DS . $filename . '.php';
     if (file_exists($file)) {
         require_once $file;
         $validateName = 'Admin_' . $filename . '_Validate';
-        $obj = new $validateName ();
+        $obj = new $validateName();
     }
     return $obj;
 }
 
-function kid_name($id) {
-//$arr = array('1' => '理事', '2' => '監事');
+function kid_name($id)
+{
+    //$arr = array('1' => '理事', '2' => '監事');
     if ($id == 1) {
         $val = "總會長";
     } elseif ($id == 2) {
@@ -278,7 +301,8 @@ function kid_name($id) {
 }
 
 // KIEM DU LIEU CHUYEN QUA BANG PHUONG POST HAY GET
-function isPost() {
+function isPost()
+{
     $flag = ($_SERVER['REQUEST_METHOD'] == 'POST') ? TRUE : FALSE;
     return $flag;
 }
@@ -288,7 +312,8 @@ global $language;
 $language = 'zh_TW';
 
 //   if (!is_admin()) {
-function change_translate_text($translated) {
+function change_translate_text($translated)
+{
     global $language;
     $file = dirname(dirname(dirname(dirname(__FILE__)))) . "/languages/{$language}/data.php";
     include_once $file;
@@ -302,7 +327,8 @@ function change_translate_text($translated) {
 add_filter('gettext', 'change_translate_text', 20);
 
 // SEND EMAIL
-function registrySendMail($mailTo, $name, $password) {
+function registrySendMail($mailTo, $name, $password)
+{
     $subject = '亞洲台灣商會聯合總會-會員註冊';
     $message = '<h2>' . $name . ': 您好 ! </h2> <br>';
     $message .= '<h3> 歡迎您成為"亞洲台灣商會聯合總會"網頁的會員 </h3>';
@@ -317,11 +343,13 @@ function registrySendMail($mailTo, $name, $password) {
 //===================================================================================
 
 
-function get_lib($name = '') {
+function get_lib($name = '')
+{
     return get_template_directory() . '/lib/' . $name;
 }
 
-function get_core($name = '') {
+function get_core($name = '')
+{
     return get_template_directory() . '/core/' . $name;
 }
 
@@ -331,19 +359,23 @@ function get_core($name = '') {
 
 /* === get url ==============  */
 
-function get_image($name = '') {
+function get_image($name = '')
+{
     return get_template_directory_uri() . '/images/' . $name;
 }
 
-function get_icon($name = '') {
+function get_icon($name = '')
+{
     return get_template_directory_uri() . '/icon/' . $name;
 }
 
-function get_lib_uri($name = '') {
+function get_lib_uri($name = '')
+{
     return get_template_directory_uri() . '/lib/' . $name;
 }
 
-function get_workshop_uri($name = '') {
+function get_workshop_uri($name = '')
+{
     return get_template_directory_uri() . '/lib/PHPImageWorkshop/' . $name;
 }
 
@@ -351,31 +383,38 @@ function get_workshop_uri($name = '') {
 // path de upload file den thu muc mong muon
 //DS la ham so se thay doi dau / theo he thong  
 
-function upload_guests() {
+function upload_guests()
+{
     return WP_CONTENT_DIR . DS . 'themes' . DS . 'blank' . DS . 'images' . DS . 'guests' . DS;
 }
 
-function upload_avatar() {
+function upload_avatar()
+{
     return WP_CONTENT_DIR . DS . 'themes' . DS . 'blank' . DS . 'images' . DS . 'avata' . DS;
 }
 
-function upload_article() {
+function upload_article()
+{
     return WP_CONTENT_DIR . DS . 'themes' . DS . 'blank' . DS . 'images' . DS . 'article' . DS;
 }
 
-function get_guests($name) {
+function get_guests($name)
+{
     return WP_CONTENT_DIR . DS . 'themes' . DS . 'blank' . DS . 'images' . DS . 'guests' . DS . $name;
 }
 
-function get_avata($name) {
+function get_avata($name)
+{
     return WP_CONTENT_DIR . DS . 'themes' . DS . 'blank' . DS . 'images' . DS . 'avata' . DS . $name;
 }
 
-function dir_php_class($dir = '') {
+function dir_php_class($dir = '')
+{
     return WP_CONTENT_DIR . DS . 'themes' . DS . 'blank' . DS . 'lib' . DS . 'class' . DS . $dir;
 }
 
-class Common {
+class Common
+{
 
     public static $_langDefault = 'vi_VI';
     public static $_langSite = 'language';
@@ -383,10 +422,10 @@ class Common {
         'wpautop' => false,
         'editor_height' => '250px'
     );
-
 }
 
-function custom_redirect($location) {
+function custom_redirect($location)
+{
 
     global $post_type;
     $location = admin_url('edit.php?post_type=' . $post_type);
@@ -398,7 +437,8 @@ function custom_redirect($location) {
 add_filter('show_admin_bar', '__return_false');
 /* ================================================================ */
 
-function get_page_permalink($name) {
+function get_page_permalink($name)
+{
     if (!empty($name)) {
         $dataPage = get_page_by_title($name);
         $id = $dataPage->ID;
@@ -412,7 +452,8 @@ function get_page_permalink($name) {
 // $filed = ten filed trong database
 // $value = gia tri tim kiem trong $field
 // $error_mess = noi dung cau thong bao tra ve
-function checkExists($field, $value, $error_mess) {
+function checkExists($field, $value, $error_mess)
+{
     $strField = $field;
     $strValue = $value;
 
@@ -421,7 +462,7 @@ function checkExists($field, $value, $error_mess) {
     $sql = "SELECT * FROM $table WHERE  $strField = '" . $strValue . "'";
     $row = $wpdb->get_row($sql, ARRAY_A);
     if ($row['email'] == $_SESSION['email']) {
-//  break;
+        //  break;
     } else if (count($row['email']) > 0) {
         $return['error'] = 'exists';
         $return['mess'] = $error_mess;
@@ -433,7 +474,8 @@ function checkExists($field, $value, $error_mess) {
 // $element = doi tuong input can kiem tra
 // $min = so ky tu nho nhat
 // $max = so ky tu lon nhat
-function checkstr($element, $min = 2, $max = 5000) {
+function checkstr($element, $min = 2, $max = 5000)
+{
     $length = strlen($element);
     if (empty($length)) {
         return __('
@@ -444,11 +486,12 @@ function checkstr($element, $min = 2, $max = 5000) {
     } elseif ($length > $max) {
         return __('max', 'suite') . $max . __('characters', 'suite');
     }
-//   return true;
+    //   return true;
 }
 
 // kiem tra email
-function checkemail($element) {
+function checkemail($element)
+{
     if ($element == '
 
     ') {
@@ -459,10 +502,9 @@ function checkemail($element) {
 }
 
 // kiem tra captcha
-function checkcaptcha($elenment) {
-    if ($elenment == '
-
-    ') {
+function checkcaptcha($elenment)
+{
+    if ($elenment == '') {
         return __('Requied', 'suite');
     } elseif ($elenment !== $_SESSION['captcha']) {
         return __('Capcha Not Matching', 'suite');
@@ -470,7 +512,8 @@ function checkcaptcha($elenment) {
 }
 
 // 1===DOI TEN POST MAC DINH CUA WP===============================================
-function revcon_change_post_label() {
+function revcon_change_post_label()
+{
     global $menu;
     global $submenu;
     $menu[5][0] = __('Astcc News');
@@ -481,7 +524,8 @@ function revcon_change_post_label() {
 
 add_action('admin_menu', 'revcon_change_post_label');
 
-function revcon_change_post_object() {
+function revcon_change_post_object()
+{
     global $wp_post_types;
     $labels = &$wp_post_types['post']->labels;
     $labels->name = __('Astcc News');
@@ -503,16 +547,18 @@ add_action('init', 'revcon_change_post_object');
 
 // 2==== THAY DOI COT TRONG POST MAC DINH============================================
 
-function set_custom_edit_columns($columns) {
-// $date_label = _x('Create Date', 'suite');
+function set_custom_edit_columns($columns)
+{
+    // $date_label = _x('Create Date', 'suite');
     unset($columns['author']);
-//            unset($columns['categories']);
+    //            unset($columns['categories']);
     unset($columns['tags']);
     unset($columns['comments']);
     unset($columns['date']);
     $columns['content'] = __('Content', 'your_text_domain');
-//$columns['publisher'] = __('Publisher', 'your_text_domain');
-
+    //$columns['publisher'] = __('Publisher', 'your_text_domain');
+    $columns['order'] = __('次序', 'your_text_domain');
+    $columns['home'] = __('首頁', 'your_text_domain');
 
     $columns['date'] = __('Create Date', 'suite');
     return $columns;
@@ -521,17 +567,27 @@ function set_custom_edit_columns($columns) {
 add_filter('manage_posts_columns', 'set_custom_edit_columns');
 
 // 3==== LAY CONTENT TRONG COT ============================================
-function my_sub_more($data) {
+function my_sub_more($data)
+{
     $str = explode(' <!--more-->', $data);
     return $str[0];
 }
 
-function Custom_post_RenderCols($columns) {
+function Custom_post_RenderCols($columns)
+{
+    global $post;
     switch ($columns) {
         case 'content':
             echo '<span>' . my_sub_more(get_the_content()) . '</span>';
             break;
-        default :
+        case 'order':
+            echo '<span>' . get_post_meta($post->ID, '_show_order', TRUE) . '</span>';
+            break;
+        case 'home':
+            $ss = get_post_meta($post->ID, "_metabox_home", TRUE) == 'on' ? 'check-icon' : '';
+            echo "<div class=". $ss ."> </div>";
+            break;
+        default:
             break;
     }
 }
@@ -548,7 +604,8 @@ register_nav_menu('mobile-menu', __('Mobile name', 'suite')); // goi menu de sho
 
 if (!function_exists('suite_menu')) {
 
-    function suite_menu($slug) {
+    function suite_menu($slug)
+    {
         $menu = array(
             'theme_location' => $slug, // chon menu dc thiet lap truoc
             'container' => 'nav', // tap html chua menu nay
@@ -557,11 +614,11 @@ if (!function_exists('suite_menu')) {
         );
         wp_nav_menu($menu);
     }
-
 }
 
 // DOI LOGO MAC DINH CUA WORDPRESS
-function custom_login_logo() {
+function custom_login_logo()
+{
     echo '<style type="text/css">
 h1 a { background-image:url(' . WP_CONTENT_URL . '/themes/blank/images/logo.png) !important; 
          background-size: 100px !important;

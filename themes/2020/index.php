@@ -11,7 +11,7 @@ get_header();
             </div>
 
             <!--LAY THONG TIN SU KIEN QUAN TRONG-->   
-            <div class="col-xl-8 col-lg-8 col-md-6 col-ms-12">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-ms-12">
                 <div class=" col-md-12 col-sm-12">
                     <?php get_template_part('template/template', 'event'); ?>
                    
@@ -21,11 +21,11 @@ get_header();
                     <!--LAY TIN TUC CUA HOI VA CAC PHAN NHANH--> 
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-ms-12">
-                <?php get_template_part('template/template', 'business') ?>    
-                <?php get_template_part('template/template', 'business_1') ?>    
-                <?php get_template_part('template/template', 'business_2') ?>    
-            </div>
+            <!-- <div class="col-xl-4 col-lg-4 col-md-6 col-ms-12">
+                <?php //get_template_part('template/template', 'business') ?>    
+                <?php // get_template_part('template/template', 'business_1') ?>    
+                <?php //get_template_part('template/template', 'business_2') ?>    
+            </div> -->
         </div>
     </div>
 

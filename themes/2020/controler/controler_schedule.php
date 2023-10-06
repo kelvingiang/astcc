@@ -159,7 +159,7 @@ class Admin_Controler_Schedule {
         } else {
 // CHUA SUBMIT DATA GET
 //   echo 'phuong thuc get';
-            require_once (DIR_MODEL . '/schedule_model.php');
+            require_once (DIR_MODEL . 'model_schedule.php');
             $getID = new Admin_Model_Schedule();
             $data = $getID->get_item(getParams());  // bien data nay chuyen chuyen du lieu sang trang form va do du lieu vao cac textbox 
         }
@@ -197,7 +197,7 @@ class Admin_Controler_Schedule {
         }
 
 // GOI DEN MODEL 
-        require_once (DIR_MODEL . '/schedule_model.php');
+        require_once (DIR_MODEL . 'model_schedule.php');
         $model = new Admin_Model_Schedule();
         $model->changeStatus($arrParam);
 
@@ -207,7 +207,7 @@ class Admin_Controler_Schedule {
     }
 
     public function sendMailAction() {
-        require_once (DIR_MODEL . '/schedule_model.php');
+        require_once (DIR_MODEL . 'model_schedule.php');
         $model = new Admin_Model_Schedule();
         // SESION DUOC TAO TREN HAM addAction
         $model->sendMail($_SESSION['sendMailContent']);

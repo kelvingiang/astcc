@@ -60,4 +60,82 @@ body {
     font-size: 1.5rem;
     padding: 15px 10px; }
 
-/*# sourceMappingURL=main.css.map */
+.my_container #loggo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  background-color: #00233a;
+  color: white; }
+  .my_container #loggo .logo-img {
+    width: 10rem; }
+  .my_container #loggo .title-cn {
+    font-size: 1.5rem;
+    letter-spacing: 0.2rem; }
+  .my_container #loggo .title-meeting {
+    font-size: 3rem;
+    font-family: DFKai-SB, Arial, serif;
+    letter-spacing: 0.1rem;
+    margin: 0.5rem 0; }
+.my_container #check-in-content {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem; }
+  .my_container #check-in-content .check-in-form {
+    flex: 1;
+    border-right: 0.01rem #ccc dotted;
+    min-height: 500px;
+    padding-top: 2rem; }
+    .my_container #check-in-content .check-in-form .btn-submit-barcode {
+      background-color: #8b8b8b;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 0.65rem 1.5rem;
+      border-radius: 0.5rem;
+      border: 0px; }
+      .my_container #check-in-content .check-in-form .btn-submit-barcode:hover {
+        background-color: rgba(139, 139, 139, 0.562); }
+  .my_container #check-in-content .check-in-value {
+    flex: 3;
+    padding-left: 2rem; }
+    .my_container #check-in-content .check-in-value-header {
+      display: flex;
+      flex-direction: row;
+      height: 10rem;
+      padding-top: 1.5rem; }
+      .my_container #check-in-content .check-in-value-header div {
+        flex: 1;
+        font-weight: bold; }
+        .my_container #check-in-content .check-in-value-header div #last-check-in {
+          color: #999;
+          font-size: 1rem; }
+        .my_container #check-in-content .check-in-value-header div .text-welcome {
+          font-size: 3rem;
+          color: red; }
+        .my_container #check-in-content .check-in-value-header div .text-digiwin {
+          font-size: 2rem;
+          color: red; }
+  .my_container #check-in-content #barcode-error,
+  .my_container #check-in-content #accout-unactive {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #960606;
+    padding-top: 5%;
+    padding-left: 10%;
+    display: none; }
+  .my_container #check-in-content #guest-main {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2rem; }
+    .my_container #check-in-content #guest-main div {
+      flex: 1; }
+      .my_container #check-in-content #guest-main div label {
+        font-size: 1.7rem;
+        font-weight: bold;
+        color: #333; }
+      .my_container #check-in-content #guest-main div #guest-pic {
+        width: 80%;
+        margin-left: 10px;
+        border-radius: 0.5rem;
+        border: 1px #999 solid; }

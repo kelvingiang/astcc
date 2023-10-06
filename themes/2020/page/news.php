@@ -40,7 +40,7 @@ get_header();
                 'posts_per_page' => $showNum,
                 'offset' => $offset,
                 'paged' => $paged,
-                'orderby' => 'meta_value',
+                'orderby' => 'meta_value_num',
                 'order' => 'DESC',
                 'meta_key' => '_show_order',
             );

@@ -238,7 +238,7 @@ tr.report:nth-child(odd) {background: #FFF}
 .column-fullname{
     width: 90px;
 }
-.column-order, .column-country, .column-position,.column-checkin{
+.column-order, .column-country, .column-position,.column-checkin, .column-home{
     width: 80px;
 }
 .column-taxonomy-conference_cate,.column-barcode, .column-phone{

@@ -3,7 +3,7 @@
     $argsevent = array(
         'post_type' => 'post',
         'posts_per_page' => -1,
-        'orderby' => 'meta_value',
+        'orderby' => 'meta_value_num',
         'order' => 'DESC',
         'meta_key' => '_show_order',
         'meta_query' => array(

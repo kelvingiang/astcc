@@ -16,7 +16,7 @@ get_header();
         </div>
         <div class="info-bg" style="color: #515151; font-size: 15px ;   letter-spacing: 2px; border: 1px #d8d8d8 solid;  border-radius:  5px; padding:  10px ">
             <?php echo get_post_meta('1', '_info_charter', true) ?>
-        </div>  
+        </div>
     </div>
 
     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12">

@@ -18,19 +18,19 @@ class Admin_Controler_Conference {
 
     public function register_post() {
         $labels = array(
-            'name' => _x('會務資訊', 'suite'),
-            'singular_name' => _x('會務資訊', 'suite'),
+            'name' => _x('行程資訊', 'suite'),
+            'singular_name' => _x('行程資訊', 'suite'),
             'add_new' => _x('新增', 'suite'),
             'add_new_item' => _x('新增', 'suite'),
             'edit_item' => _x('修改', 'suite'),
             'new_item' => _x('新增', 'suite'),
-            'all_items' => _x('會務資訊', 'suite'),
-            'view_item' => _x('會務資訊', 'suite'),
+            'all_items' => _x('行程資訊', 'suite'),
+            'view_item' => _x('行程資訊', 'suite'),
             'search_items' => _x('查询', 'suite'),
             'not_found' => _x('No slides found.', 'suite'),
             'not_found_in_trash' => _x('No found in Trash.', 'suite'),
             'parent_item_colon' => '',
-            'menu_name' => _x('會務資訊', 'suite')
+            'menu_name' => _x('行程資訊', 'suite')
         );
         $args = array(
             'labels' => $labels,

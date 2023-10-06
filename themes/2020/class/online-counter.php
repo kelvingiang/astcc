@@ -1,23 +1,31 @@
 <?php
 
-class DT_Online_counter {
+class Class_Online_counter
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->create();
-//        $this->online();
-//        $this->today();
-//        $this->yesterday();
-//        $this->total();
-//        $this->avg();
+        //$this->online();
+        //        $this->today();
+        //        $this->yesterday();
+        // $this->total();
+        //        $this->avg();
     }
 
     ///////////////////////
-    public function create() {
+    public function create()
+    {
+        // LAY SO IP CUA KHACH
         $ip = $_SERVER['REMOTE_ADDR'];
 
-        $file_ip = fopen(DIR_COUNTER. 'ip.txt', 'rb');
-        while (!feof($file_ip))
+        // MO TAP TIN IP.TXT VA DOC DUYET CAC DONG IP NOI DUNG TRONG FILE
+        $file_ip = fopen(DIR_COUNTER . 'ip.txt', 'r');
+        while (!feof($file_ip)) {
             $line[] = fgets($file_ip, 1024);
+        }
+
+        // DUYET CAC DONG IP TIM CO TRUNG VOI IP KHACH KHONG
         for ($i = 0; $i < (count($line)); $i++) {
             list($ip_x) = explode("\n", $line[$i]);
             if ($ip == $ip_x) {
@@ -26,17 +34,24 @@ class DT_Online_counter {
         }
         fclose($file_ip);
 
+        // NEU IP KHONG TON TAI TRONG FILE =======
         if (!($found == 1)) {
-            $file_ip2 = fopen(DIR_COUNTER.'ip.txt', 'ab');
-            $line = "$ip\n";
-            echo $line;
-            fwrite($file_ip2, $line, strlen($line));
-            $file_count = fopen(DIR_COUNTER.'count.txt', 'rb');
-            $data = '';
-            while (!feof($file_count))
-                $data .= fread($file_count, 4096);
+
+            // MO TAP TIN IP.TXT GHI IP MOI VAO FILE IP.TXT 
+            $file_ip_2 = fopen(DIR_COUNTER . 'ip.txt', 'ab');
+            $line_IP = "$ip\n";
+            fwrite($file_ip_2, $line_IP, strlen($line_IP));
+
+            // MO TIEP FILE COUNT.TXT =======
+            $file_count = fopen(DIR_COUNTER . 'count.txt', 'rb');
+            while (!feof($file_count)) {
+                $data = fread($file_count, 4096);
+            }
             fclose($file_count);
+
+            // LAY DATA CO TRONG FILE  
             list($today, $yesterday, $total, $date, $days) = explode("%", $data);
+            // SET LAI CAC THONG TIN TRONG FILE NHU NGAY THANG - SO TONG
             if ($date == date("Y m d"))
                 $today++;
             else {
@@ -46,22 +61,24 @@ class DT_Online_counter {
                 $date = date("Y m d");
             }
             $total++;
-            $line = "$today%$yesterday%$total%$date%$days";
 
-            $file_count2 = fopen(DIR_COUNTER.'count.txt', 'wb');
-            fwrite($file_count2, $line, strlen($line));
+            // GHI CAP NHAT NOI DUNG CHO FILE COUTN.TXT=====
+            $count_line = "$today%$yesterday%$total%$date%$days";
+            $file_count2 = fopen(DIR_COUNTER . 'count.txt', 'wb');
+            fwrite($file_count2, $count_line, strlen($count_line));
             fclose($file_count2);
-            fclose($file_ip2);
+            fclose($file_ip_2);
         }
     }
 
-    public function online() {
+    public function online()
+    {
         $rip = $_SERVER['REMOTE_ADDR'];
         $sd = time();
         $count = 1;
         $maxu = 1;
 
-        $file1 = DIR_COUNTER."online.log";
+        $file1 = DIR_COUNTER . "online.log";
         $lines = file($file1);
         $line2 = "";
 
@@ -97,46 +114,48 @@ class DT_Online_counter {
         return $count;
     }
 
-    public function today() {
-        $file_count = fopen(DIR_COUNTER.'count.txt', 'rb');
-        $data = '';
+    public function today()
+    {
+        $file_count = fopen(DIR_COUNTER . 'count.txt', 'rb');
+        //$data = '';
         while (!feof($file_count))
-            $data .= fread($file_count, 4096);
+            $data = fread($file_count, 4096);
         fclose($file_count);
         list($today, $yesterday, $total, $date, $days) = explode("%", $data);
         return $today;
     }
 
-    public function yesterday() {
-        $file_count = fopen(DIR_COUNTER.'count.txt', 'rb');
-        $data = '';
+    public function yesterday()
+    {
+        $file_count = fopen(DIR_COUNTER . 'count.txt', 'rb');
+        // $data = '';
         while (!feof($file_count))
-            $data .= fread($file_count, 4096);
+            $data = fread($file_count, 4096);
         fclose($file_count);
         list($today, $yesterday, $total, $date, $days) = explode("%", $data);
         return $yesterday;
     }
 
-    public function total() {
-        $file_count = fopen(DIR_COUNTER.'count.txt', 'rb');
-        $data = '';
+    public function total()
+    {
+        $file_count = fopen(DIR_COUNTER . 'count.txt', 'rb');
+
+        // $data = '';
         while (!feof($file_count))
-            $data .= fread($file_count, 4096);
+            $data = fread($file_count, 4096);
         fclose($file_count);
         list($today, $yesterday, $total, $date, $days) = explode("%", $data);
-        echo $total;
+        return  $total;
     }
 
-    public function avg() {
-        $file_count = fopen(DIR_COUNTER.'count.txt', 'rb');
-        $data = '';
+    public function avg()
+    {
+        $file_count = fopen(DIR_COUNTER . 'count.txt', 'rb');
+        // $data = '';
         while (!feof($file_count))
-            $data .= fread($file_count, 4096);
+            $data = fread($file_count, 4096);
         fclose($file_count);
         list($today, $yesterday, $total, $date, $days) = explode("%", $data);
         echo ceil($total / $days);
     }
-
 }
-
-?>
