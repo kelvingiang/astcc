@@ -6,6 +6,7 @@
 <?php
 ob_start();  // neu bao loi PHP Warning: Cannot modify header information ??headers already sent by
 get_header();
+
 ?>
 <div class="row">
     <div class="col-xl-9 col-lg-9 col-md-8 col-sm-12 ">
