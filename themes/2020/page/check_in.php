@@ -97,6 +97,7 @@ get_header();
                     jQuery("#txt-barcode").val('');
                     if (data.status === 'done') {
                         //window.location.reload();  
+                        jQuery('#guest-main, #last-check-in, #accout-unactive').css('display', 'flex');
                         jQuery('#barcode-error, #accout-unactive').css('display', 'none');
                         jQuery('#last-check-in').css('display', 'block');
                         jQuery('#last-check-in').children().remove();
