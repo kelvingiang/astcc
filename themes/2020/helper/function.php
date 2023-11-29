@@ -61,6 +61,8 @@ function get_country($countryCode)
             break;
         case '670':
             $country = '東帝汶';
+        case '082':
+            $country = '韓國';
             break;
     }
     return $country;
@@ -69,7 +71,7 @@ function get_country($countryCode)
 function get_guests_country()
 {
     $countryArr = array(
-        '00' => '選擇國家', '081' => '日本', '062' => '印尼', '091' => '印度',
+        '00' => '選擇國家', '081' => '日本', '082' => '韓國', '062' => '印尼', '091' => '印度',
         '673' => '汶萊', '880' => '孟加拉', '855' => '柬埔寨',
         '852' => '香港', '856' => '寮國', '060' => '馬來西亞',
         '063' => '菲律賓', '084' => '越南', '065' => '新加坡',
@@ -585,7 +587,7 @@ function Custom_post_RenderCols($columns)
             break;
         case 'home':
             $ss = get_post_meta($post->ID, "_metabox_home", TRUE) == 'on' ? 'check-icon' : '';
-            echo "<div class=". $ss ."> </div>";
+            echo "<div class=" . $ss . "> </div>";
             break;
         default:
             break;
