@@ -40,11 +40,13 @@ get_header();
         </div>
         <div class="info-bg">
             <div class="download-list">
-                <div>
-                    <a href="<?php echo get_template_directory_uri() . '/file/2202.pdf' ?>"
-                       download="2020年度28屆特刊.pdf"
-                       ><i class="fa fa-download" aria-hidden="true"></i> 2020年度, 28屆特刊</a>
-                </div>
+                <?php foreach (download_list() as $val) { ?>
+                    <div>
+                        <a href="<?php echo get_template_directory_uri() . '/file/' . $val['file'] ?>"
+                           download="<?php echo $val['name'] ?>.pdf"
+                           ><i class="fa fa-download" aria-hidden="true"></i><?php echo $val['name'] ?></a>
+                    </div>
+                <?php } ?>
             </div>
         </div>
     </div>

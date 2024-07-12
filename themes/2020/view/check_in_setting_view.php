@@ -9,10 +9,10 @@
         </li>
         <li>
             <a style=' margin-right: 20px; letter-spacing: 4px ' class="button button-primary button-large" href="<?php echo "admin.php?page=$page&action=export_member_post" ?>"> 導出 Member (post)</a>
-        </li>
-        <li>
-            <a style=' margin-right: 20px; letter-spacing: 4px ' class="button button-primary button-large" href="<?php echo "admin.php?page=$page&action=export_member_table" ?>"> 導出 Member (table)</a>
         </li> -->
+        <li>
+            <a style=' margin-right: 20px; letter-spacing: 4px ' class="button button-primary button-large" href="<?php echo "admin.php?page=$page&action=export_member_table" ?>"> 導出 Member </a>
+        </li>
     </ul>
     <hr />
     <ul>

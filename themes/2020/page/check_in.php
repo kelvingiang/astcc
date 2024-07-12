@@ -4,10 +4,14 @@ get_header();
 ?>
 <div class="my_container">
     <div id="loggo">
-        <img src="<?php echo get_image('astcc-logo.png') ?>" class="logo-img" alt="ctcvn_logo" title="ctcvn_logo" />
-        <label class="title-cn">亞 洲 台 灣 商 會 聯 合 總 會 </label>
-        <label class="title-en">ASIA TAIWANESE CHAMBERS OF COMMERCE</label>
-        <label class="title-meeting"> <?php echo get_option('Title_text'); ?> </label>
+        <div>
+            <img src="<?php echo get_image('astcc-logo.png') ?>" class="logo-img" alt="ctcvn_logo" title="ctcvn_logo" />
+        </div>
+        <div>
+            <label class="title-cn">亞 洲 台 灣 商 會 聯 合 總 會 </label>
+            <label class="title-en">ASIA TAIWANESE CHAMBERS OF COMMERCE</label>
+            <label class="title-meeting"> <?php echo get_option('Title_text'); ?> </label>
+        </div>
     </div>
 
     <div id='check-in-content'>
@@ -18,6 +22,10 @@ get_header();
                     <?php _e('Submit'); ?>
                 </button>
             </form>
+            <div class="digiwin">
+                <img src="<?php echo get_image('digiwin_logo.png'); ?>" /> </br>
+                <label class="text-digiwin">鼎 捷 軟 件 維 護 製 作</label>
+            </div>
         </div>
 
         <div class="check-in-value">
@@ -26,10 +34,7 @@ get_header();
                     <label class="text-welcome"> 歡 迎 光 臨 </label>
                     <div id="last-check-in"></div>
                 </div>
-                <div>
-                    <img src="<?php echo get_image('digiwin_logo.png'); ?>" /> </br>
-                    <label class="text-digiwin">鼎 捷 軟 件 維 護 製 作</label>
-                </div>
+
             </div>
 
 
@@ -41,7 +46,6 @@ get_header();
                 </div>
                 <div>
                     <div class="guest-info guest-name">
-                        <label>姓 名 : </label>
                         <label id="guest_name">&nbsp; </label>
                     </div>
 

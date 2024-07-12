@@ -12,6 +12,7 @@ define('HELPER', get_stylesheet_directory() . '/helper');
 require_once (HELPER . '/style.php');
 require_once (HELPER . '/define.php');
 require_once (HELPER . '/function.php');
+require_once (HELPER . '/list.php');
 require_once (HELPER . '/require.php');
 //
 //

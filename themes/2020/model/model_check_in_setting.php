@@ -329,21 +329,21 @@ class Admin_Model_Check_In_Setting
         // TAO COT TITLE
         $exExport->setActiveSheetIndex(0)
             ->setCellValue('A1', 'ID')
-            ->setCellValue('B1', 'Full Name')
-            ->setCellValue('C1', 'Country')
-            ->setCellValue('D1', 'Position')
-            ->setCellValue('E1', 'Email')
-            ->setCellValue('F1', 'Phone')
-            ->setCellValue('G1', 'Barcode')
-            ->setCellValue('H1', 'Img')
-            ->setCellValue('I1', 'Check In')
-            ->setCellValue('J1', 'Create Date')
-            ->setCellValue('K1', 'Stauts')
-            ->setCellValue('L1', 'Note');
+            ->setCellValue('B1', 'Barcode')
+            ->setCellValue('C1', 'Full Name')
+            ->setCellValue('D1', 'Country')
+            ->setCellValue('E1', 'Position')
+            ->setCellValue('F1', 'Email')
+            ->setCellValue('H1', 'Phone');
+            // ->setCellValue('H1', 'Img')
+            // ->setCellValue('I1', 'Check In')
+            // ->setCellValue('J1', 'Create Date')
+            // ->setCellValue('K1', 'Stauts')
+            // ->setCellValue('L1', 'Note');
 
         // TAO NOI DUNG CHEN TU DONG 2
         global $wpdb;
-        $table = $wpdb->prefix . 'member';
+        $table = $wpdb->prefix . 'guests';
         $sql = "SELECT * FROM $table";
         $row = $wpdb->get_results($sql, ARRAY_A);
         if (!empty($row)) {
@@ -351,17 +351,17 @@ class Admin_Model_Check_In_Setting
             foreach ($row as $val) {
                 $exExport->setActiveSheetIndex(0)
                     ->setCellValueExplicit('A' . $i, $val['ID'], PHPExcel_Cell_DataType::TYPE_STRING)
-                    ->setCellValue('B' . $i, $val['full_name'])
-                    ->setCellValueExplicit('C' . $i, $val['country'], PHPExcel_Cell_DataType::TYPE_STRING)
-                    ->setCellValue('D' . $i, $val['position'])
-                    ->setCellValue('E' . $i, $val['email'])
-                    ->setCellValueExplicit('F' . $i, $val['phone'], PHPExcel_Cell_DataType::TYPE_STRING)
-                    ->setCellValueExplicit('G' . $i, $val['barcode'], PHPExcel_Cell_DataType::TYPE_STRING)
-                    ->setCellValue('H' . $i, $val['img'])
-                    ->setCellValue('I' . $i, $val['check_in'])
-                    ->setCellValue('j' . $i, $val['create_date'])
-                    ->setCellValue('K' . $i, $val['status'])
-                    ->setCellValue('L' . $i, $val['note']);
+                    ->setCellValueExplicit('B' . $i, $val['barcode'], PHPExcel_Cell_DataType::TYPE_STRING)
+                    ->setCellValue('C' . $i, $val['full_name'])
+                    ->setCellValueExplicit('D' . $i, $val['country'], PHPExcel_Cell_DataType::TYPE_STRING)
+                    ->setCellValue('E' . $i, $val['position'])
+                    ->setCellValue('F' . $i, $val['email'])
+                    ->setCellValueExplicit('H' . $i, $val['phone'], PHPExcel_Cell_DataType::TYPE_STRING);
+                    // ->setCellValue('H' . $i, $val['img'])
+                    // ->setCellValue('I' . $i, $val['check_in'])
+                    // ->setCellValue('j' . $i, $val['create_date'])
+                    // ->setCellValue('K' . $i, $val['status'])
+                    // ->setCellValue('L' . $i, $val['note']);
                 $i++;
             }
         }
@@ -528,8 +528,8 @@ class Admin_Model_Check_In_Setting
             copy($from, $to); // chuyen sang folden moi;
             // DOI TEN FILE THEO KIEU CHU HOA
             $oldName = DIR_IMAGES_QRCODE_NAME . $row['barcode'] . '.png';
-            $newName = iconv('UTF-8', 'BIG5', DIR_IMAGES_QRCODE_NAME . $row['barcode'] . '-' . $row['full_name'] . '.png');
-            //$newName =  DIR_IMAGES_QRCODE_NAME.$row['ID'] . '-' . $row['barcode'] . '.png';
+            // $newName = iconv('UTF-8', 'BIG5', DIR_IMAGES_QRCODE_NAME . $row['barcode'] . '-' . $row['full_name'] . '.png');
+            $newName =  DIR_IMAGES_QRCODE_NAME.$row['barcode'] . '-' . $row['full_name'] . '.png';
             rename($oldName, $newName);
         }
     }
@@ -540,7 +540,7 @@ class Admin_Model_Check_In_Setting
         $inputFileType = PHPExcel_IOFactory::identify($filename);
         $objReader = PHPExcel_IOFactory::createReader($inputFileType);
 
-        $objReader->setReadDataOnly(true);
+        // $objReader->setReadDataOnly(true);
 
         /**  Load $inputFileName to a PHPExcel Object  * */
         $objPHPExcel = $objReader->load("$filename");
