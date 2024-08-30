@@ -233,35 +233,37 @@ class Admin_Model_Schedule extends WP_List_Table {
     // SAVE DATA DEN DATABASE
     public function save_item($arrData = array(), $option = array()) {
         global $wpdb;
-
         $action = $arrData['action'];
 
         // TAO  GIA TRI slug  
         // a : neu slug co nhap gia tri thi lay gia tri no, neu khong thi la gia tri cua title
         // CAC DOI TUONG date THANH CAC PHAN NHO 
-        $date = $arrData['date'];
+        $date = $arrData['txt-start-date'];
         $arrDate = explode('/', $date);
-
 
         // kIEM ADD NEW OR UPDATE
         $table = $wpdb->prefix . 'schedule';
         $data = array(
-            'title' => $arrData['title'],
+            'title' => $arrData['txt-title'],
             'year' => $arrDate[2],
             'month' => $arrDate[1],
             'day' => $arrDate[0],
-            'weekdays' => $arrData['weekdays'],
-            'time' => $arrData['timeStart'] . '-' . $arrData['timeEnd'],
-            'place' => $arrData['place'],
-            'note' => $arrData['note'],
-            'status' => $arrData['status'],
-            // cac muc save gia tri co su ly
+            'weekdays' => $arrData['txt-start-week'],
+            'time' => $arrData['txt-start-time'],
+            'place' => $arrData['txt-place'],
+            'note' => $arrData['txt-note'],
             'date' => $date,
-            'create-date' => date('Y-m-d'),
+            'finish_date' => $arrData['txt-finish-date'],
+            'finish_week' =>$arrData['txt-finish-week'],
+            'finish_time' => $arrData['txt-finish-time'],
+            
         );
         if ($action == 'add') {
+            $data['status'] =  '1';
+            $data['create-date'] = date('Y-m-d');
             $wpdb->insert($table, $data);
         } else if ($action == 'edit') {
+            $data['update-date'] = date('Y-m-d');
             $where = array('id' => absint($arrData['id']));  // CHUYEN THEM DK DE UPDATE 
             $wpdb->update($table, $data, $where);
         }
@@ -321,42 +323,6 @@ class Admin_Model_Schedule extends WP_List_Table {
         }
     }
 
-    public function sendMail(array $contentData) {
-        //LAY TAT CA CAC THANH VIEN
-        $arrMember = array(
-            'post_type' => 'member',
-            'posts_per_page' => -1,
-            'meta_query' => array(
-                array(
-                    'key' => 'm_active',
-                    'value' => 'on',
-                ))
-        );
-        $arrMailTo = array('giaminh0265@yahoo.com', 'giaminh_vn@digiwin.biz', 'giaminh0265@gmail.com');
-//        $memQuery = new WP_Query($arrMember);
-//        if ($memQuery->have_posts()):
-//            while ($memQuery->have_posts()):
-//                $memQuery->the_post();
-//                $arrMailTo[] = get_post_meta(get_the_ID(), 'm_email', true);
-//            endwhile;
-//        endif;
-        //   if ($send == 'true') {
-////          $arrMailTo = array('giaminh0265@yahoo.com', 'giaminh0265@gmail.com','giaminh_vn@digiwin.biz');
-//          $arrMailTo = 'giaminh0265@yahoo.com;giaminh0265@gmail.com;giaminh_vn@digiwin.biz';
-        $subj = '台灣商會總會的行事曆';
-        $content = '<h3>台灣商會總會的行事曆</h3></br>';
-        $content .= '<h2 style= "color:blue">' . $contentData['title'] . '</h2>';
-        $content .= '<p><i>日期 :</i> ' . $contentData['date'] . ' - ' . $contentData['weekdays'] . '</p>';
-        $content .= '<p><i>時間 :</i> ' . $contentData['timeStart'] . ' - ' . $contentData['timeEnd'] . '</p>';
-        $content .= '<p><i>地點 :</i> ' . $contentData['branch'] . ' - ' . $contentData['place'] . '</p>';
-        $content .= '<p>' . $contentData['note'] . '</p>';
-        $content .= '<a href="http://ctcvn.vn/schedule/"><h3>' . 台灣商會總會網站 . '</h3></a>';
 
-        wp_mail($arrMailTo, $subj, $content);
-//    SAU KHI SEND XONG CHUYEN VE TRANG SHOW
-        $url = 'admin.php?page=' . $_REQUEST['page'] . '&msg=1';
-        wp_redirect($url);
-        //  }
-    }
 
 }

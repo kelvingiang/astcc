@@ -93,7 +93,7 @@ class Admin_Controler_Schedule {
 // echo '</br>CAP NHAT VAO DATABASE';
                 $formaData = $validates->getFormdata();
 
-                require_once (DIR_MODEL . 'schedule_model.php');
+                require_once (DIR_MODEL . 'model_schedule.php');
                 $save = new Admin_Model_Schedule();
                 $save->save_item($formaData);
 
@@ -124,37 +124,12 @@ class Admin_Controler_Schedule {
                 }
             } else {
 // KHI HET LOI SE update DU LIEU VAO DATABASE
-                require_once (DIR_MODEL . '/schedule_model.php');
+                require_once (DIR_MODEL . 'model_schedule.php');
                 $formaData = $validates->getFormdata();
 // GOI DE function save_item DE UPDATE DU LLEU
                 $save = new Admin_Model_Schedule();
                 $save->save_item($formaData);
-                // PHAN DIEU KIEN SEND MAIL
-               // $page = getParams('page');
-              //  $linkSendMail = admin_url('admin.php?page=' . $page . '&action=sendMail');
-              //  $linkBack = admin_url('admin.php?page=' . $page);
-              //  $_SESSION['sendMailContent'] = $formaData;
-               // if (!isset($_GET['send'])) {
-                    ?>
-<!--                   <script type="text/javascript">
-                    //    if (confirm("此內容是否寄Email給會員們!") === true) {
-                            //   jQuery.cookie('send-mail', null, {expires: -1});
-                            //  jQuery.cookie('send-mail', 'true');
-                            window.location.replace("<?php  //echo $linkSendMail ?>");
-                        } else {
-                            window.location.replace("<?php //echo $linkBack ?>");
-                            //   jQuery.cookie('send-mail', null, {expires: -1});
-                            //   jQuery.cookie('send-mail', 'flase');
-                        }
-                        //window.location.reload();
-                        // location.reload();
-                        console.log(jQuery.cookie('send-mail'));
-                    </script>-->
-                    <?php
-//                }
-// SAU KHI UPDATE XONG CHUYEN VE TRANG SHOW
-                //   $url = 'admin.php?page=' . $_REQUEST['page'] . '&msg=1';
-                // wp_redirect($url);
+      
             }
         } else {
 // CHUA SUBMIT DATA GET

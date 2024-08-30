@@ -12,77 +12,96 @@ if (count($error) > 0) {
     }
     $msg .= '</ul></div>';
 }
-//---------------------------------------------------------------------------------------------
-// Cmt PHAN GIU LAI GIA TRI DA NHAP CHO CAC FIELD DUNG
-//---------------------------------------------------------------------------------------------
-// NHAM BAO MAT NEN TA THEM CAC HAM TRUOC CAC GIA TRI CHUYEN QUA
-$vTitle = sanitize_text_field($data['title']);
-$vSlug = sanitize_text_field($data['slug']);
-$vDate = sanitize_text_field($data['date']);
-$vWeekdays = sanitize_text_field($data['weekdays']);
-if ($data['time']) {
-    $time = explode('-', $data['time']);
-    $vTimeStart = sanitize_text_field($time[0]);
-    $vTimeEnd = sanitize_text_field($time[1]);
-} else {
-    $vTimeStart = sanitize_text_field($data['timeStart']);
-    $vTimeEnd = sanitize_text_field($data['timeEnd']);
-}
-$vPlace = sanitize_text_field($data['place']);
-$vNote = sanitize_text_field($data['note']);
-$vBranch = sanitize_text_field($data['branch']);
 
-//echo '<pre>';
-//  print_r($data);
-//  echo '</pre>';
-
-if (!empty($data))
-    $vStatus = $data['status'];
-else
-    $vStatus = 1;
-
-//---------------------------------------------------------------------------------------------
-// Cmt TAO CAC FIELD NHAP LIEU
-//---------------------------------------------------------------------------------------------
-$objHtml = new MyHtml();
-$txtTitle = $objHtml->textbox('title', @$vTitle, array('class' => 'regular-text'));
-$txtSlug = $objHtml->textbox('slug', @$vSlug, array('class' => 'regular-text'));
-$txtDate = $objHtml->textbox('date', @$vDate, array('width' => '200px', 'placeholder' => 'yyyy/mm/dd', 'id' => 'datepicker'));
-$txtWeekDay = $objHtml->textbox('weekdays', @$vWeekdays, array('width' => '200px', 'id' => 'dayOfWeek'));
-$txtTimeStart = $objHtml->textbox('timeStart', @$vTimeStart, array('width' => '100px', 'class' => 'type-time type-number', 'maxlength' => '5', 'placeholder' => '00:00 ', 'id' => 'timeStart'));
-$txtTimeEnd = $objHtml->textbox('timeEnd', @$vTimeEnd, array('width' => '100px', 'class' => 'type-time type-number', 'maxlength' => '5', 'placeholder' => '00:00 ', 'id' => 'timeEnd'));
-$txtPlace = $objHtml->textbox('place', @$vPlace, array('class' => 'regular-text', 'id' => 'place'));
-$areaNote = $objHtml->textarea('note', @$vNote, array('class' => 'regular-text', 'rows' => '8', 'cols' => '45', 'id' => 'note'));
-$chkStatus = $objHtml->checkbox('status', '1', array('id' => 'status'), array('current_value' => $vStatus));
-
-// LAY CAC CHI NHANH TU DATABSE DUA VO SELECT BOX branch
-$args = array(
-    'post_type' => 'brach',
-    'post_status' => 'publish',
-    'showposts' => -1
-);
-$my_query = new WP_Query($args);
-
-if ($my_query->have_posts()) {
-    while ($my_query->have_posts()) : $my_query->the_post();
-        $arrBranch[get_the_title()] = get_the_title();
-    endwhile;
-}
-wp_reset_query();  // Restore global post data stomped by the_post()
-
-$arr = array('id' => 'branch');
-$options['data'] = $arrBranch;
-$selBranch = $objHtml->selectbox('branch', @$vBranch, $arr, $options);
+require_once(DIR_MODEL . 'model_schedule.php');
+$model = new Admin_Model_Schedule();
+$data = $model->get_item(getParams());
 ?>
+
+
+<div class="wrap">
+    <h2><?php echo $lbl ?></h2>
+    <form action="" method="post" id="<?php $page ?>" name="<?php $page ?>">
+        <input type="hidden" name="hid_id" id="hid_id" value="<?php echo getParams('id'); ?>" />
+        <div class="row-one-column">
+            <div class="cell-title">活動標題</div>
+            <div class="cell-text">
+                <input type="text" class="my-input" name="txt-title" id="txt-title" value="<?php echo $data['title'] ?>" />
+            </div>
+        </div>
+        <div class="row-three-column">
+            <div class="col">
+                <div class="cell-title">活動開始日期</div>
+                <div class="cell-text">
+                    <input type="text" class="my-input datepicker" name="txt-start-date" id="txt-start-date" placeholder="dd/mm/yyyy" value="<?php echo $data["date"] ?>" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="cell-title">星期</div>
+                <div class="cell-text">
+                    <input type="text" class="my-input dayOfWeek" name="txt-start-week" id="txt-start-week" placeholder="" value="<?php echo $data["weekdays"] ?>" />
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="cell-title">時間</div>
+                <div class="cell-text">
+                    <input type="text" class="my-input type-time type-number" name="txt-start-time" id="txt-start-time" placeholder="00:00" maxlength="5" value="<?php echo $data["time"] ?>" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row-three-column">
+            <div class="col">
+                <div class="cell-title">活動結束日期</div>
+                <div class="cell-text">
+                    <input type="text" class="my-input datepicker" name="txt-finish-date" id="txt-finish-date" placeholder="dd/mm/yyyy" value="<?php echo $data["finish_date"] ?>" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="cell-title">星期</div>
+                <div class="cell-text">
+                    <input type="text" class="my-input dayOfWeek" name="txt-finish-week" id="txt-finish-week" placeholder="" value="<?php echo $data["finish_week"] ?>" />
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="cell-title">時間</div>
+                <div class="cell-text">
+                    <input type="text" class="my-input type-time type-number" name="txt-finish-time" id="txt-finish-time" placeholder="00:00"  maxlength="5" value="<?php echo $data["finish_time"] ?>"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row-one-column">
+            <div class="cell-title">活動地點</div>
+            <div class="cell-text">
+                <input type="text" class="my-input" name="txt-place" id="txt-place" value="<?php echo $data['place'] ?>" />
+            </div>
+        </div>
+
+
+        <div class="row-one-column">
+            <div class="cell-title">備註</div>
+            <div class="cell-text">
+                <textarea class="my-input" name="txt-note" id="txt-note" style="height: 100px;"><?php echo $data['note'] ?></textarea>
+            </div>
+        </div>
+
+        <div class="btn-add-space">
+            <input name="submit" id="submit" class="button button-primary" value="發 表" type="submit">
+        </div>
+    </form>
+</div>
+
 <!--DOAN SCRIPT HIEN THI NGAY VA THU TRONG TUAN-->
 <script type="text/javascript">
-    jQuery(function () {
-        // $('#dayOfWeek').attr('readonly', true);
-
-        jQuery('#datepicker').datepicker({
+    jQuery(function() {
+        jQuery('.datepicker').datepicker({
             dateFormat: 'dd/mm/yy',
             showAnim: 'show',
-            onSelect: function (dateText) {
+            onSelect: function(dateText) {
+                let parentDiv = jQuery(this).closest('.row-three-column');
                 var seldate = jQuery(this).datepicker('getDate');
                 seldate = seldate.toDateString();
                 seldate = seldate.split(' ');
@@ -95,94 +114,17 @@ $selBranch = $objHtml->selectbox('branch', @$vBranch, $arr, $options);
                 weekday['Sat'] = "星期六";
                 weekday['Sun'] = "星期天";
                 var dayOfWeek = weekday[seldate[0]];
-                jQuery('#dayOfWeek').val(dayOfWeek);//.attr('readonly', true)
+                parentDiv.find('.dayOfWeek').val(dayOfWeek); //.attr('readonly', true)
             },
             onClose: closeDatePicker_datepicker_1
         });
     });
+
     function closeDatePicker_datepicker_1() {
-        var tElm = jQuery('#datepicker');
+        var tElm = jQuery('.datepicker');
         if (typeof datepicker_1_Spry !== null && typeof datepicker_1_Spry !== "undefined" && test_Spry.validate) {
             datepicker_1_Spry.validate();
         }
         tElm.blur();
     }
-
-
 </script>
-
-<div class=" wrap">
-    <h2><?php echo $lbl ?></h2>
-    <?php echo $msg ?>
-    <form action="" method="post" enctype="multipart/form-data" id="<?php $page ?>" name="<?php $page ?>" >
-        <input name="action" value="<?php echo $action; ?>" type="hidden">
-        <?php wp_nonce_field($action, 'security_code', true); ?>
-        <table class="form-table">
-            <tbody>
-                <tr>
-                    <th scope="row" >
-                        <label><?php echo translate('顯示') . ':'; ?></label>
-                    </th>
-                    <td>
-                        <?php echo $chkStatus; ?>
-                    </td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <th scope="row">
-                        <label><?php echo translate('活動項目') . ':'; ?></label>
-                    </th>
-                    <td>
-                        <?php echo $txtTitle; ?>
-                    </td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <th scope="row">
-                        <label><?php echo translate('日期') . ':'; ?></label>
-                    </th>
-                    <td>
-                        <?php echo $txtDate ?>
-                        <?php echo $txtWeekDay ?>
-                    </td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <th scope="row">
-                        <label><?php echo translate('時間') . ':'; ?></label>
-                    </th>
-                    <td>
-                        <?php echo $txtTimeStart . ' 至 ' . $txtTimeEnd ?>
-                    </td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <th scope="row">
-                        <label><?php echo translate('地點') . ':'; ?></label>
-                    </th>
-                    <td>
-                        <?php echo $txtPlace ?>
-                    </td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <th scope="row">
-                        <label><?php echo translate('備註') . ':'; ?></label>
-                    </th>
-                    <td>
-                        <?php echo $areaNote ?>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <p class="submit">
-            <input name="submit" id="submit" class="button button-primary" value="發 表" type="submit">
-        </p>
-    </form>
-
-</div>

@@ -8,7 +8,7 @@ class Admin_metabox {
     public function __construct() {
         $defaultoption = array(
             'metabox_country' => TRUE,
-            'metabox_home' => TRUE,
+            'metabox_home' => false,
             'metabox_order' => TRUE,
             'metabox_seo' => TRUE,
             'metabox_website' => TRUE,
@@ -16,6 +16,7 @@ class Admin_metabox {
             'metabox_countries' => TRUE,
             'metabox_commerce' => TRUE,
             'metabox_president' => FALSE,
+            'metabox_job_title' => TRUE
         );
         $this->_metabox_options = get_option($this->_metabox_name, $defaultoption);
         $this->Country();
@@ -27,6 +28,14 @@ class Admin_metabox {
         $this->Countries();
         $this->Commerce();
         $this->President();
+        $this->job_title();
+    }
+
+    public function job_title() {
+        if ($this->_metabox_options['metabox_job_title'] == true) {
+            require_once (DIR_METABOX . 'job_title.php');
+            new Admin_Metabox_Job_Title();
+        }
     }
 
     public function country() {

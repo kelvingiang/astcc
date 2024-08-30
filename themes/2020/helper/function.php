@@ -570,7 +570,7 @@ function set_custom_edit_columns($columns)
     $columns['content'] = __('Content', 'your_text_domain');
     //$columns['publisher'] = __('Publisher', 'your_text_domain');
     $columns['order'] = __('次序', 'your_text_domain');
-    $columns['home'] = __('首頁', 'your_text_domain');
+    // $columns['home'] = __('首頁', 'your_text_domain');
 
     $columns['date'] = __('Create Date', 'suite');
     return $columns;

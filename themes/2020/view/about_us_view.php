@@ -84,6 +84,15 @@
             <?php wp_editor(get_post_meta('1', '_info_charter', TRUE), 'info-charter', array('wpautop' => false, 'editor_height' => '300px')); ?>
         </div>
     </div>
+    
+    <div class="meta-row">
+        <div class="title-cell">
+            <label><?php echo __('實施細則選舉辦法'); ?><i id="error-email" class="error"></i></label>
+        </div>
+        <div class="text-cell">
+            <?php wp_editor(get_post_meta('1', '_info_charter_two', TRUE), 'info-charter-two', array('wpautop' => false, 'editor_height' => '300px')); ?>
+        </div>
+    </div>
 
     <div class="meta-row">
         <div class="title-cell">

@@ -1,8 +1,10 @@
 <?php
 
-class Admin_Controler_Commerce {
+class Admin_Controler_Commerce
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         add_action('init', array($this, 'register_post'));
         add_action('manage_edit-commerce_columns', array($this, 'manage_cols'));
         add_action('manage_commerce_posts_custom_column', array($this, 'render_cols'));
@@ -11,7 +13,8 @@ class Admin_Controler_Commerce {
         add_filter('request', array($this, 'views_sort_key'));
     }
 
-    public function register_post() {
+    public function register_post()
+    {
         $labels = array(
             'name' => _x('各國商會', 'suite'),
             'singular_name' => _x('各國商會', 'suite'),
@@ -46,12 +49,17 @@ class Admin_Controler_Commerce {
         register_post_type('commerce', $args);
     }
 
-    public function manage_cols($columns) {
+    public function manage_cols($columns)
+    {
         $columns['title']; // cho an cot title mac dinh;
         unset($columns['date']); // an cot ngay mac dinh
+        unset($columns['content']); // an cot ngay mac dinh
+        unset($columns['order']); // an cot ngay mac dinh
+        unset($columns['home']); // an cot ngay mac dinh
         $columns['country'] = _x('國家', 'suite');
         $columns['hoitruong'] = _x('會長', 'suite');
-        $columns['address'] = _x('地 址', 'suite');
+        // $columns['address'] = _x('地 址', 'suite');
+        $columns['website'] = _x('網站', 'suite');
         $columns['email'] = _x('Email', 'suite');
         $columns['phone'] = _x('電 話', 'suite');
         // them cot vao bang 
@@ -60,7 +68,8 @@ class Admin_Controler_Commerce {
         return $columns;
     }
 
-    public function render_cols($columns) {
+    public function render_cols($columns)
+    {
         global $post;
         switch ($columns) {
             case 'country':
@@ -69,8 +78,11 @@ class Admin_Controler_Commerce {
             case 'hoitruong':
                 echo get_post_meta($post->ID, '_HH_name', true);
                 break;
-            case 'address':
-                echo get_post_meta($post->ID, '_HH_address', true);
+                // case 'address':
+                //     echo get_post_meta($post->ID, '_HH_address', true);
+                //     break;
+            case 'website':
+                echo get_post_meta($post->ID, '_HH_web', true);
                 break;
             case 'email':
                 echo get_post_meta($post->ID, '_HH_email', true);
@@ -81,20 +93,23 @@ class Admin_Controler_Commerce {
         }
     }
 
-    public function views_sort_column($newcolumn) {
+    public function views_sort_column($newcolumn)
+    {
         $newcolumn['country'] = 'country';
         return $newcolumn;
     }
 
-    public function views_sort_key($vars) {
+    public function views_sort_key($vars)
+    {
         if (isset($vars['orderby']) && 'country' == $vars['orderby']) {
-            $vars = array_merge($vars, array(
-                'meta_key' => '_HH_country', //Custom field key
-                'orderby' => '_HH_country' //Custom field value (number)
-                    )
+            $vars = array_merge(
+                $vars,
+                array(
+                    'meta_key' => '_HH_country', //Custom field key
+                    'orderby' => '_HH_country' //Custom field value (number)
+                )
             );
         }
         return $vars;
     }
-
 }

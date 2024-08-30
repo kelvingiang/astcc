@@ -12,7 +12,7 @@ class Admin_Metabox_website{
         $id             = 'metabox-website';
         $title          = '網站';
         $callback    = array($this, 'display');
-       $screen        =array('advertising','friendlink','businesslink'); // CAC POST VA CUSTOMER POST CHO PHEP METABOX NAY HIEN THI
+       $screen        =array('advertising','friendlink','businesslink', 'branch', 'chamber'); // CAC POST VA CUSTOMER POST CHO PHEP METABOX NAY HIEN THI
         add_meta_box($id, $title, $callback, $screen);
        
     }

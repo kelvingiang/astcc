@@ -1,8 +1,10 @@
 <?php
 
-class Admin_Controler_Branch{
-   private  $prefix_name = '_branch_order';
-    public function __construct() {
+class Admin_Controler_Branch
+{
+    private  $prefix_name = '_branch_order';
+    public function __construct()
+    {
         add_action('init', array($this, 'register_post'));
         add_action('manage_edit-branch_columns', array($this, 'manage_cols'));
         add_action('manage_branch_posts_custom_column', array($this, 'render_cols'));
@@ -23,21 +25,22 @@ class Admin_Controler_Branch{
         add_filter('request', array($this, 'sort_views_column'));
     }
 
-    public function register_post() {
+    public function register_post()
+    {
         $labels = array(
-            'name' => _x('各國分會', 'suite'),
-            'singular_name' => _x('各國分會', 'suite'),
+            'name' => _x('各會員國分會', 'suite'),
+            'singular_name' => _x('各會員國分會', 'suite'),
             'add_new' => _x('新增', 'suite'),
             'add_new_item' => _x('新增', 'suite'),
             'edit_item' => _x('修改', 'suite'),
             'new_item' => _x('新增', 'suite'),
-            'all_items' => _x('各國分會', 'suite'),
-            'view_item' => _x('各國分會', 'suite'),
+            'all_items' => _x('各會員國分會', 'suite'),
+            'view_item' => _x('各會員國分會', 'suite'),
             'search_items' => _x('查询', 'suite'),
             'not_found' => _x('No slides found.', 'suite'),
             'not_found_in_trash' => _x('No  found in Trash.', 'suite'),
             'parent_item_colon' => '',
-            'menu_name' => _x('各國分會', 'suite')
+            'menu_name' => _x('各會員國分會', 'suite')
         );
         $args = array(
             'labels' => $labels,
@@ -52,47 +55,53 @@ class Admin_Controler_Branch{
             'capability_type' => 'post',
             'has_archive' => true,
             'hierarchical' => false,
-            'menu_position' => 11,
-            'supports' => array('title', 'editor'),
+            'menu_position' => 8,
+            'supports' => array('title'),
         );
         register_post_type('branch', $args);
     }
 
     // tao function thay doi hien thi mac dinh
-    public function manage_cols($columns) {
+    public function manage_cols($columns)
+    {
         $columns['title']; // cho an cot title mac dinh;
         unset($columns['date']); // an cot ngay mac dinh
+        unset($columns['content']); // an cot ngay mac dinh
+        unset($columns['home']); // an cot ngay mac dinh
         // them cot vao bang 
         //  $columns['supervisor_image'] = _x('照片', 'suite');
+        $columns['website'] = _x('網站', 'suite');
         $columns['order'] = _x('次序', 'suite');
         $columns['date'] = __('Create Date', 'suite');
 
         return $columns;
     }
 
-// function dua noi dung vao cac cot moi  tạo
-    public function render_cols($columns) {
+    // function dua noi dung vao cac cot moi  tạo
+    public function render_cols($columns)
+    {
         global $post;
 
-//        if ($columns == 'supervisor_image') {
-//            if (has_post_thumbnail()) {
-//                the_post_thumbnail(array(80, 80));  // Other resolutions);
-//                //  set_post_thumbnail_size(50, 50); // 50 pixels wide by 50 pixels tall, resize mode
-//            }
-//        }
-//        if ($columns == 'content') {
-//            the_content();
-//        }
-        //show product thumb
-//    $img = get_post_meta($post->ID, 'm_image', true);
-        if ($columns == 'order') {
-            echo get_post_meta($post->ID, '_show_order', true);
+        //        if ($columns == 'supervisor_image') {
+        //            if (has_post_thumbnail()) {
+        //                the_post_thumbnail(array(80, 80));  // Other resolutions);
+        //                //  set_post_thumbnail_size(50, 50); // 50 pixels wide by 50 pixels tall, resize mode
+        //            }
+        //        }
+        if ($columns == 'website') {
+            echo get_post_meta($post->ID, '_metabox_website', true);
         }
+        //show product thumb
+        //    $img = get_post_meta($post->ID, 'm_image', true);
+        // if ($columns == 'order') {
+        //     echo get_post_meta($post->ID, '_show_order', true);
+        // }
     }
 
     //==========================================================
     // tao taxomomy 
-    public function register_taxonomy() {
+    public function register_taxonomy()
+    {
         $labels = array(
             'name' => __('Category'),
             'singular_name' => __('Category'),
@@ -120,35 +129,38 @@ class Admin_Controler_Branch{
         ));
     }
 
-    public function add_meta_form() {
-        ?>
+    public function add_meta_form()
+    {
+?>
         <div class="form-field">
-            <label>   <?php _e('Order') ?></label>
+            <label> <?php _e('Order') ?></label>
             <input type="text" name="branch_order" id="branch_order" value="01" />
         </div>
 
-        <?php
+    <?php
     }
 
-    public function Edit_Meta_Form($term) {
+    public function Edit_Meta_Form($term)
+    {
         // LAY GIA TRI TRONG OPTION TABLE
         //$arr_value = get_option($this->prefix_name . $term->term_id);
-             $option_name = $this->prefix_name;
-        $arr_value = get_post_meta($term->term_id, $option_name,true );
+        $option_name = $this->prefix_name;
+        $arr_value = get_post_meta($term->term_id, $option_name, true);
 
-        ?>
+    ?>
         <tr class="form-field">
-            <th scope="row" valign="top">   <label>   <?php _e('Order') ?></label> </th>
-            <td>    <input type="text" name="branch_order" id="branch_order" value="<?php echo $arr_value; ?>" /></td>
+            <th scope="row" valign="top"> <label> <?php _e('Order') ?></label> </th>
+            <td> <input type="text" name="branch_order" id="branch_order" value="<?php echo $arr_value; ?>" /></td>
         </tr>
-        <?php
+<?php
     }
 
-    public function manage_tag_columns($out, $column_name, $theme_id) {
+    public function manage_tag_columns($out, $column_name, $theme_id)
+    {
 
         $theme = get_term($theme_id, 'branch_cate');
-        
-        $strMetaTax = get_post_meta($theme->term_id, $this->prefix_name , true);
+
+        $strMetaTax = get_post_meta($theme->term_id, $this->prefix_name, true);
         switch ($column_name) {
             case 'order':
                 echo $strMetaTax;
@@ -158,7 +170,8 @@ class Admin_Controler_Branch{
         return $out;
     }
 
-    public function tag_columns($theme_columns) {
+    public function tag_columns($theme_columns)
+    {
         $new_columns = array(
             'cb' => '<input type="checkbox" />',
             'name' => __('Name'),
@@ -170,18 +183,20 @@ class Admin_Controler_Branch{
         return $new_columns;
     }
 
-    public function save_custom_meta($term_id) {
+    public function save_custom_meta($term_id)
+    {
 
 
         $option_name = $this->prefix_name;
         update_post_meta($term_id, $option_name, $_POST['branch_order']);
-    //    $option_value = $_POST['cate'];
-     //   update_option($option_name, $option_value);
+        //    $option_value = $_POST['cate'];
+        //   update_option($option_name, $option_value);
     }
 
     //============================================================
     // tao tag
-    public function register_tag() {
+    public function register_tag()
+    {
         $labels = array(
             'name' => __('Tags'),
             'singular_name' => __('Tags'),
@@ -208,20 +223,23 @@ class Admin_Controler_Branch{
     }
 
     //==== sap xep lai thu tu ============================================
-    public function sortable_views_column($newcolumn) {
+    public function sortable_views_column($newcolumn)
+    {
         $newcolumn['order'] = 'order';
         return $newcolumn;
     }
 
-    public function sort_views_column($vars) {
+    public function sort_views_column($vars)
+    {
         if (isset($vars['orderby']) && 'order' == $vars['orderby']) {
-            $vars = array_merge($vars, array(
-                'meta_key' => '_show_order', //Custom field key
-                'orderby' => '_show_order' //Custom field value (number)
-                    )
+            $vars = array_merge(
+                $vars,
+                array(
+                    'meta_key' => '_show_order', //Custom field key
+                    'orderby' => '_show_order' //Custom field value (number)
+                )
             );
         };
         return $vars;
     }
-
 }

@@ -6,32 +6,8 @@ ob_start();  // neu bao loi PHP Warning: Cannot modify header information ??head
 get_header();
 ?>
 <style>
-    .download-list{
-        width: 100%;
-    }
-    .download-list div {
-        padding: 1rem;
-    }
-    .download-list div:nth-child(even){
-        background-color: #fff;
-    }
-
-    .download-list div a{
-        font-size: 1.8rem;
-        font-weight: bold;
-        color: rgba(8, 108, 170,1);
-    }
-
-    .download-list div a:hover{
-        text-decoration: none;
-        color: rgba(8, 108, 170, .6);
-    }
-
-    .download-list div a i{
-        margin-right: 2rem;
-    }
 </style>
-<div class="row">
+<div class="row my-row">
     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 ">
         <div class='head-title'>
             <div class="title">

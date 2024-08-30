@@ -1,0 +1,39 @@
+@import "./define.scss";
+.content-style {
+    font-size: 18px;
+}
+
+.single-article-list div {
+    min-height: 35px;
+    border-bottom: 1px solid #ccc;
+    display: block;
+    padding: 10px 5px;
+    &:hover {
+        background-color: #f9f8f8;
+    }
+    a {
+        font-size: 15px;
+        font-weight: bold;
+        text-decoration: none;
+        color: $linkColor;
+        letter-spacing: 1.5px;
+        display: block;
+        &:hover {
+            color: $mainColor;
+        }
+    }
+}
+
+.more-link {
+    height: 30px;
+    text-align: right;
+    margin-top: 20px;
+    margin-right: 20px;
+    font-size: 13px;
+    color: #2e6987;
+    text-decoration: none;
+    margin-bottom: 30px;
+    &:hover {
+        color: #ccc;
+    }
+}

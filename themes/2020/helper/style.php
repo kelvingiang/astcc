@@ -116,8 +116,8 @@ function admin_style() {
     wp_register_style('product-style', get_template_directory_uri() . '/style/admin/admin-style.css', FALSE, '1.0.0');
     wp_enqueue_style('product-style');
 
-    wp_register_style('meta-style', get_template_directory_uri() . '/style/admin/metabox.css', FALSE, '1.0.0');
-    wp_enqueue_style('meta-style');
+    // wp_register_style('meta-style', get_template_directory_uri() . '/style/admin/metabox.css', FALSE, '1.0.0');
+    // wp_enqueue_style('meta-style');
 
     wp_register_style('jquery-ui', get_template_directory_uri() . '/style/jquery-ui.min.css', 'all');
     wp_enqueue_style('jquery-ui');

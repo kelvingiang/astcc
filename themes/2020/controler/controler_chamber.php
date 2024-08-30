@@ -1,13 +1,15 @@
 <?php
 
-class Admin_Controler_Chamber {
+class Admin_Controler_Chamber
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         add_action('init', array($this, 'register_post'));
         add_action('manage_edit-chamber_columns', array($this, 'manage_cols'));
         add_action('manage_chamber_posts_custom_column', array($this, 'render_cols'));
         //====== tao taxonomy =========
-       // add_action('init', array($this, 'register_taxonomy'));
+        // add_action('init', array($this, 'register_taxonomy'));
 
         //==== tao tag============================================
         //  add_action('init', array($this, 'register_tag'));
@@ -16,21 +18,22 @@ class Admin_Controler_Chamber {
         add_filter('request', array($this, 'sort_views_column'));
     }
 
-    public function register_post() {
+    public function register_post()
+    {
         $labels = array(
-            'name' => _x('各國總會', 'suite'),
-            'singular_name' => _x('各國總會', 'suite'),
+            'name' => _x('各會員國', 'suite'),
+            'singular_name' => _x('各會員國', 'suite'),
             'add_new' => _x('新增', 'suite'),
             'add_new_item' => _x('新增', 'suite'),
             'edit_item' => _x('修改', 'suite'),
             'new_item' => _x('新增', 'suite'),
-            'all_items' => _x('各國總會', 'suite'),
-            'view_item' => _x('各國總會', 'suite'),
+            'all_items' => _x('各會員國', 'suite'),
+            'view_item' => _x('各會員國', 'suite'),
             'search_items' => _x('查询', 'suite'),
             'not_found' => _x('No slides found.', 'suite'),
             'not_found_in_trash' => _x('No  found in Trash.', 'suite'),
             'parent_item_colon' => '',
-            'menu_name' => _x('各國總會', 'suite')
+            'menu_name' => _x('各會員國', 'suite')
         );
         $args = array(
             'labels' => $labels,
@@ -45,47 +48,53 @@ class Admin_Controler_Chamber {
             'capability_type' => 'post',
             'has_archive' => true,
             'hierarchical' => false,
-            'menu_position' => 11,
+            'menu_position' => 7,
             'supports' => array('title', 'thumbnail', 'editor'),
         );
         register_post_type('chamber', $args);
     }
 
     // tao function thay doi hien thi mac dinh
-    public function manage_cols($columns) {
+    public function manage_cols($columns)
+    {
         $columns['title']; // cho an cot title mac dinh;
         unset($columns['date']); // an cot ngay mac dinh
+        unset($columns['home']); 
+        unset($columns['order']);// an cot ngay mac dinh
         // them cot vao bang 
         $columns['supervisor_image'] = _x('照片', 'suite');
+        $columns['website'] = _x('網站', 'suite');
         $columns['order'] = _x('次序', 'suite');
         $columns['date'] = __('Create Date', 'suite');
 
         return $columns;
     }
 
-// function dua noi dung vao cac cot moi  tạo
-    public function render_cols($columns) {
+    // function dua noi dung vao cac cot moi  tạo
+    public function render_cols($columns)
+    {
         global $post;
 
         if ($columns == 'supervisor_image') {
             if (has_post_thumbnail()) {
-                the_post_thumbnail(array(80, 80));  // Other resolutions);
+                the_post_thumbnail(array(30, 30));  // Other resolutions);
                 //  set_post_thumbnail_size(50, 50); // 50 pixels wide by 50 pixels tall, resize mode
             }
         }
-//        if ($columns == 'content') {
-//            the_content();
-//        }
-        //show product thumb
-//    $img = get_post_meta($post->ID, 'm_image', true);
-        if ($columns == 'order') {
-            echo get_post_meta($post->ID, '_show_order', true);
+        if ($columns == 'website') {
+            echo get_post_meta($post->ID, '_metabox_website', true);
         }
+        //show product thumb
+        //    $img = get_post_meta($post->ID, 'm_image', true);
+        // if ($columns == 'order') {
+        //     echo get_post_meta($post->ID, '_show_order', true);
+        // }
     }
 
     //==========================================================
     // tao taxomomy 
-    public function register_taxonomy() {
+    public function register_taxonomy()
+    {
         $labels = array(
             'name' => __('Category'),
             'singular_name' => __('Category'),
@@ -115,7 +124,8 @@ class Admin_Controler_Chamber {
 
     //============================================================
     // tao tag
-    public function register_tag() {
+    public function register_tag()
+    {
         $labels = array(
             'name' => __('Tags'),
             'singular_name' => __('Tags'),
@@ -142,20 +152,23 @@ class Admin_Controler_Chamber {
     }
 
     //==== sap xep lai thu tu ============================================
-    public function sortable_views_column($newcolumn) {
+    public function sortable_views_column($newcolumn)
+    {
         $newcolumn['order'] = 'order';
         return $newcolumn;
     }
 
-    public function sort_views_column($vars) {
+    public function sort_views_column($vars)
+    {
         if (isset($vars['orderby']) && 'order' == $vars['orderby']) {
-            $vars = array_merge($vars, array(
-                'meta_key' => '_show_order', //Custom field key
-                'orderby' => '_show_order' //Custom field value (number)
-                    )
+            $vars = array_merge(
+                $vars,
+                array(
+                    'meta_key' => '_show_order', //Custom field key
+                    'orderby' => '_show_order' //Custom field value (number)
+                )
             );
         };
         return $vars;
     }
-
 }

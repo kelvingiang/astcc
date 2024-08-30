@@ -66,9 +66,9 @@ class Admin_Controler_Slider {
             }
         }
         
-        if($columns == 'order'){
-            echo get_post_meta($post->ID, '_show_order', true);
-        }
+        // if($columns == 'order'){
+        //     echo get_post_meta($post->ID, '_show_order', true);
+        // }
     }
 
 }

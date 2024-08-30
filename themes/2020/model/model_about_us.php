@@ -19,6 +19,7 @@ class Admin_Model_About_Us {
         update_option("map_y", $arr['txt-map-y']);
 
         update_post_meta(1, '_info_charter', $arr['info-charter']);
+        update_post_meta(1, '_info_charter_two', $arr['info-charter-two']);
         update_post_meta(1, '_info_history', $arr['info-history']);
         update_post_meta(1, '_info_picture', $arr['info-picture']);
     }

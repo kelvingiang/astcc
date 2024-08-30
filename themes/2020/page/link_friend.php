@@ -7,7 +7,8 @@
 ob_start();  // neu bao loi PHP Warning: Cannot modify header information ??headers already sent by
 get_header();
 ?>
-<div class="row">
+ <div id="silder"><?php get_template_part('template/template', 'silder'); ?></div>
+<div class="row my-row">
     <div class="col-xl-9 col-lg-9 col-md-8 col-sm-12 ">
         <div class='head-title'>
             <div class="title">

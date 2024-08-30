@@ -71,7 +71,7 @@ class Admin_Controler_Conference {
 
         if ($columns == 'supervisor_image') {
             if (has_post_thumbnail()) {
-                the_post_thumbnail(array(80, 80));  // Other resolutions);
+                the_post_thumbnail(array(30, 30));  // Other resolutions);
                 //  set_post_thumbnail_size(50, 50); // 50 pixels wide by 50 pixels tall, resize mode
             }
         }
@@ -80,9 +80,9 @@ class Admin_Controler_Conference {
         }
         //show product thumb
 //    $img = get_post_meta($post->ID, 'm_image', true);
-        if ($columns == 'order') {
-            echo get_post_meta($post->ID, '_show_order', true);
-        }
+        // if ($columns == 'order') {
+        //     echo get_post_meta($post->ID, '_show_order', true);
+        // }
     }
 
     //==========================================================

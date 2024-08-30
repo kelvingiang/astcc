@@ -1,21 +1,23 @@
 <?php
 /*
-  Template Name: Conference
+  Template Name: News Other
  */
 ?>
 <?php
 ob_start();  // neu bao loi PHP Warning: Cannot modify header information ??headers already sent by
 get_header();
 ?>
-<div class="row">
+ <div id="silder"><?php get_template_part('template/template', 'silder'); ?></div>
+<div class="row my-row">
     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 ">
         <div class='head-title'>
             <div class="title">
-                <h2 class="head"> <?php echo __('Asian Conference Information') ?> </h2>
+                <h2 class="head"> <?php echo __('各會員體最新消息') ?></h2>
             </div>
         </div>
         <div class="info-bg">
             <?php
+ 
             //===CAC THONG SO DUNG DE PHAN TRANG ============================               
             $paged = max(1, get_query_var('page'));
             $showNum = get_option('posts_per_page');
@@ -24,7 +26,7 @@ get_header();
             $args = array(
                 'post_type' => 'post',
                 'post_status' => 'publish',
-                'category_name' => 'conferen',
+                'category_name' => 'member',
             );
 
             $the_query = new WP_Query($args);
@@ -35,11 +37,11 @@ get_header();
             $arr = array(
                 'post_type' => 'post',
                 'post_status' => 'publish',
-                'category_name' => 'conferen',
+                'category_name' => 'member',
                 'posts_per_page' => $showNum,
                 'offset' => $offset,
                 'paged' => $paged,
-                'orderby' => 'meta_value',
+                'orderby' => 'meta_value_num',
                 'order' => 'DESC',
                 'meta_key' => '_show_order',
             );
@@ -60,7 +62,7 @@ get_header();
             <div style="height: 30px">
 
                 <?php
-                $ss = home_url('conferen');
+                $ss = home_url('news');
 
                 $config = array(
                     'current_page' => $paged, // Trang hiện tại

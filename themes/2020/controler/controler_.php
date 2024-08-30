@@ -25,7 +25,7 @@ class Admin_Controler_Main
             'checkin_setting_controler' => TRUE,
             'countries_controler' =>true, // phan hoi cac nuoc
             'commerce_controler' => true, // tong hoi cac nuoc
-            'president_controler' => true,
+            'president_controler' => false,
             'member_controler' => true,
             'vote_controler' => true
         );
