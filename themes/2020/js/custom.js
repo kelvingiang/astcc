@@ -1,21 +1,17 @@
 jQuery(document).ready(function() {
 
-//    // SAN PHAM CHAY O DUOI TRANG INDEX
+    //    // SAN PHAM CHAY O DUOI TRANG INDEX
 
     // menu
     jQuery('nav.primary-menu ul.sf-menu').superfish();
 
-   jQuery('.mobile-menu-title').click(function(){
-        jQuery('.mobile-menu').toggle("slow");
-   });
 
     // tab
     jQuery(function() {
         jQuery("#tabs").tabs();
     });
 
-    jQuery('.selectmenu').selectmenu({
-    });
+    jQuery('.selectmenu').selectmenu({});
 
     jQuery('.MyDate').datepicker({
         dateFormat: 'dd-mm-yy',
@@ -43,14 +39,15 @@ jQuery(document).ready(function() {
     jQuery('.type-phone-more').keypress(function(event) {
         return isPhone(event, this);
     });
+
     function isPhone(evt, element) {
         var charCode = (evt.which) ? evt.which : event.keyCode
         if (
-                //(charCode != 45 || jQuery(element).val().indexOf('-') != -1) && // “-” CHECK MINUS, AND ONLY ONE.
-                        (charCode != 45) && // “-” CHECK MINUS, AND MORE.
-                        (charCode != 46 || jQuery(element).val().indexOf('.') != -1) && // “.” CHECK DOT, AND ONLY ONE.
-                        (charCode != 8) && // “.” CHECK DOT, AND ONLY ONE.
-                        (charCode < 48 || charCode > 57))
+            //(charCode != 45 || jQuery(element).val().indexOf('-') != -1) && // “-” CHECK MINUS, AND ONLY ONE.
+            (charCode != 45) && // “-” CHECK MINUS, AND MORE.
+            (charCode != 46 || jQuery(element).val().indexOf('.') != -1) && // “.” CHECK DOT, AND ONLY ONE.
+            (charCode != 8) && // “.” CHECK DOT, AND ONLY ONE.
+            (charCode < 48 || charCode > 57))
             return false;
         return true;
     }
@@ -59,13 +56,14 @@ jQuery(document).ready(function() {
     jQuery('.type-phone').keypress(function(event) {
         return isPhone(event, this);
     });
+
     function isPhone(evt, element) {
         var charCode = (evt.which) ? evt.which : event.keyCode
         if (
-                (charCode != 45 || $(element).val().indexOf('-') != -1) && // “-” CHECK MINUS, AND ONLY ONE.
-                (charCode != 46 || $(element).val().indexOf('.') != -1) && // “.” CHECK DOT, AND ONLY ONE.
-                (charCode != 8) && // “.” CHECK DOT, AND ONLY ONE.
-                (charCode < 48 || charCode > 57))
+            (charCode != 45 || $(element).val().indexOf('-') != -1) && // “-” CHECK MINUS, AND ONLY ONE.
+            (charCode != 46 || $(element).val().indexOf('.') != -1) && // “.” CHECK DOT, AND ONLY ONE.
+            (charCode != 8) && // “.” CHECK DOT, AND ONLY ONE.
+            (charCode < 48 || charCode > 57))
             return false;
         return true;
     }
@@ -115,15 +113,16 @@ jQuery(document).ready(function() {
         //   var error = '<?php echo $e_error ?>';
         //   var post ='<?php echo $e_branch ?>';
         //   if(error==='' && post !==''){
-      jQuery('#div-popup').fadeIn('slow');
+        jQuery('#div-popup').fadeIn('slow');
         jQuery('#div-alertInfo').css('top', '150px');
         setTimeout(closePopup, 5000);
         // }
     }
+
     function closePopup() {
-      jQuery('#div-popup').fadeOut('slow');
+        jQuery('#div-popup').fadeOut('slow');
         jQuery('#div-alertInfo').css('top', '0px');
-       jQuery('#div-alertInfo').css('opacity', '0');
+        jQuery('#div-alertInfo').css('opacity', '0');
         //  window.location.reload();
         //  window.location='<?php echo home_url('events') ?>';
     }
@@ -152,15 +151,15 @@ jQuery(document).ready(function() {
         });
     }
 
-//<![CDATA[
+    //<![CDATA[
 
-// Set cookie
+    // Set cookie
     function setCookie(name, value, expires, path, domain, secure) {
         document.cookie = name + "=" + escape(value) +
-                ((expires == null) ? "" : "; expires=" + expires.toGMTString()) +
-                ((path == null) ? "" : "; path=" + path) +
-                ((domain == null) ? "" : "; domain=" + domain) +
-                ((secure == null) ? "" : "; secure");
+            ((expires == null) ? "" : "; expires=" + expires.toGMTString()) +
+            ((path == null) ? "" : "; path=" + path) +
+            ((domain == null) ? "" : "; domain=" + domain) +
+            ((secure == null) ? "" : "; secure");
     }
 
     // Read cookie
@@ -184,15 +183,13 @@ jQuery(document).ready(function() {
     function eraseCookie(name, path, domain) {
         if (getCookie(name)) {
             document.cookie = name + "=" +
-                    ((path == null) ? "" : "; path=" + path) +
-                    ((domain == null) ? "" : "; domain=" + domain) +
-                    "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+                ((path == null) ? "" : "; path=" + path) +
+                ((domain == null) ? "" : "; domain=" + domain) +
+                "; expires=Thu, 01-Jan-70 00:00:01 GMT";
         }
     }
 
-//]]>
+    //]]>
 
 
 });
-
- 

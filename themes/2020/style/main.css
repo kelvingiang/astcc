@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body {
   background-color: #fff !important; }
 
@@ -67,7 +68,6 @@ body {
     /*color:  #063764*/
     /*        border-left: 8px solid #063764;
             border-top: 2px solid #063764;*/
-    background-image: url("./scss/img/title-bg.jpg");
     background-repeat: no-repeat;
     /*background-attachment: fixed;*/
     background-position: right;
@@ -502,20 +502,69 @@ div.more-link {
   margin-bottom: 20px !important;
   display: none;
   position: absolute;
-  z-index: 1000; }
-  .mobile-menu ul li {
-    height: 30px;
-    background-color: #f1670c; }
-    .mobile-menu ul li a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 6px 25px;
-      text-align: center; }
-      .mobile-menu ul li a:hover hover {
-        color: #e66b00; }
-  .mobile-menu:hover {
-    background-color: #f67a06 !important; }
+  z-index: 1000;
+  width: 200px;
+  background-color: aqua; }
+  .mobile-menu ul {
+    margin: 0;
+    /* 移除 ul 元素的外边距 */
+    padding: 0;
+    /* 移除 ul 元素的内边距 */
+    list-style: none;
+    /* 移除列表项前的圆点或其他标记 */ }
+  .mobile-menu li {
+    margin: 0;
+    /* 移除 li 元素的外边距 */
+    padding: 0;
+    /* 移除 li 元素的内边距 */
+    min-height: 38px;
+    padding-top: 10px; }
+  .mobile-menu ul.menu {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    background-color: red; }
+    .mobile-menu ul.menu li {
+      width: 100%;
+      background-color: #f1670c;
+      border-bottom: 1px solid #883802; }
+      .mobile-menu ul.menu li a {
+        margin: 2rem 1rem;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 6px 5px;
+        text-align: left; }
+        .mobile-menu ul.menu li a:hover hover {
+          color: #e66b00; }
+    .mobile-menu ul.menu:hover {
+      background-color: #f67a06 !important; }
+    .mobile-menu ul.menu .menu-item-has-children {
+      position: relative; }
+      .mobile-menu ul.menu .menu-item-has-children > a:after {
+        content: "\f078";
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+        text-align: right;
+        color: #fff;
+        position: absolute;
+        right: 5px;
+        /* 将伪元素对齐到最右边 */
+        top: 20px;
+        /* 将伪元素垂直居中 */
+        transform: translateY(-50%);
+        /* 垂直居中的调整 */ }
+      .mobile-menu ul.menu .menu-item-has-children .sub-menu {
+        position: relative;
+        margin-top: 5px; }
+        .mobile-menu ul.menu .menu-item-has-children .sub-menu li {
+          background-color: #a7490a; }
+          .mobile-menu ul.menu .menu-item-has-children .sub-menu li a {
+            padding-left: 10px; }
+  .mobile-menu .sub-menu {
+    display: none; }
 
 .my_month {
   height: 50px;

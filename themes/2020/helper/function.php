@@ -628,6 +628,19 @@ if (!function_exists('suite_menu')) {
     }
 }
 
+if (!function_exists('mobile_menu')) {
+
+    function mobile_menu($slug)
+    {
+        $menu = array(
+            'theme_location' => $slug, // chon menu dc thiet lap truoc
+            'container' => 'nav', // tap html chua menu nay
+            'container_class' => $slug, // class cua mennu
+            'items_wrap' => '<nav class=' . $slug . '><ul id="%1$s" class="%2$s">%3$s</ul></nav>'
+        );
+        wp_nav_menu($menu);
+    }
+}
 // DOI LOGO MAC DINH CUA WORDPRESS
 function custom_login_logo()
 {

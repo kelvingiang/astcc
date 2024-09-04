@@ -31,13 +31,6 @@
 
 
     <div>
-        <div id="mobile-header">
-                <div class="mobile-menu-title"><img src="<?php echo get_image('mobile_menu_icon.png') ?>" style="width: 20px; margin: 5px" />
-                    <label style="margin-left: 20px; color: #FFF; font-weight:  bold;  font-size: 15px"> 項 目 </label>
-                </div>
-                <?php suite_menu('mobile-menu') ?>
-        </div>
-
-        </hr>
+        <?php get_template_part('template/template', 'mobile-menu'); ?>
     </div>
 <?php } ?>

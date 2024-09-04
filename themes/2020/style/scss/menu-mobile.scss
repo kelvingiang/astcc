@@ -12,23 +12,82 @@
     display: none;
     position: absolute;
     z-index: 1000;
-    ul li {
-        height: 30px;
-        background-color: #f1670c;
-        a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 6px 25px;
-            text-align: center;
-            &:hover {
-                hover {
-                    color: #e66b00;
+    width: 200px;
+    background-color: aqua;
+    ul {
+        margin: 0;
+        /* 移除 ul 元素的外边距 */
+        padding: 0;
+        /* 移除 ul 元素的内边距 */
+        list-style: none;
+        /* 移除列表项前的圆点或其他标记 */
+    }
+    li {
+        margin: 0;
+        /* 移除 li 元素的外边距 */
+        padding: 0;
+        /* 移除 li 元素的内边距 */
+        min-height: 38px;
+        padding-top: 10px;
+    }
+    ul.menu {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        background-color: red;
+        li {
+            // min-height: 20px;
+            width: 100%;
+            background-color: #f1670c;
+            border-bottom: 1px solid #883802;
+            a {
+                margin: 2rem 1rem;
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 6px 5px;
+                text-align: left;
+                &:hover {
+                    hover {
+                        color: #e66b00;
+                    }
+                }
+            }
+        }
+        &:hover {
+            background-color: #f67a06 !important;
+        }
+        .menu-item-has-children {
+            position: relative;
+            >a:after {
+                content: "\f078";
+                font-family: FontAwesome;
+                font-style: normal;
+                font-weight: normal;
+                text-decoration: inherit;
+                text-align: right;
+                color: #fff;
+                position: absolute;
+                right: 5px;
+                /* 将伪元素对齐到最右边 */
+                top: 20px;
+                /* 将伪元素垂直居中 */
+                transform: translateY(-50%);
+                /* 垂直居中的调整 */
+            }
+            .sub-menu {
+                position: relative;
+                margin-top: 5px;
+                li {
+                    background-color: #a7490a;
+                    a {
+                        padding-left: 10px;
+                    }
                 }
             }
         }
     }
-    &:hover {
-        background-color: #f67a06 !important;
+    .sub-menu {
+        display: none;
     }
 }

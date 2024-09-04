@@ -1,129 +1,118 @@
-@media only screen and  (max-device-width : 500px) {
-    .border_box{
-        display: none;   
+@media only screen and (max-device-width: 500px) {
+    .border_box {
+        display: none;
     }
-    .primary-menu{
+    .primary-menu {
         display: none
     }
-    .mobile-menu-title{
+    .mobile-menu-title {
         display: block;
-
     }
-    .sf-menu{
-        float:  none !important;
+    .sf-menu {
+        float: none !important;
     }
     h3 {
         font-size: 0.8rem;
-    } 
-    #footer{
+    }
+    #footer {
         display: none;
     }
-    #mobi-footer{
+    #mobi-footer {
         display: block;
         min-height: 70px;
         padding: 10px;
-
     }
-    #mobi-footer .copy-right{
+    #mobi-footer .copy-right {
         font-size: 10px;
     }
-    #loggo img{
-        max-width: 60% !important ;
+    #loggo img {
+        max-width: 60% !important;
     }
-    #loggo .title-cn{
+    #loggo .title-cn {
         font-size: 11px !important;
     }
-    #loggo .title-en{
+    #loggo .title-en {
         font-size: 02px !important;
     }
-    #loggo .logo-img{
+    #loggo .logo-img {
         width: 50px !important;
     }
-    h2.head{
+    h2.head {
         font-size: 1.5em;
     }
-    label{
+    label {
         font-weight: 500;
     }
     /*MAIN MENU*/
     .primary-menu ul li a {
         font-size: 1.5rem !important;
     }
-    .sf-menu > li {
-        float:  none;
-    }
-    .sub-menu {
-        /*display: block !important;*/
-        position: relative !important ;
-        padding-left:  20px !important ;
-    }
+    /* .sub-menu { */
+    /*display: block !important;*/
+    /* position: relative !important ; */
+    /* padding-left:  20px !important ; */
+    /* } */
     .article-list li a {
         font-size: 10px;
-        margin-left : 0px !important;
+        margin-left: 0px !important;
     }
-    .orange-title-text{
+    .orange-title-text {
         font-size: 13px;
     }
-    .lbl-content{
-        margin-left:2px   
+    .lbl-content {
+        margin-left: 2px
     }
     ul.children {
         margin-left: 3px;
     }
-    ul.children li{
+    ul.children li {
         /*margin-left: 10px;*/
-        background-color: #D2EBF7 !important;
+        /* background-color: #D2EBF7 !important; */
     }
     .spaceTop {
         margin-top: 1px;
         margin-left: 10px;
     }
-    .my-img{width: 60px !important;
-    padding-top: 10px !important;
+    .my-img {
+        width: 60px !important;
+        padding-top: 10px !important;
     }
-
 }
 
-@media only screen and  (max-device-width : 750px) {
-    .primary-menu, .silder-space{
+@media only screen and (max-device-width: 750px) {
+    .primary-menu,
+    .silder-space {
         display: none
     }
-    .mobile-menu-title{
+    .mobile-menu-title {
         display: block;
     }
-     #loggo img{
-        max-width: 60% !important ;
+    #loggo img {
+        max-width: 60% !important;
     }
-    #loggo .title-cn{
+    #loggo .title-cn {
         font-size: 15px !important;
     }
-    #loggo .title-en{
+    #loggo .title-en {
         font-size: 09px !important;
     }
-    #loggo .logo-img{
+    #loggo .logo-img {
         width: 80px !important;
     }
 }
 
-@media only screen and  (max-device-width : 970px){
-    .primary-menu, .silder-space{
+@media only screen and (max-device-width: 970px) {
+    .primary-menu,
+    .silder-space {
         display: none
     }
-    .mobile-menu-title{
+    .mobile-menu-title {
         display: block;
-
     }
 }
 
-@media only screen and (max-device-width: 1170px){
+@media only screen and (max-device-width: 1170px) {}
 
-}
+@media only screen and (max-device-width: 1366px) {}
 
-@media only screen and (max-device-width: 1366px){
-
-}
-
-@media only screen and (max-device-width: 1920px){
-
-}
-
+@media only screen and (max-device-width: 1920px) {}
