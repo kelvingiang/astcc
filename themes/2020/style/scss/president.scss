@@ -19,10 +19,10 @@
             width: 50%;
         }
         @include Respond(md) {
-            width: 80%
+            width: 80%;
         }
         @include Respond(sm) {
-            width: 80%
+            width: 80%;
         }
         &_img {
             img {
@@ -77,6 +77,12 @@
         overflow: hidden;
         padding-bottom: 50px;
         width: 23%;
+        @include Respond(md) {
+            width: 45%;
+        }
+        @include Respond(sm) {
+            width: 80%;
+        }
         &_img {
             img {
                 width: 100%;

@@ -28,14 +28,16 @@
                 $strAlt = get_post_meta(get_post_thumbnail_id(get_the_ID()), '_wp_attachment_image_alt', true);
         ?>
 
-                <div class="box" style="border-bottom: 1px solid #ccc">
-                    <img src="<?php echo $images[0]; ?>" alt="<?php echo $strAlt; ?>" title="<?php echo $objImageData->post_title; ?>" />
-                    <div class="nbs-flexisel-title">
-                        <a class="my_link" href="<?php the_permalink(); ?>">
-                            <?php the_title(); ?>
-                            <span><?php echo get_post_meta($post->ID, '_metabox_job_title', true) ?></span>
-                        </a>
+                <div class="president-box">
+                    <div>
+                        <img src="<?php echo $images[0]; ?>" alt="<?php echo $strAlt; ?>" title="<?php echo $objImageData->post_title; ?>" />
                     </div>
+
+                    <a class="my_link" href="<?php the_permalink(); ?>">
+                        <?php the_title(); ?>
+                        <span><?php echo get_post_meta($post->ID, '_metabox_job_title', true) ?></span>
+                    </a>
+
                 </div>
 
         <?php
@@ -45,7 +47,7 @@
         }
         ?>
 
-
+        <!-- //===================================== -->
         <?php
         $arr = array(
             'post_type' => 'supervisor',
@@ -67,11 +69,11 @@
                         $objImageData = get_post(get_post_thumbnail_id(get_the_ID()));
                         $strAlt = get_post_meta(get_post_thumbnail_id(get_the_ID()), '_wp_attachment_image_alt', true);
                     ?>
-                        <li style=" border-bottom:  1px solid #D8D8D8; margin-top: 10px; height: 200px;">
+                        <li>
                             <div class="carousel-box">
                                 <img src="<?php echo $images[0]; ?>" alt="<?php echo $strAlt; ?>" title="<?php echo $objImageData->post_title; ?>" />
-                                <div class="nbs-flexisel-title president_slider_text" >
-                                   <?php the_title(); ?> <i><?php echo get_post_meta($post->ID, '_metabox_job_title', true) ?></i>
+                                <div class="nbs-flexisel-title president_slider_text">
+                                    <?php the_title(); ?> <i><?php echo get_post_meta($post->ID, '_metabox_job_title', true) ?></i>
                                 </div>
                             </div>
                         </li>

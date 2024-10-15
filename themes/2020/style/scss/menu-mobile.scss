@@ -1,9 +1,9 @@
 /*MENU CHO RESPORST*/
 
 .mobile-menu-title {
-    height: 30px;
+    height: 40px;
     cursor: pointer;
-    background-color: #f67a06;
+    background-color: #0049b8;
     display: none;
 }
 
@@ -13,7 +13,22 @@
     position: absolute;
     z-index: 1000;
     width: 200px;
-    background-color: aqua;
+    a {
+        // background-color: aqua;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.8rem;
+        padding: 10px 5px 5px;
+        text-align: left;
+        display: inline-block;
+        width: 90%;
+        &:hover {
+            hover {
+                color: #e66b00;
+            }
+        }
+    }
     ul {
         margin: 0;
         /* 移除 ul 元素的外边距 */
@@ -28,7 +43,7 @@
         padding: 0;
         /* 移除 li 元素的内边距 */
         min-height: 38px;
-        padding-top: 10px;
+        // padding-top: 10px;
     }
     ul.menu {
         width: 100%;
@@ -40,19 +55,6 @@
             width: 100%;
             background-color: #f1670c;
             border-bottom: 1px solid #883802;
-            a {
-                margin: 2rem 1rem;
-                color: white;
-                text-decoration: none;
-                font-weight: bold;
-                padding: 6px 5px;
-                text-align: left;
-                &:hover {
-                    hover {
-                        color: #e66b00;
-                    }
-                }
-            }
         }
         &:hover {
             background-color: #f67a06 !important;
@@ -82,6 +84,7 @@
                     background-color: #a7490a;
                     a {
                         padding-left: 10px;
+                        width: 100%;
                     }
                 }
             }

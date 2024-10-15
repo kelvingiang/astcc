@@ -44,7 +44,7 @@ body {
           font-size: 1.5rem; } }
       @media (max-width: 767.98px) {
         #header #logo div {
-          font-size: 1.2rem;
+          font-size: 1.3rem;
           font-weight: bold; } }
   #header #login {
     display: flex;
@@ -374,6 +374,12 @@ div.more-link {
     overflow: hidden;
     padding-bottom: 50px;
     width: 23%; }
+    @media (max-width: 991.98px) {
+      .president_previous_item {
+        width: 45%; } }
+    @media (max-width: 767.98px) {
+      .president_previous_item {
+        width: 80%; } }
     .president_previous_item_img img {
       width: 100%; }
     .president_previous_item_link {
@@ -493,9 +499,9 @@ div.more-link {
 /*---E MENU CHINH:[PRIMARY MENU]:---*/
 /*MENU CHO RESPORST*/
 .mobile-menu-title {
-  height: 30px;
+  height: 40px;
   cursor: pointer;
-  background-color: #f67a06;
+  background-color: #0049b8;
   display: none; }
 
 .mobile-menu {
@@ -503,8 +509,18 @@ div.more-link {
   display: none;
   position: absolute;
   z-index: 1000;
-  width: 200px;
-  background-color: aqua; }
+  width: 200px; }
+  .mobile-menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.8rem;
+    padding: 10px 5px 5px;
+    text-align: left;
+    display: inline-block;
+    width: 90%; }
+    .mobile-menu a:hover hover {
+      color: #e66b00; }
   .mobile-menu ul {
     margin: 0;
     /* 移除 ul 元素的外边距 */
@@ -517,8 +533,7 @@ div.more-link {
     /* 移除 li 元素的外边距 */
     padding: 0;
     /* 移除 li 元素的内边距 */
-    min-height: 38px;
-    padding-top: 10px; }
+    min-height: 38px; }
   .mobile-menu ul.menu {
     width: 100%;
     position: absolute;
@@ -528,15 +543,6 @@ div.more-link {
       width: 100%;
       background-color: #f1670c;
       border-bottom: 1px solid #883802; }
-      .mobile-menu ul.menu li a {
-        margin: 2rem 1rem;
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        padding: 6px 5px;
-        text-align: left; }
-        .mobile-menu ul.menu li a:hover hover {
-          color: #e66b00; }
     .mobile-menu ul.menu:hover {
       background-color: #f67a06 !important; }
     .mobile-menu ul.menu .menu-item-has-children {
@@ -562,7 +568,8 @@ div.more-link {
         .mobile-menu ul.menu .menu-item-has-children .sub-menu li {
           background-color: #a7490a; }
           .mobile-menu ul.menu .menu-item-has-children .sub-menu li a {
-            padding-left: 10px; }
+            padding-left: 10px;
+            width: 100%; }
   .mobile-menu .sub-menu {
     display: none; }
 
@@ -778,6 +785,122 @@ div.more-link {
   margin-bottom: 30px; }
   .more-link:hover {
     color: #ccc; }
+
+/*PHAN CHAY SAN O DUOI TRONG TRANG INDEX SIDEBAR*/
+.president-box {
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 0; }
+  .president-box img {
+    width: 70%;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px; }
+
+#MyCarousel {
+  height: 500px !important; }
+  #MyCarousel ul li {
+    border-bottom: 1px solid #d8d8d8;
+    margin-top: 10px;
+    height: 250px; }
+    #MyCarousel ul li .carousel-box {
+      text-align: center; }
+      #MyCarousel ul li .carousel-box img {
+        height: 200px;
+        padding-top: 13px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 0.5rem; }
+
+/*PHAN CHAY SAN O DUOI TRONG TRANG INDEX*/
+/*=============flexisel===============================*/
+.clearout {
+  height: 25px;
+  clear: both; }
+
+#flexisel {
+  display: none; }
+
+.nbs-flexisel-container {
+  position: relative;
+  max-width: 100%; }
+
+.nbs-flexisel-container a:hover {
+  text-decoration: none; }
+
+.nbs-flexisel-ul {
+  position: relative;
+  width: 99999px;
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+  text-align: center; }
+
+.nbs-flexisel-title {
+  margin-top: 10px;
+  font-weight: bold; }
+
+.nbs-flexisel-inner {
+  overflow: hidden;
+  float: left;
+  width: 100%;
+  background: #ffffff;
+  background: #ffffff -moz-linear-gradient(top, #fcfcfc 0%, #ffffff 100%);
+  /* FF3.6+ */
+  background: #ffffff -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
+  /* Chrome,Safari4+ */
+  background: #ffffff -webkit-linear-gradient(top, #fcfcfc 0%, #ffffff 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: #ffffff -o-linear-gradient(top, #fcfcfc 0%, #ffffff 100%);
+  /* Opera11.10+ */
+  background: #ffffff -ms-linear-gradient(top, #fcfcfc 0%, #ffffff 100%);
+  /* IE10+ */
+  background: #ffffff linear-gradient(top, #fcfcfc 0%, #ffffff 100%);
+  /* W3C */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px; }
+
+.nbs-flexisel-item {
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  cursor: pointer;
+  position: relative;
+  line-height: 0px;
+  height: 200px;
+  border-left: 1px solid #015e25; }
+
+.nbs-flexisel-item img {
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  max-width: 200px;
+  max-height: 150px; }
+
+/*** Navigation ***/
+.nbs-flexisel-nav-left,
+.nbs-flexisel-nav-right {
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  cursor: pointer;
+  z-index: 100;
+  opacity: 0.5; }
+
+.nbs-flexisel-nav-left {
+  left: 10px;
+  background: url(./images/button-previous.png) no-repeat; }
+
+.nbs-flexisel-nav-right {
+  right: 5px;
+  background: url(./images/button-next.png) no-repeat; }
 
 #footer {
   background-color: rgba(222, 66, 5, 0.8); }
