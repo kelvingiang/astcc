@@ -23,14 +23,19 @@
         if ($query_special->have_posts()) {
             while ($query_special->have_posts()) {
                 $query_special->the_post();
-                $images = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'full');
+                if (has_post_thumbnail()) {
+                    $imgUrl = get_the_post_thumbnail_url();
+                }else{
+                    $imgUrl = PART_IMAGES . 'no-person.png';
+                }
+                // $images = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'full');
                 $objImageData = get_post(get_post_thumbnail_id(get_the_ID()));
                 $strAlt = get_post_meta(get_post_thumbnail_id(get_the_ID()), '_wp_attachment_image_alt', true);
         ?>
 
                 <div class="president-box">
                     <div>
-                        <img src="<?php echo $images[0]; ?>" alt="<?php echo $strAlt; ?>" title="<?php echo $objImageData->post_title; ?>" />
+                        <img src="<?php echo $imgUrl; ?>" alt="<?php echo $strAlt; ?>" title="<?php echo $objImageData->post_title; ?>" />
                     </div>
 
                     <a class="my_link" href="<?php the_permalink(); ?>">
@@ -65,13 +70,19 @@
                     <?php
                     while ($my_query->have_posts()) {
                         $my_query->the_post();
-                        $images = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'full');
+                        // $images = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'full');
                         $objImageData = get_post(get_post_thumbnail_id(get_the_ID()));
                         $strAlt = get_post_meta(get_post_thumbnail_id(get_the_ID()), '_wp_attachment_image_alt', true);
+
+                        if (has_post_thumbnail()) {
+                            $imgUrl = get_the_post_thumbnail_url();
+                        }else{
+                            $imgUrl = PART_IMAGES . 'no-person.png';
+                        }
                     ?>
                         <li>
                             <div class="carousel-box">
-                                <img src="<?php echo $images[0]; ?>" alt="<?php echo $strAlt; ?>" title="<?php echo $objImageData->post_title; ?>" />
+                                <img src="<?php echo $imgUrl; ?>" alt="<?php echo $strAlt; ?>" title="<?php echo $objImageData->post_title; ?>" />
                                 <div class="nbs-flexisel-title president_slider_text">
                                     <?php the_title(); ?> <i><?php echo get_post_meta($post->ID, '_metabox_job_title', true) ?></i>
                                 </div>

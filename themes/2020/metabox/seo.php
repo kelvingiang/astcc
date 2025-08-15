@@ -56,9 +56,9 @@ class Admin_Metabox_Seo {
 
     public function save($post_id) {
 
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-            return;
-        }
+        // if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        //     return;
+        // }
 
         //Custom fields
         if (isset($_POST['seo_title'])) {

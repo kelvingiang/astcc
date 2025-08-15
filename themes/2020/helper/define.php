@@ -5,7 +5,7 @@ define('THEME_URL', get_stylesheet_directory());  // hang lay path thu muc theme
 define('DS', DIRECTORY_SEPARATOR);  // phan nay thay doi dau / theo he dieu hanh khac nhau giua window va linx
 define('CORE', THEME_URL . '/core'); // hang path thu muc core == thu muc chua cac function it thay doi 
 
-define('DIR_CONTROLER', THEME_URL . DS . 'controler' . DS);
+define('DIR_CONTROLLER', THEME_URL . DS . 'controller' . DS);
 define('DIR_MODEL', THEME_URL . DS . 'model' . DS);
 define('DIR_VIEW', THEME_URL . DS . 'view' . DS);
 define('DIR_METABOX', THEME_URL . DS . 'metabox' . DS);
@@ -32,6 +32,6 @@ define('PART_ICON', THEME_PART . '/icon/');
 define('PART_IMAGES_BARCODE', THEME_PART . 'barcode' . DS);
 define('PART_IMAGES_VOTE', THEME_PART . 'images/vote' . DS);
 define('PART_IMAGES_QRCODE', THEME_PART . 'images/qrcode' . DS);
-define('PART_IMAGES', THEME_PART . 'img' . DS);
+define('PART_IMAGES', THEME_PART . 'images' . DS);
 define('PART_FILE', THEME_PART . DS .  'file' . DS);
 

@@ -2,9 +2,6 @@
 /*
   Template Name: Menber
  */
-?>
-<?php
-ob_start();  // neu bao loi PHP Warning: Cannot modify header information ??headers already sent by
 get_header();
 ?>
 <div class="row">
@@ -86,6 +83,3 @@ get_header();
 </div>
 <?php
 get_footer();
- ob_flush();   // neu bao loi PHP Warning: Cannot modify header information ??headers already sent by
- 
- ?>

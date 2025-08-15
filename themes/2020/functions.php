@@ -7,6 +7,7 @@
 if (!isset($_SESSION)) {
     session_start();
 }
+
 define('HELPER', get_stylesheet_directory() . '/helper');
 //
 require_once (HELPER . '/style.php');

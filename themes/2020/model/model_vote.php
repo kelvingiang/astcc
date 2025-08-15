@@ -365,7 +365,7 @@ class Admin_Model_Vote extends WP_List_Table {
         }
     }
 
-    public function saveItem($arrData = array(), $imgFile, $option = array()) {
+    public function saveItem($imgFile, $arrData = array(),  $option = array()) {
         global $wpdb;
         $table = $wpdb->prefix . $this->table;
 

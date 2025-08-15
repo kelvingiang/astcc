@@ -16,7 +16,7 @@ $wp_query = new WP_Query($args);
 
     }
     #president-space .nbs-flexisel-nav-left,   #president-space .nbs-flexisel-nav-right{
-        display: none;
+        display: block;
     }
 </style>
 <div id="president-space">
@@ -28,15 +28,17 @@ $wp_query = new WP_Query($args);
                 ?>
                 <li style=" background-color: #ccc; border-right: 1px solid #fff" > 
                     <div class="flexisel-president-item"  >
+                        <a href="<?php echo get_post_meta(get_the_ID(), '_metabox_website', true) ?>" target="_blank">
                         <?php if (has_post_thumbnail()): ?>
-                            <img style="width: 80%; margin-bottom: 10px; border-radius: 5px; border: 1px solid #fff" 
+                            <img style="width: 90%; min-height:20px;  margin-bottom: 10px; border-radius: 5px; border: 1px solid #fff" 
                                  class="list-img"  
                                  src="<?php the_post_thumbnail_url() ?>" 
                                  srcset="<?php the_post_thumbnail_url() ?>" />
                              <?php endif; ?>
                         <br>
                         <label style='color: #015099 ; font-weight: bold; margin-top: 20px; font-size: 1.5rem'><?php the_title(); ?></label><br>
-                          
+                        
+                        </a>
                     </div>   
                 </li>
                 <?php
@@ -51,12 +53,25 @@ $wp_query = new WP_Query($args);
 <script>
 
     jQuery("#flexisel-president").flexisel({
-        visibleItems: 3,
-        itemsToScroll: 1,
-        autoPlay: {
-            enable: true,
-            interval: 8000,
-            pauseOnHover: false
+        animationSpeed: 1000,
+        autoPlay: true,
+        autoPlaySpeed: 3000,
+        pauseOnHover: true,
+        enableResponsiveBreakpoints: true,
+        vertical: false,
+        responsiveBreakpoints: {
+            portrait: {
+                changePoint: 480,
+                visibleItems: 1
+            },
+            landscape: {
+                changePoint: 640,
+                visibleItems: 2
+            },
+            tablet: {
+                changePoint: 768,
+                visibleItems: 3
+            }
         }
     });
 

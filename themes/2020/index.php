@@ -15,7 +15,5 @@ get_header();
 <div>
     <?php get_template_part('template/template', 'maps'); ?>
 </div>
-
-
 <?php
 get_footer();

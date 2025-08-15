@@ -2,9 +2,6 @@
 /*
   Template Name:  Vote Submit
  */
-?>
-
-<?php
 foreach ($_POST as $key => $val) {
     updateVoteCount($key);
 }

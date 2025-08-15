@@ -2,9 +2,6 @@
 /*
   Template Name: National Branch Young
  */
-?>
-<?php
-ob_start();  // neu bao loi PHP Warning: Cannot modify header information ??headers already sent by
 get_header();
 ?>
 <div class="row my-row">
@@ -29,9 +26,16 @@ get_header();
                     while ($wp_query->have_posts()):
                         $wp_query->the_post();
                 ?>
-                        <div class="branch-item">
+                        <div class="national-other-list">
                             <a href="<?php echo get_post_meta($post->ID, '_metabox_website', true); ?>" target="_blank">
-                                <?php the_title() ?>
+                                <div>
+                                    <?php if (has_post_thumbnail()) { ?>
+                                        <img class="my-img" src="<?php the_post_thumbnail_url() ?>" />
+                                    <?php } else { ?>
+                                        <img class="my-img" src="<?php echo PART_IMAGES . 'no-image.jpg' ?>" />
+                                    <?php } ?>
+                                    <h3><?php the_title() ?></h3>
+                                </div>
                             </a>
                         </div>
                 <?php
@@ -48,4 +52,3 @@ get_header();
 
 <?php
 get_footer();
-ob_flush();   // neu bao loi PHP Warning: Cannot modify header information ??headers already sent by

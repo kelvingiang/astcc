@@ -14,10 +14,6 @@ get_header();
     </div>
 </div>
 
-
-
-
-
 <style>
     #waiting_txt {
         font-size: 50px;

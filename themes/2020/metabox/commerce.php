@@ -71,7 +71,7 @@ class Admin_Metabox_Commerce {
         if (wp_verify_nonce('admin-metabox-data-nonce', 'admin-metabox-data'))
             return $post_id;
         // HAM TU DONG LUU KHI DE QUA LAU NEU TRA VE FLASE return $post_id
-        if (define('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+        // if (define('DOING_AUTOSAVE') && DOING_AUTOSAVE)
             return $post_id;
 
         if (!current_user_can('edit_post', $post_id))

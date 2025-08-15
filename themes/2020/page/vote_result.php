@@ -6,8 +6,6 @@
 if (isset($_GET['kid'])) {
     VoteExportToExcel($_GET['kid']);
 }
-?>
-<?php
 // lay phan header
 get_header();
 ?>

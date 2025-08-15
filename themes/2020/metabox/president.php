@@ -45,7 +45,7 @@ class Admin_Metabox_President{
        // NEU HAM NAY TRA VE GIA TRI  LA TRUE THUC HIEN TIEP CAC PHAN DUOI , CON TRA VE FLASE return VE $post_id 
         if(wp_verify_nonce('tw-metabox-data-nonce','tw-metabox-data'))            return $post_id; 
         // HAM TU DONG LUU KHI DE QUA LAU NEU TRA VE FLASE return $post_id
-        if(define('DOING_AUTOSAVE') && DOING_AUTOSAVE)            return $post_id;
+        // if(define('DOING_AUTOSAVE') && DOING_AUTOSAVE)            return $post_id;
         
         if(!current_user_can('edit_post', $post_id))            return$post_id;
        // 4 BON PHAN TREN DUNG DE BAO MAT KHI LUU METABOX TRONG WP 

@@ -2,11 +2,8 @@
 /*
   Template Name: Download
  */
-ob_start();  // neu bao loi PHP Warning: Cannot modify header information ??headers already sent by
 get_header();
 ?>
-<style>
-</style>
 <div class="row my-row">
     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 ">
         <div class='head-title'>
@@ -32,6 +29,5 @@ get_header();
 </div>
 <?php
 get_footer();
-ob_flush();   // neu bao loi PHP Warning: Cannot modify header information ??headers already sent by
 
 

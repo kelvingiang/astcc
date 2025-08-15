@@ -2,12 +2,9 @@
 /*
   Template Name: Conference
  */
-?>
-<?php
-ob_start();  // neu bao loi PHP Warning: Cannot modify header information ??headers already sent by
 get_header();
 ?>
- <div id="silder"><?php get_template_part('template/template', 'silder'); ?></div>
+<div id="silder"><?php get_template_part('template/template', 'silder'); ?></div>
 <div class="row my-row">
     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 ">
         <div class='head-title'>
@@ -21,7 +18,7 @@ get_header();
             $paged = max(1, get_query_var('page'));
             $showNum = get_option('posts_per_page');
             $offset = ($paged - 1) * $showNum;
-// ==LAY TONG SO DONG DE PHAN TRANG  ============================================= 
+            // ==LAY TONG SO DONG DE PHAN TRANG  ============================================= 
             $args = array(
                 'post_type' => 'post',
                 'post_status' => 'publish',
@@ -32,7 +29,7 @@ get_header();
             $totalpost = $the_query->found_posts;
             wp_reset_postdata();
             wp_reset_query();
-//====================================================================
+            //====================================================================
             $arr = array(
                 'post_type' => 'post',
                 'post_status' => 'publish',
@@ -48,16 +45,16 @@ get_header();
             if ($wp_query->have_posts()):
                 while ($wp_query->have_posts()):
                     $wp_query->the_post();
-                    ?>
+            ?>
                     <div class="article_item">
                         <a href="<?php the_permalink(); ?>"><?php the_title() ?></a>
                         <div><?php echo get_the_content(); ?></div>
                     </div>
-                    <?php
+            <?php
                 endwhile;
             endif;
             ?>
-            <!-- =======PHAN TRANG ================================================-->             
+            <!-- =======PHAN TRANG ================================================-->
             <div style="height: 30px">
 
                 <?php
@@ -69,9 +66,9 @@ get_header();
                     'limit' => $showNum, // limit
                     'link_full' => 'index.php?page={page}', // Link full có dạng như sau: domain/com/page/{page}
                     'link_first' => $ss, // Link trang đầu tiên
-                    'range' => 5// Số button trang bạn muốn hiển thị 
+                    'range' => 5 // Số button trang bạn muốn hiển thị 
                 );
-                require_once (DIR_CLASS . 'pagination.php');
+                require_once(DIR_CLASS . 'pagination.php');
                 $paging = new Pagination();
                 $paging->init($config);
                 echo $paging->html();
@@ -86,5 +83,3 @@ get_header();
 </div>
 <?php
 get_footer();
-ob_flush();   // neu bao loi PHP Warning: Cannot modify header information ??headers already sent by
-?>

@@ -2,9 +2,6 @@
 /*
   Template Name: News
  */
-?>
-<?php
-ob_start();  // neu bao loi PHP Warning: Cannot modify header information ??headers already sent by
 get_header();
 ?>
  <div id="silder"><?php get_template_part('template/template', 'silder'); ?></div>
@@ -86,5 +83,3 @@ get_header();
 </div>
 <?php
 get_footer();
-ob_flush();   // neu bao loi PHP Warning: Cannot modify header information ??headers already sent by
-?>

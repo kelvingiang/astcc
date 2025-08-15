@@ -15,6 +15,8 @@
 
             if (has_post_thumbnail()) {
                 $imgUrl = get_the_post_thumbnail_url();
+            }else{
+                $imgUrl = PART_IMAGES . 'no-person.png';
             }
 
     ?>

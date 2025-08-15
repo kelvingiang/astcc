@@ -41,6 +41,8 @@
 
                 if (has_post_thumbnail()) {
                     $imgUrl = get_the_post_thumbnail_url();
+                }else {
+                    $imgUrl = PART_IMAGES . 'no-person.png';
                 }
 
         ?>
@@ -63,45 +65,6 @@
     </div>
 </div>
 
-<div class="info-bg " style="background-color: #f7f7f7; border-color:#f7f7f7">
-    <div class="president_previous">
-
-        <?php
-        $arr = array(
-            'post_type' => 'supervisor',
-            'post_status' => 'publish',
-            'supervisor_cate' => 'previous',
-            'orderby' => 'meta_value_num',
-            'order' => 'DESC',
-            'meta_key' => '_show_order',
-        );
-        $wp_query = new WP_Query($arr);
-        if ($wp_query->have_posts()):
-            while ($wp_query->have_posts()):
-                $wp_query->the_post();
-
-                if (has_post_thumbnail()) {
-                    $imgUrl = get_the_post_thumbnail_url();
-                }
-
-        ?>
-                <div class="president_previous_item">
-                    <div class="president_item_img">
-                        <img src="<?php echo $imgUrl ?>" alt="ssss" />
-                    </div>
-
-                    <div class="president_previous_item_link">
-                        <p class="title"> <?php the_title() ?></p>
-                        <p class="job"><?php echo get_post_meta($post->ID, '_metabox_job_title', true) ?></p>
-                    </div>
-
-                </div>
-        <?php
-            endwhile;
-        endif;
-        ?>
-
-    </div>
-</div>
+<?php get_template_part('template/template', 'group-supervisor'); ?>
 
 <?php get_footer(); ?>
