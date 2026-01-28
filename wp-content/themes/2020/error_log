@@ -1,0 +1,84 @@
+[28-Nov-2021 06:44:06 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/index.php on line 3
+[28-Nov-2021 06:44:08 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/index.php on line 3
+[15-Dec-2021 19:39:47 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/404.php on line 1
+[17-Dec-2021 16:12:17 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/404.php on line 1
+[19-Dec-2021 08:50:33 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/404.php on line 1
+[21-Dec-2021 04:56:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/404.php on line 1
+[23-Dec-2021 22:10:13 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/404.php on line 1
+[26-Dec-2021 15:25:48 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/404.php on line 1
+[04-Jan-2022 10:01:49 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/404.php on line 1
+[07-Jan-2022 12:10:32 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/404.php on line 1
+[09-Jan-2022 03:14:49 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/404.php on line 1
+[10-Jan-2022 21:46:19 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/404.php on line 1
+[12-Jan-2022 15:38:42 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/404.php on line 1
+[26-May-2022 00:22:20 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/index.php on line 3
+[18-Jun-2022 19:38:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/404.php on line 1
+[23-Jun-2022 19:39:51 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/404.php on line 1
+[12-Apr-2023 02:26:46 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/index.php on line 3
+[16-Apr-2024 02:58:19 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/index.php on line 3
+[03-Sep-2024 17:23:50 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/index.php on line 3
+[04-Sep-2024 08:05:25 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/index.php on line 3
+[08-Jul-2025 06:25:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/astccne1/public_html/wp-content/themes/2020/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/astccne1/public_html/wp-content/themes/2020/index.php on line 3

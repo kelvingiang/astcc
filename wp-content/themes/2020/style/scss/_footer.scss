@@ -1,0 +1,39 @@
+#footer {
+    background-color: rgba(222, 66, 5, 0.8);
+    display: block;
+    .footer-content {
+        color: white;
+        margin: 0 1rem;
+        padding: 2rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        @include Respond(lg) {
+            flex-direction: row;
+        }
+        @include Respond(md) {
+            flex-direction: column;
+        }
+        @include Respond(sm) {
+            flex-direction: column;
+        }
+        .content-contact {
+            div {
+                font-size: 15px;
+                margin: 1rem;
+            }
+        }
+        .content-count {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .online-count {
+                font-size: 15px;
+            }
+            .copy-right {
+                font-size: 15px;
+                color: #969696;
+            }
+        }
+    }
+}
