@@ -5,16 +5,16 @@
     <title>亞洲台灣商會聯合總會</title>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width">
-    <link type="image/x-icon" href="/favicon.ico" rel="icon"> <!-- icon show on web title -->
-    <link type="image/x-icon" href="/favicon.ico" rel="shortcut icon" />
 
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
     <!-- B--- phan cho bootstrap -->
     <link href="//www.google-analytics.com" rel="dns-prefetch">
 
-    <link href="<?php echo get_template_directory_uri(); ?>/images/favicon.ico" rel="shortcut icon">
-    <link href="<?php echo get_template_directory_uri(); ?>/images/touch.png" rel="apple-touch-icon-precomposed">
+    <link rel="icon" href="<?php echo get_template_directory_uri(); ?>/images/favicon.ico?v=2" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/images/favicon.ico?v=2" type="image/x-icon">
+
+    <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/images/touch.png?v=2">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

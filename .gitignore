@@ -35,6 +35,8 @@ error_log
 !/wp-content/themes/2020/**
 
 # --- 6. 開發工具與系統快取 ---
+.DS_Store
+.DS_Store?
 /css/
 /et-cache/
 /data/*

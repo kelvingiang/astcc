@@ -79,7 +79,11 @@ if (function_exists('add_theme_support'))
     add_theme_support('automatic-feed-links');
 
     // Localisation Support
+    // load_theme_textdomain('html5blank', get_template_directory() . '/languages');
+
+    add_action('after_setup_theme', function() {
     load_theme_textdomain('html5blank', get_template_directory() . '/languages');
+});
 }
 
 /*------------------------------------*\
