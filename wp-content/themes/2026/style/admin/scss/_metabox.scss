@@ -1,0 +1,40 @@
+/* 
+    Document   : metabox
+    Created on : 2016/4/12, 下午 01:59:53
+    Author     : Administrator
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/*root { 
+    display: block;
+}*/
+
+h2.hndle{
+    font-size: 15px !important;
+}
+
+.mightway-mb-wrap{
+overflow-x:  auto;    
+}
+
+.mightway-mb-wrap label{
+    display: block;
+    font-weight:  bold;
+    margin-bottom: 3px;
+}
+
+.txt_input{
+    width: 88%;
+    height: 40px;
+}
+
+.title_text{
+    font-size: 14px;
+    font-weight:  bold;
+}
+
+.title_text i{
+    font-size: 10px;
+    color: #999;
+}

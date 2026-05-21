@@ -31,8 +31,8 @@ error_log
 
 
 # --- 5. [關鍵] 保留你的開發項目 ---
-!/wp-content/themes/2020/
-!/wp-content/themes/2020/**
+!/wp-content/themes/2026/
+!/wp-content/themes/2026/**
 
 # --- 6. 開發工具與系統快取 ---
 .DS_Store
