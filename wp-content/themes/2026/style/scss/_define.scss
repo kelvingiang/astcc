@@ -1,2 +1,49 @@
+// System variables & Design Tokens for Aether Digital
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
 $mainColor: rgb(2, 58, 122);
 $linkColor: rgb(148, 72, 2);
+
+
+// Colors
+$bg-dark: #f8fafc;
+$bg-space: #f1f5f9;
+$bg-card: rgba(255, 255, 255, 0.7);
+$border-color: rgba(15, 23, 42, 0.08);
+
+// Glow and neon effects
+$color-primary: #2563eb;      // Modern Tech Blue
+$color-secondary: #0d9488;    // Deep Teal
+$color-accent: #059669;       // Emerald Green (darker for contrast)
+$color-warning: #ea580c;
+
+// Text colors
+$text-primary: #0f172a;
+$text-secondary: #475569;
+$text-muted: #94a3b8;
+
+// Gradients
+$gradient-hero: linear-gradient(135deg, #2563eb 0%, #06b6d4 50%, #0d9488 100%);
+$gradient-card: linear-gradient(135deg, rgba(37, 99, 235, 0.02) 0%, rgba(13, 148, 136, 0.02) 100%);
+$gradient-dark: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+
+// Fonts
+$font-primary: 'Outfit', sans-serif;
+
+// Responsive breakpoints
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 992px;
+$breakpoint-lg: 1200px;
+
+// Shadows & Blur
+$glass-blur: blur(12px);
+$shadow-glow: 0 10px 30px -10px rgba(37, 99, 235, 0.15);
+$shadow-purple: 0 10px 30px -10px rgba(13, 148, 136, 0.12);
+$shadow-emerald: 0 10px 30px -10px rgba(5, 150, 105, 0.12);
+$shadow-card: 0 20px 40px -15px rgba(15, 23, 42, 0.06);
+
+// Transitions
+$transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-normal: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);

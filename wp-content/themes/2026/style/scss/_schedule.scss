@@ -1,3 +1,6 @@
+@use "./define.scss" as *;
+@use "./responsive.scss" as *;
+
 .my_month {
     height: 50px;
     background-color: #286090;

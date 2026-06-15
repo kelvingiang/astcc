@@ -654,3 +654,80 @@ h1 a { background-image:url(' . WP_CONTENT_URL . '/themes/blank/images/logo.png)
 }
 
 add_action('login_head', 'custom_login_logo');
+
+
+
+// Thêm vào cuối tệp functions.php của theme 2026
+
+function astcc_enqueue_news_script() {
+    // Chỉ tải script này trên trang sử dụng template 'page/news.php'
+    if ( is_page_template('page/news.php') ) {
+        wp_enqueue_script(
+            'infinite-scroll',
+            get_template_directory_uri() . '/js/infinite-scroll.js',
+            array('jquery'),
+            '1.0',
+            true
+        );
+
+        // Lấy tổng số bài viết để biết khi nào dừng tải
+        $news_query = new WP_Query(array(
+            'post_type' => 'post',
+            'post_status' => 'publish',
+            'category_name' => 'news',
+            'posts_per_page' => -1,
+        ));
+        $total_posts = $news_query->found_posts;
+        wp_reset_postdata();
+
+        // Truyền biến tới JavaScript
+        wp_localize_script(
+            'infinite-scroll',
+            'news_load_params',
+            array(
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('load_more_posts_nonce'),
+                'total_posts' => $total_posts,
+                'initial_posts' => 5, // Số bài viết tải ban đầu
+                'posts_per_page' => 2,   // Số bài viết tải mỗi lần cuộn
+            )
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'astcc_enqueue_news_script');
+
+// Hàm xử lý AJAX để tải thêm bài viết
+function astcc_load_more_news_posts() {
+    check_ajax_referer('load_more_posts_nonce', 'nonce');
+
+    // Đọc trực tiếp offset và limit từ yêu cầu AJAX
+    $offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
+    $limit = isset($_POST['limit']) ? intval($_POST['limit']) : 2;
+
+    $args = array(
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'category_name' => 'news',
+        'posts_per_page' => $limit,
+        'offset' => $offset,
+        'orderby' => 'ID',
+        'order' => 'DESC',
+    );
+
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            ?>
+            <div class="article_item">
+                <a href="<?php the_permalink(); ?>"><?php the_title() ?></a>
+                <div><?php echo get_the_content(); ?></div>
+            </div>
+            <?php
+        }
+    }
+    wp_die(); // Bắt buộc phải có để kết thúc AJAX đúng cách
+}
+add_action('wp_ajax_load_more_news_posts', 'astcc_load_more_news_posts');
+add_action('wp_ajax_nopriv_load_more_news_posts', 'astcc_load_more_news_posts');

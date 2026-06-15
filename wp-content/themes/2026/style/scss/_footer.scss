@@ -1,39 +1,113 @@
+@use "./define.scss" as *;
+@use "./responsive.scss" as *;
+
 #footer {
-    background-color: rgba(222, 66, 5, 0.8);
-    display: block;
-    .footer-content {
-        color: white;
-        margin: 0 1rem;
-        padding: 2rem;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        @include Respond(lg) {
-            flex-direction: row;
+    // Sử dụng nền sáng, hiệu ứng kính mờ (glassmorphism) để đồng bộ với thiết kế chung
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 -10px 40px -15px rgba(15, 23, 42, 0.05);
+
+    color: #475569; // Màu chữ chính (slate-600)
+    padding: 4rem 0 2rem;
+    font-size: 1rem;
+    margin-top: 5rem;
+    line-height: 1.7;
+
+    // Thuộc tính cho hiệu ứng animation
+    opacity: 0;
+    transform: translateY(50px); // Bắt đầu ở vị trí thấp hơn 50px
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+
+    // Class được thêm bằng JavaScript khi footer xuất hiện trong màn hình
+    &.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .footer-container {
+        width: 100%;
+        max-width: 90%; // Giống với section#services
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    .footer-top {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 3rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.1); // Đường viền mờ hơn
+    }
+
+    .footer-heading {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #0f172a; // Màu tiêu đề đậm (slate-900)
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.75rem;
+
+        // Hiệu ứng gạch chân cho tiêu đề
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #2563eb, #06b6d4);
         }
-        @include Respond(md) {
-            flex-direction: column;
+    }
+
+    .footer-col {
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
-        @include Respond(sm) {
-            flex-direction: column;
-        }
-        .content-contact {
-            div {
-                font-size: 15px;
-                margin: 1rem;
-            }
-        }
-        .content-count {
+
+        li {
+            margin-bottom: 1rem;
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            .online-count {
-                font-size: 15px;
+            align-items: flex-start;
+
+            i {
+                margin-right: 1rem;
+                color: #2563eb; // Màu icon xanh đậm (blue-600)
+                margin-top: 5px;
+                min-width: 18px;
+                text-align: center;
+                font-size: 1.1rem;
             }
-            .copy-right {
-                font-size: 15px;
-                color: #969696;
+        }
+
+        a {
+            color: #475569; // Màu link giống màu chữ chính
+            text-decoration: none;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: #0f172a; // Đậm hơn khi hover
+                text-decoration: underline;
             }
+        }
+    }
+    
+    .footer-about p {
+        color: #64748b; // Màu chữ phụ (slate-500)
+    }
+
+    .footer-bottom {
+        padding-top: 2.5rem;
+        text-align: center;
+        font-size: 0.9rem;
+        color: #64748b; // Màu chữ bản quyền (slate-500)
+        
+        p {
+            margin: 0;
+            line-height: 1.8;
         }
     }
 }

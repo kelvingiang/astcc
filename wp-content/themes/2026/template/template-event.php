@@ -1,153 +1,88 @@
-    <div id="news-home" class="animation-item">
-        <div class="news-home-title">
-            <div class="title-first title-select" onclick=" ChangSelect('.title-first', '.content-first')">
-                <h3>亞總最新消息</h3>
-            </div>
-            <div class="title-second" onclick="ChangSelect('.title-second', '.content-second')">
-                <h3>各會員國最新消息</h3>
-            </div>
-            <div class="title-third" onclick="ChangSelect('.title-third', '.content-third')">
-                <h3>青商會最新消息</h3>
-            </div>
-            <div class="title-fourth" onclick="ChangSelect('.title-fourth', '.content-fourth')">
-                <h3>會務資料</h3>
+    <div id="news-home">
+        <div class="news-home-header">
+            <h2 class="section-title">最新消息</h2>
+            <?php
+            // 2026-06-09: 將頁籤配置定義為單一數據源
+            $tabs = array(
+                'tab-first' => array(
+                    'title' => '亞總最新消息',
+                    'cat' => 'news',
+                    'link_suffix' => ''
+                ),
+                'tab-second' => array(
+                    'title' => '各會員國最新消息',
+                    'cat' => 'member',
+                    'link_suffix' => ''
+                ),
+                'tab-third' => array(
+                    'title' => '青商會最新消息',
+                    'cat' => 'young',
+                    'link_suffix' => ''
+                ),
+                'tab-fourth' => array(
+                    'title' => '會務資料',
+                    'cat' => 'conferen',
+                    'link_suffix' => '/?cate=guidelines'
+                )
+            );
+            // 2026-06-09: 獲取第一個頁籤的鍵以將其設置為活動狀態。增加對舊版 PHP 的兼容性。
+            $first_tab_id = function_exists('array_key_first') ? array_key_first($tabs) : (empty($tabs) ? null : array_keys($tabs)[0]);
+            ?>
+            <div class="news-home-tabs">
+                <?php foreach ($tabs as $tab_id => $tab_data) : ?>
+                    <button class="tab-btn <?php echo ($tab_id === $first_tab_id) ? 'active' : ''; ?>" onclick="switchNewsTab('<?php echo esc_attr($tab_id); ?>', this)">
+                        <?php echo esc_html($tab_data['title']); ?>
+                    </button>
+                <?php endforeach; ?>
             </div>
         </div>
 
-        <div class="news-home-content">
-            <div class="content-first content-select">
-                <div class="content-list">
-                    <?php
-                    $newArr = array(
-                        'post_type' => 'post',
-                        'posts_per_page' => 10,
-                        'category_name' => 'news',
-                        'orderby' => 'meta_value_num',
-                        'order' => 'DESC',
-                        'meta_key' => '_show_order',
-                        // 'orderby'        => 'ID',    // 按照 ID 排序
-                        // 'order'          => 'DESC',  // DESC 为倒序（从大到小），ASC 为正序（从小到大）
-                    );
-                    $newQuery = new WP_Query($newArr);
-                    if ($newQuery->have_posts()) {
-                        while ($newQuery->have_posts()) {
-                            $newQuery->the_post();
-                    ?>
-                            <div>
-                                <div><a class="news-link" href="<?php echo get_the_permalink() ?>"><?php the_title(); ?></a></div>
-                                <div><?php echo get_the_date('Y-m-d', get_the_ID()) ?></div>
-                            </div>
-                    <?php
-                        }
-                    }
-                    wp_reset_postdata();
-                    ?>
-                </div>
-            </div>
-
-            <div class="content-second">
-                <div class="content-list">
-                    <?php
-                    $memberArr = array(
-                        'post_type' => 'post',
-                        'posts_per_page' => 10,
-                        'category_name' => 'member',
-                        // 'orderby'        => 'ID',    // 按照 ID 排序
-                        // 'order'          => 'DESC',  // DESC 为倒序（从大到小），ASC 为正序（从小到大）
-                        'orderby' => 'meta_value_num',
-                        'order' => 'DESC',
-                        'meta_key' => '_show_order',
-                    );
-                    $memberQuery = new WP_Query($memberArr);
-                    if ($memberQuery->have_posts()) {
-                        while ($memberQuery->have_posts()) {
-                            $memberQuery->the_post();
-                    ?>
-                            <div>
-                                <div><a class="news-link" href="<?php echo get_the_permalink() ?>"><?php the_title(); ?></a></div>
-                                <div><?php echo get_the_date('Y-m-d', get_the_ID()) ?></div>
-                            </div>
-                    <?php
-                        }
-                    }
-                    wp_reset_postdata();
-                    ?>
-                </div>
-            </div>
-
-            <div class="content-third">
-                <div class="content-list">
-                    <?php
-                    $youngArr = array(
-                        'post_type' => 'post',
-                        'posts_per_page' => 10,
-                        'category_name' => 'young',
-                        // 'orderby'        => 'ID',    // 按照 ID 排序
-                        // 'order'          => 'DESC',  // DESC 为倒序（从大到小），ASC 为正序（从小到大）
-                        'orderby' => 'meta_value_num',
-                        'order' => 'DESC',
-                        'meta_key' => '_show_order',
-                    );
-                    $youngQuery = new WP_Query($youngArr);
-                    if ($youngQuery->have_posts()) {
-                        while ($youngQuery->have_posts()) {
-                            $youngQuery->the_post();
-                    ?>
-                            <div>
-                                <div> <a class="news-link" href="<?php echo get_the_permalink() ?>"><?php the_title(); ?></a></div>
-                                <div><?php echo get_the_date('Y-m-d', get_the_ID()) ?></div>
-                            </div>
-                    <?php
-                        }
-                    }
-                    wp_reset_postdata();
-                    ?>
-                </div>
-            </div>
-
-            <div class="content-fourth">
-                <div class="content-list">
-                    <?php
-                    $condArr = array(
-                        'post_type' => 'post',
-                        'posts_per_page' => 10,
-                        'category_name' => 'conferen',
-                        // 'orderby'        => 'ID',    // 按照 ID 排序
-                        // 'order'          => 'DESC',  // DESC 为倒序（从大到小），ASC 为正序（从小到大）
-                        'orderby' => 'meta_value_num',
-                        'order' => 'DESC',
-                        'meta_key' => '_show_order',
-                    );
-                    $condQuery = new WP_Query($condArr);
-                    if ($condQuery->have_posts()) {
-                        while ($condQuery->have_posts()) {
-                            $condQuery->the_post();
-                    ?>
-                            <div>
-                                <div><a class="news-link" href="<?php echo get_the_permalink() . '/?cate=guidelines' ?>"><?php the_title(); ?></a></div>
-                                <div><?php echo get_the_date('Y-m-d', get_the_ID()) ?></div>
-                            </div>
-                    <?php
-                        }
-                    }
-                    wp_reset_postdata();
-                    ?>
-                </div>
-            </div>
+        <div class="news-home-body">
+            <?php foreach ($tabs as $tab_id => $tab_data) : ?>
+                <?php
+                $query = new WP_Query(array(
+                    'post_type' => 'post',
+                    'posts_per_page' => 5,
+                    'category_name' => $tab_data['cat'],
+                    'orderby' => 'date',
+                    'order' => 'DESC',
+                ));
+                ?>
+                <div id="<?php echo esc_attr($tab_id); ?>" class="news-tab-content <?php echo ($tab_id === $first_tab_id) ? 'active' : ''; ?>">
+                    <div class="news-list">
+                        <?php if ($query->have_posts()) : ?>
+                            <?php while ($query->have_posts()) : $query->the_post(); ?>
+                                <a href="<?php echo esc_url(get_the_permalink() . $tab_data['link_suffix']); ?>" class="news-item">
+                                    <div class="news-date">
+                                        <span class="day"><?php echo get_the_date('d'); ?></span>
+                                        <span class="month-year"><?php echo get_the_date('Y-m'); ?></span>
+                                    </div>
+                                    <div class="news-info">
+                                        <h4 class="news-title"><?php echo esc_html(get_the_title()); ?></h4>
+                                        <span class="news-readmore">閱讀更多 <i class="fa fa-angle-right"></i></span>
+                                    </div>
+                                </a>
+                            <?php endwhile; ?>
+                        <?php else : ?>
+                            <p class='no-news'>目前沒有最新消息。</p>
+                        <?php endif; ?>
+                    </div><!-- .news-list -->
+                    <?php wp_reset_postdata(); ?>
+                </div><!-- .news-tab-content -->
+            <?php endforeach; ?>
         </div>
     </div>
 
     <script>
-        jQuery(document).ready(function() {});
+        function switchNewsTab(tabId, btn) {
+            // 2026-06-09: 更新按鈕
+            const buttons = btn.parentElement.querySelectorAll('.tab-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
 
-        function ChangSelect(titleSelect, contentSelect) {
-            jQuery(titleSelect).parents().siblings('.news-home-content').children().removeClass('content-select');
-
-            jQuery(titleSelect).siblings().removeClass('title-select');
-
-            jQuery(titleSelect).addClass('title-select');
-
-            jQuery(titleSelect).parents().siblings('.news-home-content').children(contentSelect).addClass('content-select');
-
+            // 2026-06-09: 更新內容
+            const contents = document.querySelector('.news-home-body').querySelectorAll('.news-tab-content');
+            contents.forEach(c => c.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
         }
     </script>

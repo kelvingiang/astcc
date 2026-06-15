@@ -8,17 +8,17 @@ function suite_style()
     wp_register_style('main-style', get_template_directory_uri() . '/style.css', 'all');
     wp_enqueue_style('main-style');
 
-    wp_register_style('bootstrap', get_template_directory_uri() . '/style/bootstrap.min4.0.css', 'all');
-    wp_enqueue_style('bootstrap');
+    // wp_register_style('bootstrap', get_template_directory_uri() . '/style/bootstrap.min4.0.css', 'all');
+    // wp_enqueue_style('bootstrap');
 
-    wp_register_style('bootstrap-grid', get_template_directory_uri() . '/style/bootstrap-grid.min4.0.css', 'all');
-    wp_enqueue_style('bootstrap-grid');
+    // wp_register_style('bootstrap-grid', get_template_directory_uri() . '/style/bootstrap-grid.min4.0.css', 'all');
+    // wp_enqueue_style('bootstrap-grid');
 
-    wp_register_style('bootstrap-reboot', get_template_directory_uri() . '/style/bootstrap-reboot.min4.0.css', 'all');
-    wp_enqueue_style('bootstrap-reboot');
+    // wp_register_style('bootstrap-reboot', get_template_directory_uri() . '/style/bootstrap-reboot.min4.0.css', 'all');
+    // wp_enqueue_style('bootstrap-reboot');
 
-    wp_register_style('font-awesome', get_template_directory_uri() . '/style/font-awesome.min.css', 'all');
-    wp_enqueue_style('font-awesome');
+    // wp_register_style('font-awesome', get_template_directory_uri() . '/style/font-awesome.min.css', 'all');
+    // wp_enqueue_style('font-awesome');
 
     wp_register_style('my-style', get_template_directory_uri() . '/style/my.css', 'all');
     wp_enqueue_style('my-style');
@@ -104,11 +104,11 @@ function admin_style()
     wp_register_style('product-style', get_template_directory_uri() . '/style/admin/admin-style.css', FALSE, '1.0.0');
     wp_enqueue_style('product-style');
 
-    wp_register_style('jquery-ui', get_template_directory_uri() . '/style/jquery-ui.min.css', 'all');
-    wp_enqueue_style('jquery-ui');
+    // wp_register_style('jquery-ui', get_template_directory_uri() . '/style/jquery-ui.min.css', 'all');
+    // wp_enqueue_style('jquery-ui');
 
-    wp_register_script('jquery-ui', get_template_directory_uri() . '/js/jquery-ui.min.js', array('jquery'));
-    wp_enqueue_script('jquery-ui');
+    // wp_register_script('jquery-ui', get_template_directory_uri() . '/js/jquery-ui.min.js', array('jquery'));
+    // wp_enqueue_script('jquery-ui');
 
     wp_register_script('tap-script', get_template_directory_uri() . '/js/admin/tap.js', array('jquery'));
     wp_enqueue_script('tap-script');

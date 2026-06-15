@@ -1,136 +1,430 @@
-@import "./define.scss";
+@use "./define.scss" as *;
+@use "./responsive.scss" as *;
+
 #news-home {
-    min-height: 200px;
-    .news-home-title {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        div {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 20%;
-            cursor: pointer;
-            padding: 1rem 0.3rem;
-            color: rgb(136, 136, 136);
-            //  border-bottom: 2px solid #000;
-            border-radius: 5px 5px 0 0;
-            &:hover h3 {
-                transition: all 1s;
-                color: rgb(2, 58, 110);
-            }
-            @include Respond(md) {
-                padding: 0.5rem 0.1rem;
-            }
-            h3 {
-                font-weight: bold;
-                font-size: 1.8rem;
-                @include Respond(lg) {
-                    font-size: 1rem;
-                }
-                @include Respond(md) {
-                    font-size: 0.9rem;
-                }
-                @include Respond(sm) {
-                    font-size: 1.1rem;
-                }
-            }
-            @include Respond(md) {
-                width: 25%;
-            }
-            @include Respond(sm) {
-                width: 25%;
-            }
-        }
-        .title-select {
-            color: rgb(2, 58, 110);
-            background-color: rgb(238, 238, 238);
-            border-top: 1px solid #235a74;
-            border-left: 1px solid #235a74;
-            border-right: 1px solid #235a74;
-            @include Respond(md) {
-                padding: 0.5rem 0rem;
-            }
-            h3 {
-                font-weight: bold;
-            }
-        }
+  // Layout & Box Model
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0 1rem;
+
+  // Typography
+  font-family: "Outfit", sans-serif;
+
+  // Animation
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+
+  // Thuộc tính cho hiệu ứng animation khi cuộn trang
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .news-home-header {
+    // Layout & Box Model
+    margin-bottom: 2.5rem;
+    // Typography
+    text-align: center;
+
+    .section-title {
+      // Positioning
+      position: relative;
+      // Layout & Box Model
+      display: inline-block;
+      margin-bottom: 1.5rem;
+
+      // Typography
+      color: $mainColor;
+      font-size: 2.2rem;
+      font-weight: 700;
+
+      // Children & Pseudo-elements
+      span {
+        // Layout & Box Model
+        display: block;
+        margin-top: 0.5rem;
+        // Typography
+        color: #888;
+        font-size: 1rem;
+        font-weight: 400;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      &::after {
+        // Positioning
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        // Layout & Box Model
+        width: 50px;
+        height: 3px;
+        // Animation
+        transform: translateX(-50%);
+        // Visual
+        background-color: $mainColor;
+        border-radius: 2px;
+      }
+
+      // Responsive
+      @include Respond(md) {
+        font-size: 1.8rem;
+      }
     }
-    .news-home-content {
-        &>div {
-            display: none;
-            border-top: 1px solid #235a74;
-            margin-top: -1px;
-            // @include Respond(md) {
-            //     margin-top: -2px;
-            // }
-        }
-        .content-select {
-            // padding: 1rem 2rem 3rem 1rem;
-            background-color: rgb(238, 238, 238);
-            display: block;
-            .content-list {
-                display: block;
-                font-size: 5rem;
-                &>div {
-                    padding: 0.5rem;
-                    border-bottom: 1px dotted #ccc;
-                    font-weight: bold;
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-between;
-                    color: #999;
-                    @include Respond(lg) {
-                        font-size: 1rem;
-                        padding: 0.5rem 0.3rem;
-                    }
-                    @include Respond(md) {
-                        font-size: 0.9rem;
-                        padding: 0.2rem 0.2rem;
-                    }
-                    &:hover {
-                        background-color: rgb(241, 241, 241);
-                    }
-                    div:nth-child(1) {
-                        font-size: 1.6rem;
-                        @include Respond(sm) {
-                            font-size: 1.2rem;
-                            padding: 1rem 0.1rem;
-                        }
-                    }
-                    div:nth-child(2) {
-                        font-size: 1.5rem;
-                        padding-right: 1rem;
-                        @include Respond(md) {
-                            display: none;
-                        }
-                    }
-                }
-            }
-            .content-more {
-                position: absolute;
-                right: 3rem;
-                font-size: 1.2rem;
-                font-weight: bold;
-                @include Respond(lg) {
-                    font-size: 1rem;
-                }
-                @include Respond(md) {
-                    font-size: 0.9rem;
-                }
-                @include Respond(sm) {
-                    font-size: 0.7rem;
-                }
-            }
-        }
+  }
+
+  .news-home-tabs {
+    // Layout & Box Model
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+
+    .tab-btn {
+      // Layout & Box Model
+      padding: 0.6rem 1.5rem;
+      // Typography
+      color: #555;
+      font-size: 1.1rem;
+      font-weight: 600;
+      // Visual
+      background-color: transparent;
+      border: 2px solid #e0e0e0;
+      border-radius: 30px;
+      cursor: pointer;
+      // Animation
+      transition: all 0.3s ease;
+
+      // States
+      &:hover {
+        color: $mainColor;
+        background-color: #f8fbff;
+        border-color: $mainColor;
+      }
+
+      &.active {
+        color: #fff;
+        background-color: $mainColor;
+        border-color: $mainColor;
+        box-shadow: 0 4px 10px rgba(2, 58, 110, 0.2);
+      }
+
+      // Responsive
+      @include Respond(md) {
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+      }
     }
-    .news-link {
-        padding: 5px;
-        color: $linkColor;
-        text-decoration: none;
-        &:hover {
-            color: $mainColor;
-        }
+  }
+
+  .news-home-body {
+    // Layout & Box Model
+    padding: 2rem;
+    // Visual
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+    // Responsive
+    @include Respond(md) {
+      padding: 1rem;
     }
+  }
+
+  .news-tab-content {
+    // Layout & Box Model
+    display: none;
+    // Animation
+    animation: fadeInTab 0.4s ease-in-out;
+
+    // States
+    &.active {
+      display: block;
+    }
+  }
+
+  .news-list {
+    // Layout & Box Model
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+  }
+
+  .news-item {
+    // Layout & Box Model
+    display: flex;
+    align-items: center;
+    padding: 1.2rem;
+    // Typography
+    text-decoration: none;
+    // Visual
+    background-color: #fafafa;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    // Animation
+    transition: all 0.3s ease;
+
+    // States
+    &:hover {
+      background-color: #fff;
+      border-color: #e0eaff;
+      box-shadow: 0 5px 15px rgba(2, 58, 110, 0.08);
+      transform: translateY(-2px);
+
+      .news-date {
+        color: #fff;
+        background-color: $mainColor;
+
+        .month-year {
+          color: #e0eaff;
+        }
+      }
+
+      .news-title {
+        color: $mainColor;
+      }
+
+      .news-readmore {
+        color: $mainColor;
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    // Responsive
+    @include Respond(sm) {
+      padding: 0.8rem;
+    }
+  }
+
+  .news-date {
+    // Layout & Box Model
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 75px;
+    height: 75px;
+    margin-right: 1.5rem;
+    flex-direction: column;
+    flex-shrink: 0;
+    // Typography
+    color: $mainColor;
+    // Visual
+    background-color: #f0f4f8;
+    border-radius: 10px;
+    // Animation
+    transition: all 0.3s ease;
+
+    .day {
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .month-year {
+      margin-top: 4px;
+      color: #666;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    // Responsive
+    @include Respond(sm) {
+      width: 60px;
+      height: 60px;
+      margin-right: 1rem;
+
+      .day {
+        font-size: 1.4rem;
+      }
+
+      .month-year {
+        font-size: 0.7rem;
+      }
+    }
+  }
+
+  .news-info {
+    // Layout & Box Model
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+
+    // Responsive
+    @include Respond(md) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+
+  .news-title {
+    // Layout & Box Model
+    display: -webkit-box;
+    margin: 0;
+    padding-right: 1rem;
+    overflow: hidden;
+    // Typography
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.4;
+    // Animation
+    transition: color 0.3s ease;
+    // Webkit specific
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
+    // Responsive
+    @include Respond(md) {
+      padding-right: 0;
+      font-size: 1.1rem;
+    }
+  }
+
+  .news-readmore {
+    // Layout & Box Model
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    // Typography
+    color: #888;
+    font-size: 0.95rem;
+    font-weight: 600;
+    white-space: nowrap;
+    // Animation
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+
+    // Responsive
+    @include Respond(md) {
+      font-size: 0.85rem;
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .no-news {
+    // Layout & Box Model
+    padding: 2rem;
+    // Typography
+    color: #888;
+    font-style: italic;
+    text-align: center;
+  }
+}
+
+@keyframes fadeInTab {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ==========================================
+// 3. SERVICES SECTION
+// ==========================================
+#services {
+  // Layout & Box Model
+  /* Giới hạn chiều rộng của toàn bộ section là 80% và căn ra giữa */
+  width: 100%;
+  max-width: 90%;
+  margin: 3rem auto 0;
+
+  .services-grid {
+    // Layout & Box Model
+    display: flex;
+    justify-content: center;
+    gap: 2.25rem;
+    padding-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .service-card {
+    // Positioning
+    position: relative;
+    // Layout & Box Model
+    flex: 0 0 320px;
+    min-height: 450px;
+    padding: 0.5rem 0.5rem 7rem;
+    overflow: hidden;
+    // Typography
+    text-align: center;
+    // Visual
+    // Giảm độ đậm của nền
+    background: linear-gradient(145deg, #e5e5e6, #bfbfc0); // Gradient màu slate (sáng hơn)
+    border: 1px solid #fcfcfc; // Border màu slate-700
+    border-radius: 24px;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.2);
+    // Animation
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    // States
+    &:hover {
+      border-color: #a3a3a3; // Border màu xám sáng (slate-400)
+      box-shadow:
+        0 30px 60px -15px rgba(0, 0, 0, 0.3),
+        0 0 40px -10px rgba(148, 163, 184, 0.2); // Shadow đen đậm hơn và glow màu xám
+      transform: translateY(-10px); // Đổi màu border và shadow khi hover
+    }
+
+    .card-bg-gradient {
+      display: none;
+    }
+
+    .home_president_current_item_img {
+      // Layout & Box Model
+      width: 100%;
+      margin: 0 auto 0.5rem auto;
+
+      img {
+        // Layout & Box Model
+        display: block;
+        width: 100%;
+        height: auto;
+        // Visual
+        border: 3px solid rgba(255, 255, 255, 0.1); // Thêm viền cho ảnh
+        border-radius: 18px; // Bo tròn góc ảnh cho mềm mại
+      }
+    }
+
+    .home_president_current_item_name {
+      // Positioning
+      position: absolute;
+      right: 2.5rem;
+      bottom: 4rem;
+      left: 2.5rem;
+      // Layout & Box Model
+      margin: 0;
+      // Typography
+      color: #ffffff; // Màu chữ sáng (slate-200)
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .home_president_current_item_description {
+      // Positioning
+      position: absolute;
+      right: 2.5rem;
+      bottom: 1rem;
+      left: 2.5rem;
+      // Layout & Box Model
+      margin: 0;
+      // Typography
+      color: $mainColor; // Màu chữ trắng nổi bật
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+  }
 }

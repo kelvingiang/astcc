@@ -1,4 +1,6 @@
-@import "./define.scss";
+@use "./define.scss" as *;
+@use "./president.scss" as *;
+
 .content-style {
     font-size: 18px;
 }

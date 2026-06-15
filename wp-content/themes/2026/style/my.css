@@ -244,37 +244,6 @@ input[name="s"] {
 
 /* CAC PHAN CUA HEAD TITLE CHO MOI TITLE CO HINH BACKGROUIP */
 
-div.head-title {
-    height: 75px;
-    margin-left: -38px;
-    background-color: transparent;
-    background-image: url("images/bg-head.png");
-    background-repeat: no-repeat;
-    position: relative;
-    margin-bottom: 30px;
-}
-
-div.title {
-    background-color: #ff8003;
-    margin-top: 17px;
-    margin-left: 20px;
-    height: 49px;
-    position: absolute;
-    border-radius: 0 3px 3px 0;
-    box-shadow: 5px 5px 5px #c9c9c9;
-    min-width: 40%;
-    width: 70%;
-}
-
-h2.head {
-    font-weight: bold;
-    padding-left: 5%;
-    padding-right: 0%;
-    letter-spacing: 3px;
-    color: white;
-    font-size: 1.8em;
-    margin-top: 15px;
-}
 
 
 /*-B--------------------- phan dialog  pupop---------------------------------------------------------*/
@@ -393,57 +362,6 @@ textarea#comment {
 }
 
 
-/*==============begin  article==============================================================*/
-
-.add-article div {
-    padding-top: 15px;
-}
-
-ul.article-list {
-    /* border-bottom: 1px #AAAAAA solid;
-     border-top : 1px #AAAAAA solid;*/
-    margin-bottom: 30px;
-}
-
-.article-list li {
-    line-height: 2.5;
-}
-
-ul.article-list li:hover {
-    background-color: #e0fff8;
-}
-
-.article-list li:nth-child(even) {
-    /*  height: 40px;*/
-    border-bottom: 1px #d8d8d8 dotted;
-    background-color: #f9f9f9;
-}
-
-.article-list li:nth-child(odd) {
-    /* height: 40px;*/
-    border-bottom: 1px #d8d8d8 dotted;
-    background-color: #ffffff;
-}
-
-.article-list li a {
-    margin-left: 20px;
-    display: block;
-    font-size: 13px;
-    font-weight: bold;
-    color: #aaaaaa;
-}
-
-.article-list li a:hover {
-    color: #666666;
-    text-decoration: none;
-}
-
-.article-list li a::before {
-    /*content: '*';*/
-}
-
-
-/*==============end  article==============================================================
 
 
 
@@ -547,6 +465,7 @@ ul.article-list li:hover {
     width: 100%;
     position: absolute;
     overflow: hidden;
+    z-index: 1000000;
 }
 
 #back-top {

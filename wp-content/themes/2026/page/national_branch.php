@@ -4,14 +4,14 @@
  */
 get_header();
 ?>
-<div class="row my-row">
-    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 ">
+<div class="astcc-page-container">
+    <div class="main-content">
         <div class='head-title'>
             <div class="title">
                 <h2 class="head"><?php _e('National Branch') ?></h2>
             </div>
         </div>
-        <div class="info-bg" style="color: #515151; display: block;  border-radius:  5px; padding:  10px ">
+        <div class="branch-list">
             <?php
             $arrArgs = array(
                 'post_type' => 'branch',
@@ -43,7 +43,7 @@ get_header();
 
             foreach ($new_arr_cate as $cate_val) {
             ?>
-                <div style="border-bottom: 2px #fff solid; margin-bottom: 10px;">
+                <div>
                     <div class="country"> <?php echo $cate_val['name']; ?> <i class="fa fa-angle-double-down"></i></div>
                     <div class="branch">
                         <?php
@@ -60,7 +60,7 @@ get_header();
                                 $wp_query->the_post();
                         ?>
                                 <div class="branch-item">
-                                    <a href="<?php echo get_post_meta($post->ID, '_metabox_website', true); ?>" target="_blank">
+                                    <a href="<?php echo get_post_meta(get_the_ID(), '_metabox_website', true); ?>" target="_blank">
                                         <?php the_title() ?>
                                     </a>
                                 </div>
@@ -73,26 +73,31 @@ get_header();
             <?php } ?>
         </div>
     </div>
-    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+    <div class="sidebar-area">
         <?php get_sidebar() ?>
     </div>
 </div>
 <script type="text/javascript" language="javascript">
     jQuery(document).ready(function() {
-        jQuery('.branch').first().css("display", "block");
-        jQuery('.branch').first().siblings('.country').children('i').addClass('fa-angle-double-up');
-        jQuery('.branch').first().siblings('.country').children('i').removeClass('fa-angle-double-down');
+        // Initialize the first branch to be open and active
+        jQuery('.branch').first().slideDown('slow');
+        jQuery('.branch').first().siblings('.country').addClass('active');
 
         jQuery('.country').click(function() {
-            jQuery(".branch").slideUp('30');
-            jQuery('.country').children('i').removeClass('fa-angle-double-up');
-            jQuery('.country').children('i').addClass('fa-angle-double-down');
+            var $thisCountry = jQuery(this);
+            var $thisBranch = $thisCountry.siblings(".branch");
 
-            var contentDisplay = jQuery(this).siblings(".branch").css('display');
+            // Close all other branches and remove their active state
+            jQuery(".branch").not($thisBranch).slideUp('fast');
+            jQuery('.country').not($thisCountry).removeClass('active');
+
+            var contentDisplay = $thisBranch.css('display');
             if (contentDisplay === 'none') {
-                jQuery(this).siblings(".branch").slideDown('slow');
-                jQuery(this).children('i').removeClass('fa-angle-double-down');
-                jQuery(this).children('i').addClass('fa-angle-double-up');
+                $thisBranch.slideDown('slow');
+                $thisCountry.addClass('active');
+            } else {
+                $thisBranch.slideUp('slow');
+                $thisCountry.removeClass('active');
             }
         });
 

@@ -11,26 +11,65 @@
         <img src="<?php echo get_image('loading_pr2.gif') ?>" style=" width: 150px" />
     </div>
     <div id="header">
-        <div id="logo">
+        <div id="header-wrap">
             <a href="<?php echo home_url() ?>">
-                <img src="<?php echo get_image('astcc-logo.png') ?>" class="logo-img" alt="ctcvn_logo" title="ctcvn_logo" />
+                <img src="<?php echo get_image('astcc-logo.png') ?>"
+                    class="logo-img"
+                    alt="ctcvn_logo"
+                    title="ctcvn_logo" />
             </a>
 
-            <div>
-                <label>亞 洲 台 灣 商 會 聯 合 總 會 </label><br>
-                <label>ASIA TAIWANESE CHAMBERS OF COMMERCE</label>
+            <div class="header-text">
+                <h1>亞洲台灣商會聯合總會</h1>
+                <h2>ASIA TAIWANESE CHAMBERS OF COMMERCE</h2>
             </div>
         </div>
-        <div id="login">
-            <!--<h1> <i class="fa fa-sign-in" aria-hidden="true"></i>會員登入</h1>-->
+
+        <div id="menu-main"><?php suite_menu('primary-menu') ?></div>
+
+        <div id="menu-second">
+            <a href="<?php echo home_url() ?>">
+                <img src="<?php echo get_image('astcc-logo.png') ?>"
+                    class="logo-img"
+                    alt="ctcvn_logo"
+                    title="ctcvn_logo" />
+            </a>
+            <?php suite_menu('primary-menu') ?>
+
+        </div>
+
+
+        <div>
+            <?php get_template_part('template/template', 'mobile-menu'); ?>
         </div>
     </div>
-
-    <div id="menu"><?php suite_menu('primary-menu') ?></div>
-
-
-
-    <div>
-        <?php get_template_part('template/template', 'mobile-menu'); ?>
-    </div>
 <?php } ?>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Lấy các phần tử cần thiết
+    const menuMain = document.getElementById("menu-main");
+    const menuSecond = document.getElementById("menu-second");
+
+    // Nếu không tồn tại 1 trong 2 menu trên trang thì dừng lại để tránh lỗi
+    if (!menuMain || !menuSecond) return;
+
+    // Tính toán tọa độ dưới cùng của menu-main
+    // Bằng cách lấy khoảng cách từ top + chiều cao của chính nó
+    const triggerPoint = menuMain.offsetTop + menuMain.offsetHeight;
+
+    // Lắng nghe sự kiện cuộn chuột
+    window.addEventListener("scroll", function() {
+        // Lấy vị trí cuộn hiện tại
+        let scrollPosition = window.scrollY || document.documentElement.scrollTop;
+
+        // Nếu cuộn qua khỏi menu-main
+        if (scrollPosition > triggerPoint) {
+            menuSecond.classList.add("is-sticky");
+        } else {
+            // Nếu cuộn ngược lên lại đầu trang
+            menuSecond.classList.remove("is-sticky");
+        }
+    });
+});
+</script>

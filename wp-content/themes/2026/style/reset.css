@@ -139,7 +139,7 @@ h1 {
 }
 
 h3 {
-    font-size: 1.6rem;
+  font-size: 1.6rem;
 }
 /**
  * Address styling not present in IE 8/9.
@@ -430,12 +430,13 @@ th {
   padding: 0;
 }
 
-ul li{
-    list-style-type: none;
-    }
-
-.container{
-    min-height: 600px;
-    background-color:  white;
+ul li {
+  list-style-type: none;
 }
 
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}

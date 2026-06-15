@@ -35,3 +35,5 @@ define('PART_IMAGES_QRCODE', THEME_PART . 'images/qrcode' . DS);
 define('PART_IMAGES', THEME_PART . 'images' . DS);
 define('PART_FILE', THEME_PART . DS .  'file' . DS);
 
+
+

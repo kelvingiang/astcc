@@ -1,4 +1,4 @@
-<div id="map_canvas" style="position: relative; z-index: 28 ; height: 400px;  width: 100%; margin: 0 auto"></div>
+<!-- <div id="map_canvas" style="position: relative; z-index: 28 ; height: 400px;  width: 100%; margin: 0 auto"></div>
 
 <script type="text/javascript">
     var map;
@@ -26,7 +26,7 @@
     }
 </script>
 
-<!-- ✅ 僅保留這一行載入 Maps API，指定 callback=initMap -->
+✅ 僅保留這一行載入 Maps API，指定 callback=initMap
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAV4v2qSBuCA1Rn7NPd09exwP4smcjW_g&callback=initMap">
-</script>
+</script> -->

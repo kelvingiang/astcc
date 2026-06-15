@@ -29,6 +29,8 @@
     <meta name="ICBM" content="10.725377, 106.720064" />
     <?php // suite_seo(); 
     ?>
+
+
     <?php wp_head(); ?>
 
     <!-- Google tag (gtag.js) -->
