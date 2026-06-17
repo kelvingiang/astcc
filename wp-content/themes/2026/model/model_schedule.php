@@ -5,12 +5,14 @@ if (!class_exists('WP_List_Table')) {
     require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php ';
 }
 
-class Admin_Model_Schedule extends WP_List_Table {
+class Admin_Model_Schedule extends WP_List_Table
+{
 
     private $_pre_page = 30;
     private $_sql;
 
-    public function __construct($args = array()) {
+    public function __construct($args = array())
+    {
         $args = array(
             'plural' => 'id', // GIA TRI NAY TUONG UNG VOI key TRONG table
             'singular' => 'id', // GIA TRI NAY TUONG UNG VOI key TRONG table
@@ -22,7 +24,8 @@ class Admin_Model_Schedule extends WP_List_Table {
 
     // HAM NAY BAT BUOT PHAI CO QUAN TRONG DE SHOW LIST RA
     //  CAC THONG SO VA DU LIEU CAN  CUNG CAP DE HIEN THI GIRDVIEW
-    public function prepare_items() {
+    public function prepare_items()
+    {
         $columns = $this->get_columns();  // NHUNG GI CAN HIEN THI TREN BANG 
         $hidden = $this->get_hidden_columns(); // NHUNG COT TA SE AN DI
         $sorttable = $this->get_sortable_columns(); // CAC COT DC SAP XEP TANG HOAC GIAM DAN
@@ -46,7 +49,8 @@ class Admin_Model_Schedule extends WP_List_Table {
     // Cmt NHOM NHAT DINH  PHAI CO CHO LIST NAY
     //---------------------------------------------------------------------------------------------
     // LAY CAC COT TUONG UNG TRONG DATABASE DAN VAO CAC COT TREN LUOI
-    public function get_columns() {
+    public function get_columns()
+    {
         $arr = array(
             'cb' => '<input type="checkbox" />',
             'title' => '活動項目',
@@ -59,12 +63,14 @@ class Admin_Model_Schedule extends WP_List_Table {
     }
 
     // KHIA BAO CAC COT BI AN DI TREN GRIDVIEW
-    public function get_hidden_columns() {
+    public function get_hidden_columns()
+    {
         return array();
     }
 
     // COLUMN SAP XEP THU TANG HOAC GIAM DAN
-    public function get_sortable_columns() {
+    public function get_sortable_columns()
+    {
         return array(
             'title' => array('title', true),
             'id' => array('id', true),
@@ -75,7 +81,8 @@ class Admin_Model_Schedule extends WP_List_Table {
     // Cmt NHOM GET DATA TU DATABASE
     //---------------------------------------------------------------------------------------------
     // GET DATA TRONG DATABASE 
-    private function table_data() {
+    private function table_data()
+    {
         $data = array();
         global $wpdb;
         // LAY GIA TRI SAP XEP DU LIEU TREN COT
@@ -115,15 +122,16 @@ class Admin_Model_Schedule extends WP_List_Table {
         // LAY KET QUA  THONG QUA CAU sql
         $data = $wpdb->get_results($sql, ARRAY_A);
 
-//         echo '<pre>';
-//         print_r($sql);
-//         echo '</pre>';
+        //         echo '<pre>';
+        //         print_r($sql);
+        //         echo '</pre>';
 
         return $data;
     }
 
     // TINH TONG SO DONG DU LIEU  DE AP DUNG CHO VIEC PHAN TRANG
-    public function total_items() {
+    public function total_items()
+    {
         global $wpdb;
         return $wpdb->query($this->_sql);
     }
@@ -132,7 +140,8 @@ class Admin_Model_Schedule extends WP_List_Table {
     // Cmt NHOM CAC SELECT BOX O DAU CUA LIST
     //---------------------------------------------------------------------------------------------
     // CAC ITEM TRONG SELECT BOX CHUC NANG 'UNG DUNG'
-    public function get_bulk_actions() {
+    public function get_bulk_actions()
+    {
         $actions = array(
             'active' => '顯示',
             'inactive' => '隱藏'
@@ -141,7 +150,8 @@ class Admin_Model_Schedule extends WP_List_Table {
     }
 
     // CAC ITEM TRONG SECLETBOX TRONG PHAN FILTER
-    public function extra_tablenav($which) {
+    public function extra_tablenav($which)
+    {
         if ($which == 'top') {
             $htmlObj = new MyHtml();
 
@@ -164,7 +174,8 @@ class Admin_Model_Schedule extends WP_List_Table {
     // Cmt NHOM THIET LAP GIA TRI CHO CAC CLOUMN
     //---------------------------------------------------------------------------------------------
     // TAO CAC CHECK BOS O DAU DONG TRONG 
-    public function column_cb($item) {
+    public function column_cb($item)
+    {
         $singular = $this->_args['singular'];
         $html = '<input type="checkbox" name="' . $singular . '[]" value="' . $item['id'] . '"/>';
         return $html;
@@ -172,7 +183,8 @@ class Admin_Model_Schedule extends WP_List_Table {
 
     // THEM CAC PHAN CHINH SUA NHANH TAI COLUMN NAY
     //DAT TEN column_TEN COLUMN CAN TAO CAC CHINH SUA NHANH
-    public function column_title($item) {
+    public function column_title($item)
+    {
         $page = getParams('page');
         $name = 'security_code';
 
@@ -183,14 +195,15 @@ class Admin_Model_Schedule extends WP_List_Table {
         $actions = array(
             'edit' => '<a href=" ?page=' . $page . '&action=edit&id=' . $item['id'] . ' " > 編輯 </a>',
             'delete' => '<a href="' . $linkDelete . '" onclick="MyConfirm()"> 刪除 </a>',
-                // 'view' => '<a href ="#">View</a>'
+            // 'view' => '<a href ="#">View</a>'
         );
 
         $html = '<strong> <a href="?page=' . $page . '&action=edit&id=' . $item['id'] . ' ">' . $item['title'] . '</a> </strong>' . $this->row_actions($actions);
         return $html;
     }
 
-    public function column_status($item) {
+    public function column_status($item)
+    {
         $page = getParams('page');
         if ($item['status'] == 1) {
             $action = 'inactive';
@@ -213,17 +226,20 @@ class Admin_Model_Schedule extends WP_List_Table {
     }
 
     // SET GIA TRI COT YEAR
-    public function column_year($item) {
+    public function column_year($item)
+    {
         echo $item['date'];
     }
 
     // SET LAI GIA TRI COT TIME
-    public function column_time($item) {
+    public function column_time($item)
+    {
         echo $item['weekdays'] . '</br>' . $item['time'];
     }
 
     //CAC COLUMN MAC DINH KHI LOAD TRANG SE SHOW LEN 
-    public function column_default($item, $column_name) {
+    public function column_default($item, $column_name)
+    {
         return $item[$column_name];
     }
 
@@ -231,7 +247,8 @@ class Admin_Model_Schedule extends WP_List_Table {
     // Cmt  CAC CHUC ADD EDIT DELETE 
     //---------------------------------------------------------------------------------------------
     // SAVE DATA DEN DATABASE
-    public function save_item($arrData = array(), $option = array()) {
+    public function save_item($arrData = array(), $option = array())
+    {
         global $wpdb;
         $action = $arrData['action'];
 
@@ -254,9 +271,9 @@ class Admin_Model_Schedule extends WP_List_Table {
             'note' => $arrData['txt-note'],
             'date' => $date,
             'finish_date' => $arrData['txt-finish-date'],
-            'finish_week' =>$arrData['txt-finish-week'],
+            'finish_week' => $arrData['txt-finish-week'],
             'finish_time' => $arrData['txt-finish-time'],
-            
+
         );
         if ($action == 'add') {
             $data['status'] =  '1';
@@ -272,18 +289,24 @@ class Admin_Model_Schedule extends WP_List_Table {
     }
 
     // LAY DU LIEU CAN CHINH SUA
-    public function get_item($arrData = array(), $option = array()) {
+    public function get_item($id)
+    {
         global $wpdb;
-        // THONG SO id DUA CHUYEN TREN url DE LAY DONG DU LIEU CAN CHINH SUA
-        $id = absint($arrData['id']);  // ham absint  chuyen ky tu sang kieu so
         $table = $wpdb->prefix . 'schedule';
-        $sql = "SELECT * FROM $table WHERE id = $id";
-        $row = $wpdb->get_row($sql, ARRAY_A);  // LAY DONG DU LIEU TRA VE KIEU array
+        
+        if (empty($id) || !is_numeric($id)) {
+            return null;
+        }
+
+        $sql = $wpdb->prepare("SELECT * FROM $table WHERE id = %d", $id);
+        $row = $wpdb->get_row($sql, ARRAY_A);
+
         return $row;
     }
 
     // XOA DATA
-    public function deleteItem($arrData = array(), $options = array()) {
+    public function deleteItem($arrData = array(), $options = array())
+    {
         global $wpdb;
         $flag = $_COOKIE['del'];
 
@@ -304,7 +327,8 @@ class Admin_Model_Schedule extends WP_List_Table {
     }
 
     // THAY DOI TRANG THAI 
-    public function changeStatus($arrData = array(), $options = array()) {
+    public function changeStatus($arrData = array(), $options = array())
+    {
         global $wpdb;
 
         $table = $wpdb->prefix . 'schedule';
@@ -322,7 +346,4 @@ class Admin_Model_Schedule extends WP_List_Table {
             $wpdb->query($sql);
         }
     }
-
-
-
 }

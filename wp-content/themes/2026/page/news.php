@@ -11,7 +11,7 @@ get_header();
                 <h2 class="head"> <?php echo __('Asian News Information') ?></h2>
             </div>
         </div>
-        <div class="article-list">
+        <div class="article-list" data-category="news">
             <?php
             $arr = array(
                 'post_type' => 'post',
@@ -36,13 +36,26 @@ get_header();
             wp_reset_postdata();
             ?>
         </div>
-        <div class="loading-indicator" style="display: none;">
-            <p><?php _e('Đang tải thêm tin...', 'astcc'); ?></p>
+        <div class="loading-indicator" style="display: none; text-align: center; padding: 2rem;">
+            <!-- [15/06/2026] Sử dụng SVG Spinner tự xoay bằng CSS inline để chạy độc lập không phụ thuộc vào compile SASS -->
+            <svg class="spinner-svg" width="40" height="40" viewBox="0 0 50 50" style="animation: svg-rotate 2s linear infinite; display: inline-block; vertical-align: middle;">
+                <circle cx="25" cy="25" r="20" fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round" style="animation: svg-dash 1.5s ease-in-out infinite;"></circle>
+            </svg>
+            <style>
+                @keyframes svg-rotate {
+                    100% { transform: rotate(360deg); }
+                }
+                @keyframes svg-dash {
+                    0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
+                    50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
+                    100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
+                }
+            </style>
         </div>
     </div>
 
     <div class="sidebar-area">
-        <?php //get_sidebar() ?>
+        <?php get_sidebar() ?>
     </div>
 </div>
 <?php

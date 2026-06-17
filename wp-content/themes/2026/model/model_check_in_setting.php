@@ -36,7 +36,11 @@ class Admin_Model_Check_In_Setting
 
         foreach ($this->AttendTime() as $val) {
             //           if($val['kind'] == 'g'){
-            $sql = "SELECT full_name AS Name, country AS Country,  position AS Position, phone AS Phone, email AS Email, barcode AS Barcode  FROM $table_guests WHERE  barcode =" . $val['barcode'];
+            // [15/06/2026] Khắc phục SQL Injection: Sử dụng $wpdb->prepare cho barcode
+            $sql = $wpdb->prepare(
+                "SELECT full_name AS Name, country AS Country,  position AS Position, phone AS Phone, email AS Email, barcode AS Barcode  FROM $table_guests WHERE  barcode = %s",
+                $val['barcode']
+            );
             $row = $wpdb->get_results($sql, ARRAY_A);
             array_push($row, array("Time" => $val['time'], "Date" => $val['date']));
             $guestsList[] = $row;
@@ -121,7 +125,8 @@ class Admin_Model_Check_In_Setting
     {
         global $wpdb;
         $table = $wpdb->prefix . 'guests_check_in';
-        $sql = "SELECT * FROM $table WHERE barcode = $barcode";
+        // [15/06/2026] Khắc phục SQL Injection: Sử dụng $wpdb->prepare cho barcode
+        $sql = $wpdb->prepare("SELECT * FROM $table WHERE barcode = %s", $barcode);
         $row = $wpdb->get_results($sql, ARRAY_A);
         return $row;
     }

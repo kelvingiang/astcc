@@ -2,13 +2,12 @@
 <html <?php language_attributes(); ?>>
 
 <head>
-    <title>亞洲台灣商會聯合總會</title>
+    <!-- [15/06/2026] Khắc phục chất lượng mã nguồn: Loại bỏ thẻ title cứng để sử dụng add_theme_support('title-tag') và hợp nhất viewport -->
     <meta charset="<?php bloginfo('charset'); ?>">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
-    <!-- B--- phan cho bootstrap -->
     <link href="//www.google-analytics.com" rel="dns-prefetch">
 
     <link rel="icon" href="<?php echo get_template_directory_uri(); ?>/images/favicon.ico?v=2" type="image/x-icon">
@@ -17,9 +16,7 @@
     <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/images/touch.png?v=2">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="3CFT6aP41yw0zYmOmbqUHSdWgHrzXvuCl7phgyCHLLk" />
-    <!-- E --- phan bootstrap ------------->
     <!--[if lt IE 9]>
         <script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/html5.js"></script>
         <![endif]-->

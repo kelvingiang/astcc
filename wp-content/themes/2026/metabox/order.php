@@ -11,7 +11,7 @@ class Admin_Metabox_Order {
         $id = 'admin-metabox-order';
         $title = __('次序排列');
         $callback = array($this, 'display');
-        add_meta_box($id, $title, $callback, array('post','conference','chamber','advertising','businesslink','friendlink','slide','branch'));
+        add_meta_box($id, $title, $callback, array('conference','chamber','advertising','businesslink','friendlink','slide','branch'));
     }
 
     public function display($post) {

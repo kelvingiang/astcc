@@ -1,97 +1,160 @@
 @use "./define.scss" as *;
-@use "./president.scss" as *;
+
+#mobile-header {
+    display: none;
+    @media (max-width: 991.98px) {
+        display: block;
+        padding: 10px 0;
+        
+        &.is-sticky {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            animation: slideDown 0.4s ease-out forwards;
+        }
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
 
 .mobile-menu-title {
-    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
     cursor: pointer;
-    background-color: #0049b8;
-    display: none;
+    background: linear-gradient(135deg, $mainColor 0%, lighten($mainColor, 15%) 100%);
+    color: white;
+    font-weight: bold;
+    font-size: 1.15rem;
+    border-radius: 8px;
+    margin: 0 15px;
+    box-shadow: 0 4px 10px rgba($mainColor, 0.2);
+    transition: all 0.3s ease;
+
+    .mobile-icon {
+        margin-right: 8px;
+    }
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba($mainColor, 0.3);
+    }
 }
 
 .mobile-menu {
-    margin-bottom: 20px !important;
     display: none;
     position: absolute;
+    top: 100%;
+    left: 0;
     z-index: 1000;
-    width: 200px;
-    a {
-        // background-color: aqua;
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 1.8rem;
-        padding: 10px 5px 5px;
-        text-align: left;
-        display: inline-block;
-        width: 90%;
-        &:hover {
-            hover {
-                color: #e66b00;
+    width: 100%;
+    padding: 0 15px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+
+    ul.menu {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        border: 1px solid #eef2f7;
+        overflow: hidden;
+
+        li {
+            margin: 0;
+            padding: 0;
+            border-bottom: 1px solid #f1f5f9;
+            
+            &:last-child {
+                border-bottom: none;
+            }
+
+            a {
+                color: #334155;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 1.05rem;
+                padding: 15px 25px;
+                display: block;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    color: $mainColor;
+                    background-color: #f8fafc;
+                    padding-left: 30px;
+                }
             }
         }
-    }
-    ul {
-        margin: 0;
-        /* 移除 ul 元素的外边距 */
-        padding: 0;
-        /* 移除 ul 元素的内边距 */
-        list-style: none;
-        /* 移除列表项前的圆点或其他标记 */
-    }
-    li {
-        margin: 0;
-        /* 移除 li 元素的外边距 */
-        padding: 0;
-        /* 移除 li 元素的内边距 */
-        min-height: 38px;
-        // padding-top: 10px;
-    }
-    ul.menu {
-        width: 100%;
-        position: absolute;
-        left: 0;
-        background-color: red;
-        li {
-            // min-height: 20px;
-            width: 100%;
-            background-color: #f1670c;
-            border-bottom: 1px solid #883802;
-        }
-        &:hover {
-            background-color: #f67a06 !important;
-        }
+
         .menu-item-has-children {
             position: relative;
-            >a:after {
-                content: "\f078";
-                font-family: FontAwesome;
-                font-style: normal;
-                font-weight: normal;
-                text-decoration: inherit;
-                text-align: right;
-                color: #fff;
-                position: absolute;
-                right: 5px;
-                /* 将伪元素对齐到最右边 */
-                top: 20px;
-                /* 将伪元素垂直居中 */
-                transform: translateY(-50%);
-                /* 垂直居中的调整 */
-            }
-            .sub-menu {
+            
+            > a {
+                padding-right: 40px;
                 position: relative;
-                margin-top: 5px;
+                
+                &::after {
+                    content: "";
+                    position: absolute;
+                    right: 20px;
+                    top: 50%;
+                    transform: translateY(-50%) rotate(45deg);
+                    width: 8px;
+                    height: 8px;
+                    border-right: 2px solid #64748b;
+                    border-bottom: 2px solid #64748b;
+                    transition: transform 0.3s ease;
+                }
+            }
+
+            &.open > a::after {
+                transform: translateY(-50%) rotate(-135deg);
+                border-color: $mainColor;
+            }
+
+            .sub-menu {
+                display: none;
+                background-color: #f8fafc;
+                border-top: 1px solid #eef2f7;
+                
                 li {
-                    background-color: #a7490a;
+                    border-bottom: 1px dashed #e2e8f0;
+                    
+                    &:last-child {
+                        border-bottom: none;
+                    }
+
                     a {
-                        padding-left: 10px;
-                        width: 100%;
+                        padding: 12px 25px 12px 40px; // Indent for sub menu
+                        font-size: 0.95rem;
+                        font-weight: 500;
+                        color: #475569;
+
+                        &:hover {
+                            color: $mainColor;
+                            background-color: #f1f5f9;
+                            padding-left: 45px;
+                        }
                     }
                 }
             }
         }
-    }
-    .sub-menu {
-        display: none;
     }
 }

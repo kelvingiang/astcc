@@ -17,6 +17,7 @@ class Admin_Model_About_Us {
         update_option("contact_us_email", $arr['txt-email']);
         update_option("map_x", $arr['txt-map-x']);
         update_option("map_y", $arr['txt-map-y']);
+        update_option("contact_us_maps_link", $arr['txt-maps-link']);
 
         update_post_meta(1, '_info_charter', $arr['info-charter']);
         update_post_meta(1, '_info_charter_two', $arr['info-charter-two']);

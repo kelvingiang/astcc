@@ -424,18 +424,30 @@ class Admin_Model_Member extends WP_List_Table {
         global $wpdb;
         $table = $wpdb->prefix . 'member';
         if (!is_array($arrID)) {
+            // [15/06/2026] Khắc phục SQL Injection: Ép kiểu sang int cho $arrID
+            $arrID = (int)$arrID;
             $sql = "SELECT * FROM $table WHERE ID =" . $arrID;
             $row = $wpdb->get_row($sql, ARRAY_A);
 //            XOA HINH TRONG FOLDER
-            unlink(DIR_MEMBER . $row['img']);
-            unlink(DIR_IMAGES_QRCODE . $row['barcode'] . '.png');
+            if (!empty($row['img'])) {
+                unlink(DIR_MEMBER . $row['img']);
+            }
+            if (!empty($row['barcode'])) {
+                unlink(DIR_IMAGES_QRCODE . $row['barcode'] . '.png');
+            }
         } else {
             foreach ($arrID as $key) {
+                // [15/06/2026] Khắc phục SQL Injection: Ép kiểu sang int cho $key
+                $key = (int)$key;
                 $sql = "SELECT * FROM $table WHERE ID =" . $key;
                 $row = $wpdb->get_row($sql, ARRAY_A);
                 // XOA HINH CUA GUESTS
-                unlink(DIR_MEMBER . $row['img']);
-                unlink(DIR_IMAGES_QRCODE . $row['barcode'] . '.png');
+                if (!empty($row['img'])) {
+                    unlink(DIR_MEMBER . $row['img']);
+                }
+                if (!empty($row['barcode'])) {
+                    unlink(DIR_IMAGES_QRCODE . $row['barcode'] . '.png');
+                }
             }
         }
     }

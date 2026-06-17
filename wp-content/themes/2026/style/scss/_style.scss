@@ -16,16 +16,69 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@keyframes bgDrift {
+  0% {
+    background-position: 0% 0%, 0% 0%, 100% 100%, 0px 0px;
+  }
+  50% {
+    background-position: 100% 50%, 50% 100%, 0% 0%, 0px 0px;
+  }
+  100% {
+    background-position: 0% 0%, 0% 0%, 100% 100%, 0px 0px;
+  }
+}
+
+@keyframes lightSweep {
+  0%, 75% {
+    transform: rotate(35deg) translateY(-150vh);
+    opacity: 0;
+  }
+  80% {
+    opacity: 0.3;
+  }
+  90% {
+    transform: rotate(35deg) translateY(150vh);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(35deg) translateY(150vh);
+    opacity: 0;
+  }
+}
+
 body {
   overflow-x: hidden;
   font-family: $font-primary;
   line-height: 1.6;
   color: $text-primary;
   background-color: $bg-dark;
+  position: relative;
+  /* Thêm các lớp gradient và pattern chấm bi tĩnh */
   background-image:
-    radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.06) 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(13, 148, 136, 0.05) 0%, transparent 40%);
+    radial-gradient(circle at 50% 0%, rgba(5, 150, 105, 0.04) 0%, transparent 60%),
+    radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 90% 80%, rgba(13, 148, 136, 0.08) 0%, transparent 50%),
+    radial-gradient(rgba(15, 23, 42, 0.06) 1.5px, transparent 1.5px);
+  background-size: 130% 130%, 130% 130%, 130% 130%, 32px 32px;
   background-attachment: fixed;
+  animation: bgDrift 20s linear infinite;
+
+  /* Vệt sáng lâu lâu chạy qua */
+  &::after {
+    content: "";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 250vw;
+    height: 12vh;
+    margin-left: -125vw;
+    margin-top: -6vh;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8), transparent);
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: overlay;
+    animation: lightSweep 12s linear infinite;
+  }
 }
 
 .hero-stats {
@@ -37,6 +90,16 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+
+  @include Respond(md) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @include Respond(xs) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }
 
 .stat-card {
@@ -93,6 +156,14 @@ body {
       background: linear-gradient(135deg, #fff 0%, $text-secondary 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+
+      @include Respond(md) {
+        font-size: 1.5rem;
+      }
+
+      @include Respond(xs) {
+        font-size: 1.25rem;
+      }
     }
 
     p {
@@ -100,6 +171,10 @@ body {
       font-weight: 400;
       color: $text-secondary;
       white-space: nowrap;
+
+      @include Respond(md) {
+        font-size: 0.8rem;
+      }
     }
   }
 }
@@ -146,4 +221,105 @@ body {
   // No specific styles are added here by default, but this class can be targeted for future styling.
   .sidebar-area {
   }
+}
+
+/* Floating Shapes on the sides */
+.floating-shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+
+  .shape {
+    position: absolute;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(13, 148, 136, 0.1));
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Triangle */
+  .shape-1 {
+    width: 0;
+    height: 0;
+    background: none;
+    backdrop-filter: none;
+    border: none;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 35px solid rgba(13, 148, 136, 0.15);
+    left: 3%;
+    top: 80%;
+    animation: floatShape1 15s ease-in-out infinite;
+  }
+
+  /* Circle */
+  .shape-2 {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    right: 5%;
+    top: 20%;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(2, 58, 122, 0.1));
+    animation: floatShape2 18s ease-in-out infinite;
+  }
+
+  /* Diamond */
+  .shape-3 {
+    width: 40px;
+    height: 40px;
+    left: 5%;
+    top: 20%;
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.15), transparent);
+    animation: floatShape3 22s ease-in-out infinite;
+  }
+
+  /* Small triangle */
+  .shape-4 {
+    width: 0;
+    height: 0;
+    background: none;
+    backdrop-filter: none;
+    border: none;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 25px solid rgba(37, 99, 235, 0.15);
+    right: 3%;
+    top: 75%;
+    animation: floatShape4 16s ease-in-out infinite;
+  }
+}
+
+@keyframes floatShape1 {
+  0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+  20% { opacity: 0.8; }
+  50% { transform: translateY(-150px) rotate(45deg) scale(1.1); opacity: 0.4; }
+  80% { opacity: 0; }
+  100% { transform: translateY(0) rotate(90deg) scale(1); opacity: 0; }
+}
+
+@keyframes floatShape2 {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  30% { opacity: 0.8; }
+  60% { transform: translateY(120px) scale(0.9); opacity: 0.3; }
+  90% { opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 0; }
+}
+
+@keyframes floatShape3 {
+  0% { transform: translateY(0) rotate(45deg) scale(0.8); opacity: 0; }
+  25% { opacity: 0.8; }
+  50% { transform: translateY(180px) rotate(135deg) scale(1); opacity: 0.3; }
+  75% { opacity: 0; }
+  100% { transform: translateY(0) rotate(225deg) scale(0.8); opacity: 0; }
+}
+
+@keyframes floatShape4 {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  15% { opacity: 0.8; }
+  60% { transform: translateY(-180px) rotate(-60deg); opacity: 0; }
+  100% { transform: translateY(0) rotate(-120deg); opacity: 0; }
 }

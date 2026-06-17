@@ -27,13 +27,14 @@ define('DIR_QRCODE', DIR_CLASS . 'qrcode' . DS);
 
 
 // PART TRUC TIEP
-define('THEME_PART', get_template_directory_uri() . DS);
-define('PART_ICON', THEME_PART . '/icon/');
-define('PART_IMAGES_BARCODE', THEME_PART . 'barcode' . DS);
-define('PART_IMAGES_VOTE', THEME_PART . 'images/vote' . DS);
-define('PART_IMAGES_QRCODE', THEME_PART . 'images/qrcode' . DS);
-define('PART_IMAGES', THEME_PART . 'images' . DS);
-define('PART_FILE', THEME_PART . DS .  'file' . DS);
+// [15/06/2026] Khắc phục lỗi logic: Sử dụng dấu '/' thay vì 'DS' (DIRECTORY_SEPARATOR) cho đường dẫn URL để tránh lỗi hiển thị trên Windows
+define('THEME_PART', get_template_directory_uri() . '/');
+define('PART_ICON', THEME_PART . 'icon/');
+define('PART_IMAGES_BARCODE', THEME_PART . 'barcode/');
+define('PART_IMAGES_VOTE', THEME_PART . 'images/vote/');
+define('PART_IMAGES_QRCODE', THEME_PART . 'images/qrcode/');
+define('PART_IMAGES', THEME_PART . 'images/');
+define('PART_FILE', THEME_PART . 'file/');
 
 
 

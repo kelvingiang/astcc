@@ -1,9 +1,11 @@
+@use "./define.scss" as *;
+
 /* ==========================================================================
    SUPERFISH MENU VARIABLES
    ========================================================================== */
-$sf-menu-bg: #ffffffce;
-$sf-text-color: #272727;
-$sf-text-hover-color: #005f9e;
+$sf-menu-bg: rgba(255, 255, 255, 0.95);
+$sf-text-color: #334155;
+$sf-text-hover-color: $mainColor;
 
 #menu-main {
     flex: 1;
@@ -11,86 +13,131 @@ $sf-text-hover-color: #005f9e;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+    @media (max-width: 991.98px) {
+        display: none !important;
+    }
 }
 
 #menu-second {
-    display: grid;
-    grid-template-columns: 1fr 9fr;
-    grid-gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+
+    @media (max-width: 991.98px) {
+        display: none !important;
+    }
 
     .logo-img {
-        flex: 1;
-        margin-left: 10px;
-        justify-content: left;
-        width: 70px;
+        width: 65px;
+        transition: transform 0.3s ease;
+        &:hover {
+            transform: scale(1.05);
+        }
     }
+    
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 9999; /* Đảm bảo menu luôn nằm trên cùng các phần tử khác */
-    background-color: $sf-menu-bg; /* Bắt buộc phải có màu nền để không bị đè chữ khi trượt xuống */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm chút bóng đổ cho đẹp (tùy chọn) */
+    z-index: 9999;
+    background-color: $sf-menu-bg;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 
-    /* Đẩy menu lên trên, khuất khỏi màn hình 100% chiều cao của nó */
     transform: translateY(-100%);
-
-    /* Tạo hiệu ứng trượt mượt mà trong 1 giây (1s) */
-    transition: transform 1s ease-in-out;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    
     .primary-menu {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 15px !important;
+        margin-top: 0 !important;
     }
 }
 
 #menu-second.is-sticky {
-    /* Kéo menu trở về vị trí 0 (hiển thị hoàn toàn) */
     transform: translateY(0);
 }
+
+@keyframes fadeDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px) scaleY(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+    }
+}
+
 /* ==========================================================================
    PRIMARY MENU (DESKTOP)
    ========================================================================== */
 .primary-menu {
-    // background: $sf-menu-bg;
     z-index: 1000;
+    
     ul {
-        // Áp dụng cho tất cả thẻ li (Cả menu cha và menu con)
-        margin: 0 !important; // Reset margin mặc định của ul
+        margin: 0 !important;
+        
         li {
             background-color: transparent !important;
-            border: none !important; // Dùng none thay vì màu trong suốt để tắt hoàn toàn
+            border: none !important;
+            
             // 1. Style mặc định cho thẻ <a>
             a {
+                position: relative;
                 color: $sf-text-color;
-                font-weight: bold;
-                font-size: 1rem;
-                padding: 10px 15px;
+                font-weight: 700;
+                font-size: 1.05rem;
+                padding: 12px 20px;
                 text-decoration: none;
-                display: block; // Giúp vùng click của menu rộng ra toàn ô
-
+                display: block;
                 border: none !important;
                 outline: none !important;
                 box-shadow: none !important;
                 background-color: transparent !important;
-                // Mũi tên Superfish (nằm trên thẻ a)
+                transition: color 0.3s ease;
+
+                // Hiệu ứng gạch dưới mượt mà khi hover
+                &::before {
+                    content: "";
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 0;
+                    height: 3px;
+                    background: linear-gradient(90deg, rgb(148, 72, 2) 0%, $mainColor 100%);
+                    transition: width 0.3s ease;
+                    border-radius: 3px 3px 0 0;
+                }
+
+                // Mũi tên Superfish
                 &.sf-with-ul {
-                    padding-right: 2rem !important;
+                    padding-right: 2.2rem !important;
 
                     &::after {
                         border-top-color: $sf-text-color !important;
+                        margin-top: -2px;
+                        transition: border-top-color 0.3s ease;
                     }
                 }
             }
 
-            // 2. Style khi Hover vào thẻ <li> hoặc khi có class .sfHover
+            // 2. Style khi Hover vào thẻ <li>
             &:hover > a,
             &.sfHover > a {
                 color: $sf-text-hover-color !important;
-                // background: $sf-menu-bg !important;
+                
+                &::before {
+                    width: 70%;
+                }
 
-                // Đổi màu mũi tên khi hover
                 &.sf-with-ul::after {
                     border-top-color: $sf-text-hover-color !important;
                 }
@@ -98,61 +145,78 @@ $sf-text-hover-color: #005f9e;
 
             // 3. Style riêng cho Menu con (Sub-menu)
             ul {
-                min-width: 100px;
-                background: $sf-menu-bg !important;
-                margin-top: 0px !important; // Đảm bảo menu con không bị đẩy xuống quá xa
+                min-width: 240px;
+                background: #fff !important;
+                margin-top: 0px !important;
+                border-radius: 0 0 12px 12px;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+                padding: 10px 0;
+                border: 1px solid #f1f5f9;
+
+                // Hiệu ứng mờ dần và trượt xuống
+                animation: fadeDown 0.3s ease forwards;
+                transform-origin: top center;
 
                 li {
-                    border-bottom: 1px solid #ccc;
+                    border-bottom: none !important;
+                    transition: background-color 0.2s ease;
+                    position: relative;
 
-                    // Thẻ a ở menu con sẽ tự động kế thừa font-size, padding, color
-                    // từ thẻ a ở trên nên không cần viết lại.
+                    // Thanh màu bên trái sẽ hiện ra khi hover
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        top: 15%;
+                        height: 70%;
+                        width: 4px;
+                        background: linear-gradient(to bottom, lighten($mainColor, 15%) 0%, $mainColor 100%);
+                        transform: scaleY(0);
+                        transform-origin: center;
+                        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        border-radius: 0 4px 4px 0;
+                        z-index: 10;
+                    }
+
+                    a {
+                        padding: 12px 25px !important;
+                        font-size: 0.95rem;
+                        font-weight: 500 !important;
+                        color: #475569 !important;
+                        transition: all 0.2s ease;
+                        
+                        // Tắt hiệu ứng gạch dưới ở menu con
+                        &::before {
+                            display: none;
+                        }
+
+                        &.sf-with-ul::after {
+                            border-left-color: #475569 !important;
+                            border-top-color: transparent !important;
+                            margin-top: -5px;
+                            right: 15px;
+                        }
+                    }
+                    
+                    &:hover {
+                        background-color: #f8fafc !important;
+                    }
+
+                    &:hover::before, &.sfHover::before {
+                        transform: scaleY(1);
+                    }
+
+                    &:hover > a, &.sfHover > a {
+                        color: $mainColor !important;
+                        padding-left: 32px !important; // Hiệu ứng trượt nhẹ sang phải
+
+                        &.sf-with-ul::after {
+                            border-left-color: $mainColor !important;
+                        }
+                    }
                 }
             }
         }
     }
 }
 
-/* ==========================================================================
-   MOBILE MENU
-   ========================================================================== */
-.mobile-menu-title {
-    height: 30px;
-    cursor: pointer;
-    background-color: #f67a06;
-    display: none;
-}
-
-.mobile-menu {
-    margin-bottom: 20px !important;
-    display: none;
-    position: absolute;
-    z-index: 1000;
-
-    &:hover {
-        background-color: #f67a06 !important;
-    }
-
-    ul {
-        li {
-            height: 30px;
-            background-color: #f1670c;
-            width: 50%;
-            float: left;
-
-            a {
-                color: white;
-                text-decoration: none;
-                font-weight: bold;
-                padding: 6px 25px;
-                text-align: center;
-                display: block; // Giúp user dễ bấm hơn trên điện thoại
-
-                // Đã sửa lỗi cú pháp "hover { color... }" của bạn ở đây
-                &:hover {
-                    color: #e66b00;
-                }
-            }
-        }
-    }
-}

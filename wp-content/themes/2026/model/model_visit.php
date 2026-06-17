@@ -13,7 +13,9 @@ class Model_Web_Visit
         $now = new DateTime('now', new DateTimeZone('Asia/Ho_Chi_Minh'));
         $this->_now = $now->format('Y-m-d H:i:s'); // Server time
         // $this->_now = current_time('mysql', 0); // Server time
-        $this->_ip = $_SERVER['REMOTE_ADDR'];
+        
+        // [Modified: 15/06/2026] Thêm fallback IP mặc định phòng khi chạy trên CLI/Cron không có REMOTE_ADDR
+        $this->_ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
         $this->table_visitor = $wpdb->prefix . 'stats_visitor';
         $this->table_site    = $wpdb->prefix . 'stats_site';
     }
@@ -22,7 +24,34 @@ class Model_Web_Visit
     {
         global $wpdb;
 
-        // ✅ 3. 更新或插入該訪客記錄
+        // [Modified: 15/06/2026] Di chuyển bước kiểm tra lượt truy cập lên trước để sửa lỗi logic đè thời gian hoạt động.
+        // ✅ 1. Check if this IP has visited within the last 5 minutes
+        $check = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT ID FROM {$this->table_visitor} 
+                 WHERE ip_address = %s 
+                 AND last_active >= DATE_SUB(%s, INTERVAL 5 MINUTE)",
+                $this->_ip,
+                $this->_now
+            )
+        );
+
+        // [Modified: 15/06/2026] Tự động khởi tạo hàng dữ liệu mặc định ID = 1 nếu chưa tồn tại
+        // ✅ 2. If not active in the last 5 minutes, increment total views
+        if (!$check) {
+            $site_exists = $wpdb->get_var("SELECT ID FROM {$this->table_site} WHERE ID = 1");
+            if (!$site_exists) {
+                $wpdb->insert(
+                    $this->table_site,
+                    ['ID' => 1, 'total_views' => 1],
+                    ['%d', '%d']
+                );
+            } else {
+                $wpdb->query("UPDATE {$this->table_site} SET total_views = total_views + 1 WHERE ID = 1");
+            }
+        }
+
+        // ✅ 3. Update or insert this visitor's record
         $exists = $wpdb->get_var(
             $wpdb->prepare("SELECT ID FROM {$this->table_visitor} WHERE ip_address = %s", $this->_ip)
         );
@@ -41,27 +70,9 @@ class Model_Web_Visit
                 ['ip_address' => $this->_ip, 'last_active' => $this->_now],
                 ['%s', '%s']
             );
-            $wpdb->query("UPDATE {$this->table_site} SET total_views = total_views + 1 WHERE ID = 1");
         }
 
-        //  // ✅ 1. 檢查此 IP 是否在 5 分鐘內已來訪
-        $check = $wpdb->get_var(
-            $wpdb->prepare(
-                "SELECT ID FROM {$this->table_visitor} 
-                 WHERE ip_address = %s 
-                 AND last_active >= DATE_SUB(%s, INTERVAL 5 MINUTE)",
-                $this->_ip,
-                $this->_now
-            )
-        );
-
-        // ✅ 2. 若沒有出現過，總瀏覽次數 +1
-        if (!$check) {
-            $wpdb->query("UPDATE {$this->table_site} SET total_views = total_views + 1 WHERE ID = 1");
-        }
-
-        // ✅ 4. 清除 5 分鐘內未活動的紀錄（已離線）
-        // $wpdb->query("DELETE FROM {$this->table_visitor} WHERE last_active < (NOW() - INTERVAL 5 MINUTE)");
+        // ✅ 4. Delete inactive records (older than 5 minutes)
         $sql = "DELETE FROM {$this->table_visitor} WHERE last_active < DATE_SUB('{$this->_now}', INTERVAL 5 MINUTE)";
         $wpdb->query($sql);
     }
@@ -69,13 +80,18 @@ class Model_Web_Visit
     public function get_visitor_stats()
     {
         global $wpdb;
-        // ✅ 5. 統計目前在線人數
+        // ✅ 5. Get online users count
         $online_users = $wpdb->get_var("SELECT COUNT(*) FROM {$this->table_visitor}");
 
-        // ✅ 6. 取得總瀏覽次數
+        // ✅ 6. Get total views count
         $total_views = $wpdb->get_var("SELECT total_views FROM {$this->table_site} WHERE ID = 1");
+        
+        // [Modified: 15/06/2026] Fallback giá trị 0 nếu không tìm thấy dữ liệu lượt xem
+        if ($total_views === null) {
+            $total_views = 0;
+        }
 
-        // ✅ 7. 回傳結果
+        // ✅ 7. Return stats
         return [
             'online_users' => intval($online_users),
             'total_views'  => intval($total_views),

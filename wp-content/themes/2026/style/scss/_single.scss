@@ -1,41 +1,518 @@
 @use "./define.scss" as *;
-@use "./president.scss" as *;
+@use "./responsive.scss" as *;
 
-.content-style {
-    font-size: 18px;
+.astcc-page-container.single-full-width {
+  display: block !important;
+  width: 100% !important;
+  max-width: 1200px;
+  margin: 2rem auto;
 }
 
-.single-article-list div {
-    min-height: 35px;
-    border-bottom: 1px solid #ccc;
-    display: block;
-    padding: 10px 5px;
-    &:hover {
-        background-color: #f9f8f8;
+.sing-content {
+  width: 100% !important;
+  display: block;
+}
+
+
+.single-post-article {
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: $shadow-card;
+  border: 1px solid $border-color;
+  margin-bottom: 2rem;
+  transition: $transition-normal;
+
+  &:hover {
+    box-shadow: 0 30px 60px -20px rgba(15, 23, 42, 0.08);
+  }
+
+  @include Respond(md) {
+    padding: 1.5rem;
+  }
+
+  .head-title {
+    margin-bottom: 1.25rem;
+    text-align: left;
+
+    .head {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: $mainColor;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+      margin: 0;
+
+      @include Respond(sm) {
+        font-size: 1.75rem;
+      }
     }
-    a {
-        font-size: 15px;
-        font-weight: bold;
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: center;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid $border-color;
+    font-size: 0.9rem;
+    color: $text-secondary;
+    justify-content: flex-end;
+
+    @include Respond(xs) {
+      gap: 0.75rem;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+
+      i {
+        color: $color-primary;
+        font-size: 0.95rem;
+      }
+
+      a {
+        color: $color-primary;
         text-decoration: none;
-        color: $linkColor;
-        letter-spacing: 1.5px;
-        display: block;
+        transition: $transition-fast;
+
         &:hover {
-            color: $mainColor;
+          color: $linkColor;
+          text-decoration: underline;
         }
+      }
+
+      &.date-meta {
+     
+        color: #666;
+        font-weight: 600;
+        gap: 0.5rem;
+
+        svg {
+          stroke: #666;
+        }
+      }
     }
+  }
+
+  .post-thumbnail {
+    margin-bottom: 2.5rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    background-color: $bg-dark;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 550px;
+
+    img {
+      width: 100%;
+      height: auto;
+      max-height: 550px;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.02);
+    }
+  }
+
+  .content-style {
+    font-family: $font-primary;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: $text-primary;
+
+    @include Respond(sm) {
+      font-size: 1.025rem;
+      line-height: 1.7;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: $font-primary;
+      color: $mainColor;
+      font-weight: 700;
+      line-height: 1.3;
+      margin: 2.25rem 0 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    h2 {
+      font-size: 1.65rem;
+      border-left: 4px solid $color-primary;
+      padding-left: 0.75rem;
+
+      @include Respond(sm) {
+        font-size: 1.4rem;
+      }
+    }
+
+    h3 {
+      font-size: 1.4rem;
+
+      @include Respond(sm) {
+        font-size: 1.25rem;
+      }
+    }
+
+    ul,
+    ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+
+      li {
+        margin-bottom: 0.5rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    blockquote {
+      background-color: rgba(37, 99, 235, 0.03);
+      border-left: 4px solid $color-primary;
+      padding: 1.25rem 1.75rem;
+      margin: 2rem 0;
+      border-radius: 0 12px 12px 0;
+      font-style: italic;
+      color: $text-secondary;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.01);
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin: 1.75rem auto;
+      display: block;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    a {
+      color: $color-primary;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+      transition: $transition-fast;
+
+      &:hover {
+        color: $linkColor;
+        border-bottom-color: $linkColor;
+      }
+    }
+  }
 }
 
-.more-link {
-    height: 30px;
-    text-align: right;
-    margin-top: 20px;
-    margin-right: 20px;
-    font-size: 13px;
-    color: #2e6987;
-    text-decoration: none;
-    margin-bottom: 30px;
-    &:hover {
-        color: #ccc;
+.single-article-list {
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: $shadow-card;
+  border: 1px solid $border-color;
+  margin-bottom: 2rem;
+
+  @include Respond(md) {
+    padding: 1.5rem;
+  }
+
+  .related-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $mainColor;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid $border-color;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 60px;
+      height: 3px;
+      background: $gradient-hero;
+      border-radius: 3px;
     }
+  }
+
+  .related-posts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .related-post-card {
+    background-color: #ffffff;
+    border: 1px solid $border-color;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1.25rem;
+    gap: 1.25rem;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.02);
+    transition: $transition-normal;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: $color-primary;
+      opacity: 0;
+      transition: $transition-fast;
+    }
+
+    &:hover {
+      transform: translateY(-6px);
+      border-color: rgba(37, 99, 235, 0.2);
+      box-shadow: 
+        0 15px 30px -10px rgba(15, 23, 42, 0.06), 
+        $shadow-glow;
+
+      &::before {
+        opacity: 1;
+      }
+
+      .related-post-card-title a {
+        color: $color-primary;
+      }
+
+      .related-post-date-block {
+        background: $gradient-hero;
+        box-shadow: 0 8px 16px rgba(37, 99, 235, 0.2);
+
+        .related-date-day {
+          color: #ffffff;
+        }
+
+        .related-date-month {
+          color: rgba(255, 255, 255, 0.85);
+        }
+      }
+    }
+
+    .related-post-date-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      min-width: 60px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      transition: $transition-normal;
+
+      .related-date-day {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: $mainColor;
+        line-height: 1;
+        transition: $transition-fast;
+      }
+
+      .related-date-month {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: $text-secondary;
+        margin-top: 0.2rem;
+        line-height: 1;
+        transition: $transition-fast;
+      }
+    }
+
+    .related-post-content {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+
+      .related-post-card-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        line-height: 1.45;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+
+        a {
+          color: $text-primary;
+          text-decoration: none;
+          transition: $transition-fast;
+        }
+      }
+    }
+
+    &.reveal {
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  }
+
+  .no-related {
+    color: $text-muted;
+    font-style: italic;
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .related-loading-indicator {
+    text-align: center;
+    padding: 1.5rem 0;
+    
+    .spinner-svg {
+      animation: svg-rotate 2s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+
+      circle {
+        stroke: $color-primary;
+        stroke-linecap: round;
+        animation: svg-dash 1.5s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+@keyframes svg-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes svg-dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+// Supervisor Single Page Styling
+.president_single {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(0, 0, 0, 0.03);
+  margin-bottom: 3rem;
+  transition: all 0.4s ease;
+
+  &:hover {
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08), 0 10px 20px rgba(0, 0, 0, 0.04);
+    transform: translateY(-5px);
+  }
+
+  .president_single_title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: rgb(2, 58, 122); // $mainColor
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 1rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, rgb(148, 72, 2) 0%, rgb(2, 58, 122) 100%);
+      border-radius: 4px;
+    }
+
+    span {
+      display: block;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: #64748b;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+  }
+
+  .president_single_img {
+    text-align: center;
+    margin-bottom: 2.5rem;
+
+    img {
+      max-width: 600px;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 6px solid #ffffff;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s ease;
+
+      &:hover {
+        transform: scale(1.05) rotate(2deg);
+        box-shadow: 0 15px 35px rgba(2, 58, 122, 0.15);
+      }
+    }
+  }
+
+  .president_single_content {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #334155;
+    text-align: justify;
+
+    p {
+      margin-bottom: 1.5rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    strong {
+      color: rgb(2, 58, 122);
+    }
+  }
 }

@@ -13,7 +13,8 @@ if (!empty($a_barcode)) {
    // $table3  = $wpdb->prefix . 'member';
    //$row = array();
     
-    $sqlGuests    = "SELECT * FROM $table WHERE barcode = '$a_barcode' OR app_code = '$a_barcode'";
+    // [15/06/2026] Khắc phục SQL Injection: Sử dụng $wpdb->prepare
+    $sqlGuests    = $wpdb->prepare("SELECT * FROM $table WHERE barcode = %s OR app_code = %s", $a_barcode, $a_barcode);
     $row   = $wpdb->get_row($sqlGuests, ARRAY_A);
     //if(empty($guestsList)){
       //  $sqlMember  = "SELECT * FROM $table3 WHERE barcode = $a_barcode";
@@ -31,7 +32,13 @@ if (!empty($a_barcode)) {
     if (!empty($row) && $row['status'] == 1) {  
         
         // add 11/10/2017 KIEM TRA SO LAN CHECK IN =======================================================================================  
-         $sql2 = "SELECT time, date,  (SELECT COUNT(*) FROM $table2 WHERE guests_id =" . $row['ID'] .") as count FROM $table2 WHERE guests_id =". $row['ID'] ." ORDER BY time DESC LIMIT 1" ;
+         // [15/06/2026] Khắc phục SQL Injection: Sử dụng $wpdb->prepare cho guests_id
+         $guests_id = (int)$row['ID'];
+         $sql2 = $wpdb->prepare(
+             "SELECT time, date,  (SELECT COUNT(*) FROM $table2 WHERE guests_id = %d) as count FROM $table2 WHERE guests_id = %d ORDER BY time DESC LIMIT 1",
+             $guests_id,
+             $guests_id
+         );
          $row2 = $wpdb->get_row($sql2, ARRAY_A); 
          // end ================================================================================================    
 

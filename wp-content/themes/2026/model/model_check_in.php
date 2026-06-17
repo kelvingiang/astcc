@@ -103,7 +103,8 @@ class Admin_Model_Check_In extends WP_List_Table {
 
         if (getParams('filter_country') != ' ') {
             $country = getParams('filter_country');
-            $whereArr[] = "(m.country = $country)";
+            // [15/06/2026] Khắc phục SQL Injection: Sử dụng $wpdb->prepare cho điều kiện country
+            $whereArr[] = $wpdb->prepare("(m.country = %s)", $country);
         }
 
         if (getParams('s') != ' ') {
@@ -427,18 +428,30 @@ class Admin_Model_Check_In extends WP_List_Table {
         global $wpdb;
         $table = $wpdb->prefix . 'guests';
         if (!is_array($arrID)) {
+            // [15/06/2026] Khắc phục SQL Injection: Ép kiểu sang int cho $arrID
+            $arrID = (int)$arrID;
             $sql = "SELECT * FROM $table WHERE ID =" . $arrID;
             $row = $wpdb->get_row($sql, ARRAY_A);
             //            XOA HINH TRONG FOLDER
-            unlink(DIR_IMAGES_GUESTS . $row['img']);
-            unlink(DIR_IMAGES_BARCODE . $row['barcode'] . '.png');
+            if (!empty($row['img'])) {
+                unlink(DIR_IMAGES_GUESTS . $row['img']);
+            }
+            if (!empty($row['barcode'])) {
+                unlink(DIR_IMAGES_BARCODE . $row['barcode'] . '.png');
+            }
         } else {
             foreach ($arrID as $key) {
+                // [15/06/2026] Khắc phục SQL Injection: Ép kiểu sang int cho $key
+                $key = (int)$key;
                 $sql = "SELECT * FROM $table WHERE ID =" . $key;
                 $row = $wpdb->get_row($sql, ARRAY_A);
                 // XOA HINH CUA GUESTS
-                unlink(DIR_IMAGES_GUESTS . $row['img']);
-                unlink(DIR_IMAGES_BARCODE . $row['barcode'] . '.png');
+                if (!empty($row['img'])) {
+                    unlink(DIR_IMAGES_GUESTS . $row['img']);
+                }
+                if (!empty($row['barcode'])) {
+                    unlink(DIR_IMAGES_BARCODE . $row['barcode'] . '.png');
+                }
             }
         }
     }
@@ -486,7 +499,8 @@ class Admin_Model_Check_In extends WP_List_Table {
                 //         if ($file_size > 152) {
                 self::$_error[] = '上傳檔案容量不可大於 2 MB';
             }
-            $path = WP_CONTENT_DIR . DS . 'themes' . DS . '2020' . DS . 'images' . DS . 'guests' . DS; // get function path upload img dc khai bao tai file hepler
+            // [15/06/2026] Khắc phục lỗi logic: Sử dụng hàm upload_guests() động thay vì hardcode '2020'
+            $path = upload_guests();
 
             if (empty($this->_error) == true) {
                 if (is_file(DIR_IMAGES_GUESTS . $arrData['hidden_img'])) {

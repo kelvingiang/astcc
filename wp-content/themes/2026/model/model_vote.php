@@ -357,10 +357,12 @@ class Admin_Model_Vote extends WP_List_Table {
     private function del_img($id) {
         global $wpdb;
         $table = $wpdb->prefix . $this->table;
+        // [15/06/2026] Khắc phục SQL Injection: Ép kiểu $id về int
+        $id = (int)$id;
         $sql = "SELECT `img` FROM $table WHERE ID =" . $id;
         $row = $wpdb->get_row($sql, ARRAY_A);
         /*  XOA HINH DAI DIEN */
-        if (is_file(DIR_IMAGES_VOTE . $row['img'])) {
+        if (!empty($row['img']) && is_file(DIR_IMAGES_VOTE . $row['img'])) {
             unlink(DIR_IMAGES_VOTE . $row['img']);
         }
     }
@@ -398,6 +400,8 @@ class Admin_Model_Vote extends WP_List_Table {
     public function getItem($id, $option = array()) {
         global $wpdb;
         $table = $wpdb->prefix . $this->table;
+        // [15/06/2026] Khắc phục SQL Injection: Ép kiểu $id về int
+        $id = (int)$id;
         $sql = "SELECT * FROM $table WHERE ID = $id";
         $row = $wpdb->get_row($sql, ARRAY_A);
         return $row;

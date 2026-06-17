@@ -4,13 +4,14 @@
 define('WP_USE_THEMES', false);
 require('../../../../wp-load.php');
 
-$email = esc_attr($_POST['g-email']); // email
-$passport = esc_attr($_POST['g-passport']); // ten 
+$email = $_POST['g-email']; // email
+$passport = $_POST['g-passport']; // ten 
 global $wpdb;
 $table = $wpdb->prefix . "guests";
-$sqlName = "SELECT * FROM $table WHERE full_name = '$passport'";
-$sqlEmail = "SELECT * FROM $table WHERE email = '$email'";
-$sql = "SELECT * FROM  $table WHERE email = '$email' AND full_name = '$passport' ";
+// [15/06/2026] Khắc phục SQL Injection: Sử dụng $wpdb->prepare
+$sqlName = $wpdb->prepare("SELECT * FROM $table WHERE full_name = %s", $passport);
+$sqlEmail = $wpdb->prepare("SELECT * FROM $table WHERE email = %s", $email);
+$sql = $wpdb->prepare("SELECT * FROM  $table WHERE email = %s AND full_name = %s", $email, $passport);
 
 
 $resultName = $wpdb->get_row($sqlName, ARRAY_A);
@@ -46,7 +47,8 @@ if (!empty($objForget)) {
     $message = '<h4>' . $objForget['full_name'] . ' 您好 ! </h4>';
     $message .= '<p> 您的亞洲台灣商會聯合總會網站的新密碼是 ' . $newPass . '</p>';
 // kieu data show trong mail
-    add_filter('wp_mail_content_type', create_function('', 'return "text/html"; '));
+    // [15/06/2026] Khắc phục tương thích PHP 8: Thay thế create_function() bằng Closure
+    add_filter('wp_mail_content_type', function() { return 'text/html'; });
     wp_mail($to, $subject, $message);
     $response = array(
         'status' => 'done',
@@ -55,12 +57,12 @@ if (!empty($objForget)) {
     );
 } else {
     if ($errEmail == '') {
-        $errEmail = '電郵信箱和姓名不匹配';
-        echo $sqlEmail;
+        $errEmail = '電郵信箱 và 姓名 không khớp';
+        // [15/06/2026] Bảo mật: Không echo câu SQL truy vấn để tránh lộ cấu trúc DB
     }
     if ($errPassport == '') {
-        $errPassport = '姓名和電郵信箱不匹配';
-        echo $sqlName;
+        $errPassport = '姓名 và 電郵信箱 không khớp';
+        // [15/06/2026] Bảo mật: Không echo câu SQL truy vấn để tránh lộ cấu trúc DB
     }
     $response = array(
         'status' => 'error',

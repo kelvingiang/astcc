@@ -107,7 +107,8 @@ class Admin_Controller_Check_In_Setting {
                 $errors[] = 'File size must be excately 20 MB';
             }
             if (empty($errors)) {
-                $path = WP_CONTENT_DIR . DS . 'themes' . DS . '2020' . DS . 'file' . DS;
+                // [15/06/2026] Khắc phục lỗi logic: Sử dụng hàm import_file() động thay vì hardcode '2020'
+                $path = import_file();
                 move_uploaded_file($file_tmp, ( $path . $file_name));
 
                 $excelList = $path . $file_name;

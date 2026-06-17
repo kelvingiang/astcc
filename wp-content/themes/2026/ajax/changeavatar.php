@@ -8,7 +8,9 @@ use PHPImageWorkshop\ImageWorkshop;
 
 global $wpdb;
 $table = $wpdb->prefix . 'guests';
-$sql = "SELECT * FROM $table WHERE  ID =" . $_SESSION['login'] ;
+$user_id = isset($_SESSION['login']) ? (int)$_SESSION['login'] : 0;
+// [15/06/2026] Khắc phục SQL Injection: Sử dụng $wpdb->prepare và ép kiểu
+$sql = $wpdb->prepare("SELECT * FROM $table WHERE ID = %d", $user_id);
 $r = $wpdb->get_row($sql, ARRAY_A);
 // dien kien where de lay du lieu
 //$arr = array(
@@ -73,7 +75,7 @@ if (isset($_FILES['myfile'])) {
 //        $id = $memberAvata->ID; // lay ID cua du dong du lieu lay dc
 //        update_post_meta($id, 'm_image', $filename);
 
-        $where = array('ID' => absint($_SESSION['login']));
+        $where = array('ID' => $user_id);
         $data = array('img' => $filename);
         $wpdb->update($table, $data, $where);
 

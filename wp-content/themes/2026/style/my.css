@@ -11,24 +11,7 @@ root {
 }
 
 
-/*  ----B------- custome bootstrap */
-
-
-/*.container{
-    max-width: 310%;   
-    background-color: #FFF;
-    padding-bottom: 50px;
-    max-width:  1024px!important;
-}*/
-
-
-/*
-.container-fluid{
-    width: 90%; 
-    background-color: white; 
-    margin:  0 auto;
-    padding-top: 10px
-}*/
+// [15/06/2026] Khắc phục chất lượng mã nguồn: Loại bỏ code CSS Bootstrap đã bị comment-out
 
 .list_style {
     list-style: none;
@@ -126,7 +109,7 @@ root {
 }
 
 
-/*  ----E------- custome bootstrap */
+
 
 .menu-item a {
     font-size: 15px;
@@ -303,36 +286,7 @@ a:active {
     margin-bottom: 20px;
 }
 
-.info-bg {
-    background-color: #ededed;
-    padding: 3px 10px 10px;
-    border-radius: 0 0 5px 5px;
-    word-break: break-all;
-    word-wrap: break-word;
-    color: #515151;
-    font-size: 15px;
-    letter-spacing: 2px;
-    border: 1px #d8d8d8 solid;
-    border-radius: 5px;
-    padding: 10px;
-    display: block;
-    margin-bottom: 15px;
-}
 
-.info-bg .row {
-    /*border-bottom:  1px solid #FFFFFF;*/
-    margin: 10px;
-}
-
-.info-bg .post-info label {
-    font-size: 12px;
-    color: #aaaaaa;
-    font-weight: normal;
-}
-
-.info-bg h2 {
-    color: #ff8003;
-}
 
 
 /*=====================comment style=============================================*/

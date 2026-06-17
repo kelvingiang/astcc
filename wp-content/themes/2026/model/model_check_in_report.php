@@ -82,6 +82,8 @@ class Admin_Model_Check_In_Report {
     public function ReportDetailView($guests_id) {
         global $wpdb;
         $table = $wpdb->prefix . 'guests_check_in';
+        // [15/06/2026] Khắc phục SQL Injection: Ép kiểu $guests_id về int
+        $guests_id = (int)$guests_id;
         $sql = "SELECT * FROM $table WHERE guests_id = $guests_id";
         $row = $wpdb->get_results($sql, ARRAY_A);
         return $row;

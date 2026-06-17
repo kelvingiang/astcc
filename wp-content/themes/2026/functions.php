@@ -4,9 +4,12 @@
  *  URL: html5blank.com | @html5blank
  *  Custom functions, support, custom post types and more.
  */
-if (!isset($_SESSION)) {
-    session_start();
-}
+// [15/06/2026] Khắc phục tương thích PHP 8: Khởi chạy Session thông qua hook 'init' để tránh lỗi gửi header sớm
+add_action('init', function() {
+    if (!session_id()) {
+        session_start();
+    }
+}, 1);
 
 define('HELPER', get_stylesheet_directory() . '/helper');
 //
@@ -48,6 +51,9 @@ if (function_exists('add_theme_support'))
 {
     // Add Menu Support
     add_theme_support('menus');
+
+    // [15/06/2026] Khắc phục chất lượng mã nguồn: Thêm add_theme_support('title-tag') để sinh tiêu đề trang động
+    add_theme_support('title-tag');
 
     // Add Thumbnail Theme Support
     add_theme_support('post-thumbnails');
@@ -120,11 +126,11 @@ function html5blank_header_scripts()
 {
     if ($GLOBALS['pagenow'] != 'wp-login.php' && !is_admin()) {
 
-    	wp_register_script('conditionizr', get_template_directory_uri() . '/js/lib/conditionizr-4.3.0.min.js', array(), '4.3.0'); // Conditionizr
-        wp_enqueue_script('conditionizr'); // Enqueue it!
+    	// wp_register_script('conditionizr', get_template_directory_uri() . '/js/lib/conditionizr-4.3.0.min.js', array(), '4.3.0'); // Conditionizr
+        // wp_enqueue_script('conditionizr'); // Enqueue it!
 
-        wp_register_script('modernizr', get_template_directory_uri() . '/js/lib/modernizr-2.7.1.min.js', array(), '2.7.1'); // Modernizr
-        wp_enqueue_script('modernizr'); // Enqueue it!
+        // wp_register_script('modernizr', get_template_directory_uri() . '/js/lib/modernizr-2.7.1.min.js', array(), '2.7.1'); // Modernizr
+        // wp_enqueue_script('modernizr'); // Enqueue it!
 
         wp_register_script('html5blankscripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0'); // Custom scripts
         wp_enqueue_script('html5blankscripts'); // Enqueue it!
@@ -454,3 +460,49 @@ function remove_jquery_migrate( $scripts ) {
  }
  }
 add_action( 'wp_default_scripts', 'remove_jquery_migrate' );
+
+
+
+/**
+ * Ngày tạo: 2026-06-16
+ * Chức năng: Bulk insert 20 bài viết test cho mỗi category.
+ * Tối ưu: Tạm ngưng WordPress cache trong lúc lặp để tránh memory leak.
+ */
+
+add_action( 'admin_init', 'custom_generate_category_test_data' );
+
+function custom_generate_category_test_data() {
+    // Chỉ kích hoạt khi truy cập wp-admin/?generate_test_posts=true
+    if ( ! isset( $_GET['generate_test_posts'] ) || $_GET['generate_test_posts'] !== 'true' ) {
+        return;
+    }
+
+    // Tạm dừng thêm và xóa cache để tối ưu hiệu suất bộ nhớ
+    wp_suspend_cache_addition( true );
+    wp_suspend_cache_invalidation( true );
+
+    // Lấy toàn bộ categories, kể cả category rỗng
+    $categories = get_categories( array( 'hide_empty' => false ) );
+    $current_user_id = get_current_user_id();
+
+    foreach ( $categories as $category ) {
+        for ( $i = 1; $i <= 20; $i++ ) {
+            $post_data = array(
+                'post_title'    => 'Test Post ' . $i . ' - ' . $category->name,
+                'post_content'  => 'Nội dung bài viết mẫu số ' . $i . ' cho chuyên mục ' . $category->name . '. Dữ liệu được tạo tự động để phục vụ việc test giao diện và Technical SEO.',
+                'post_status'   => 'publish',
+                'post_type'     => 'post',
+                'post_author'   => $current_user_id,
+                'post_category' => array( $category->term_id )
+            );
+
+            wp_insert_post( $post_data );
+        }
+    }
+
+    // Bật lại cache
+    wp_suspend_cache_addition( false );
+    wp_suspend_cache_invalidation( false );
+
+    wp_die( 'Đã tạo thành công dữ liệu test cho tất cả categories!' );
+}

@@ -10,7 +10,7 @@ get_header();
         <div class="head-title">
             <h2 class="head"><?php _e('Astcc History') ?></h2>
         </div>
-        <div class="history-content-panel">
+        <div class="history-content-panel one-column">
             <?php echo get_post_meta('1', '_info_history', true);  ?>
         </div>
     </div>

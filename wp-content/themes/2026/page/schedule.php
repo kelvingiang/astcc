@@ -4,17 +4,17 @@
  */
 ?>
 <?php get_header(); ?>
-<div id="silder"><?php get_template_part('template/template', 'silder'); ?></div>
-<div class="row my-row" style="padding-top: 30px">
+<div class="astcc-page-container">
 
-    <div class="second-space col-lg-9 col-md-8 col-sm-12 col-xs-12">
+    <div class="main-content">
         <div class='head-title'>
             <div class="title">
                 <h2 class="head"> <?php echo __('行事曆') ?> </h2>
             </div>
         </div>
-        <div class="group-border">
+        <div class="schedule-list">
             <?php
+            global $wpdb;
             // PHAN get_resuls GET DATA FROM MY CREATE TABEL
             $table = $wpdb->prefix . 'schedule';
             $query = "SELECT * FROM {$table} WHERE status = 1  ORDER BY year  DESC, month  DESC, day  DESC";
@@ -33,23 +33,23 @@
                     foreach ($reback as $item) {
                         if (in_array($id, $item)) {
                 ?>
-                            <div class="row my_row ">
-                                <div class=" col-md-12 schedule_title">
-                                    <?php echo $item['title']; ?>
+                            <div class="schedule-item">
+                                <div class="schedule_title">
+                                    <h4><?php echo $item['title']; ?></h4>
                                 </div>
-                                <div class="col-md-6 my_text">
-                                    <label>日期 :</label> <?php echo $item['date'] . ' - ' . $item['weekdays']; ?>
-                                    <label style="padding-left: 10px">時間 :</label> <?php echo $item['time'] ?>
+                                <div class="schedule-time-grid">
+                                    <div class="time-block">
+                                        <div class="meta-item"><label>開始日期 :</label> <span><?php echo $item['date'] . ' - ' . $item['weekdays']; ?></span></div>
+                                        <div class="meta-item"><label>時間 :</label> <span><?php echo $item['time']; ?></span></div>
+                                    </div>
+                                    <div class="time-block">
+                                        <div class="meta-item"><label>結束日期 :</label> <span><?php echo $item['finish_date'] . ' - ' . $item['finish_week']; ?></span></div>
+                                        <div class="meta-item"><label>時間 :</label> <span><?php echo $item['finish_time']; ?></span></div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 my_text">
-                                    <label>結束日期 :</label> <?php echo $item['finish_date'] . ' - ' . $item['finish_week']; ?>
-                                    <label style="padding-left: 10px">時間 :</label> <?php echo $item['finish_time'] ?>
-                                </div>
-                                <div class="col-md-12 my_hide">
-
-                                    <label>地點 : </label> <?php echo $item['place']; ?><br>
-                                    <label>備註 : </label> <?php echo $item['note']; ?>
-
+                                <div class="schedule-info">
+                                    <div class="detail-row"><label>地點 :</label> <span><?php echo $item['place']; ?></span></div>
+                                    <div class="detail-row"><label>備註 :</label> <span><?php echo nl2br($item['note']); ?></span></div>
                                 </div>
                             </div>
             <?php
@@ -60,41 +60,11 @@
             ?>
         </div>
     </div>
-    <div class="first-space col-lg-3 col-md-4 col-sm-12 col-xs-12">
+    <div class="sidebar-area">
         <?php get_sidebar(); ?>
     </div>
-
-    <!-- <div class="last-space col-lg-3 col-md-4 col-sm-12 col-xs-12"> -->
-    <?php // get_sidebar('mobile'); 
-    ?>
-    <!-- </div> -->
 </div>
 
 
-<script type="text/javascript">
-    jQuery(document).ready(function() {
-
-
-        jQuery('.my_row').click(function() {
-            // jQuery('.my_row').css({
-            //     'background-color': '#fff',
-            //     'color': '#8C8888',
-            // });
-            var dd = jQuery(this).children('.my_hide').css('display');
-
-            if (dd !== 'block') {
-                jQuery('.my_hide').slideUp('80');
-                jQuery('.my_row').removeClass('selected');
-
-                jQuery(this).addClass('selected');
-                jQuery(this).children('.my_hide').slideDown('slow');
-                // jQuery(this).css({
-                //     'background-color': '#E3E4E5',
-                //     'color': "#000",
-                // });
-            }
-        });
-    });
-</script>
 <?php
 get_footer();

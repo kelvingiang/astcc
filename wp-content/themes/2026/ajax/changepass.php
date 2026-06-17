@@ -6,16 +6,19 @@ require('../../../../wp-load.php');
 
 // tiep gía tri chuyen qua tu post 
 //$user = $_SESSION['login'];
-$o_pass = md5(esc_attr($_POST['o_pass']));
-$n_pass = md5(esc_attr($_POST['n_pass']));
+$o_pass = md5($_POST['o_pass']);
+$n_pass = md5($_POST['n_pass']);
+$user_id = isset($_SESSION['login']) ? (int)$_SESSION['login'] : 0;
 
 // dieu kien get data tu metabox == where
 global $wpdb;
 $table = $wpdb->prefix . 'guests';
-$sql = "SELECT * FROM $table WHERE  password = '$o_pass' ";
+
+// [15/06/2026] Khắc phục SQL Injection & Lỗi logic: Kiểm tra mật khẩu cũ khớp với đúng ID đang đăng nhập
+$sql = $wpdb->prepare("SELECT * FROM $table WHERE ID = %d AND password = %s", $user_id, $o_pass);
 $row = $wpdb->get_row($sql, ARRAY_A);
 
-if (empty($row)) {
+if ($user_id === 0 || empty($row)) {
     $response = array(
         'status' => 'error',
         'oldPass' => '密碼不正確',
@@ -34,7 +37,7 @@ if (empty($row)) {
 } else {
 
     // sau khi lay va lay dong du lieu
-    $where = array('ID' => absint($_SESSION['login']));
+    $where = array('ID' => $user_id);
     $data =array('password' => $n_pass );
     $wpdb->update($table, $data, $where);
     $response = array(

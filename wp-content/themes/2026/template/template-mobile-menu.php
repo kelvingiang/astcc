@@ -1,9 +1,8 @@
 <div id="mobile-header">
     <div class="mobile-menu-title">
-        <img src="<?php echo get_image('mobile_menu_icon.png') ?>" style="width: 30px; margin: 5px" />
-        <!-- <label style="margin-left: 20px; color: #FFF; font-weight:  bold;  font-size: 15px"> 項 目 </label> -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mobile-icon"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        <span>MENU</span>
     </div>
-    <?php //suite_menu('mobile-menu') ?>
     <?php mobile_menu('mobile-menu') ?>
 </div>
 <script>
@@ -39,9 +38,11 @@
 
             // 关闭所有其他子菜单并停止它们的动画
             jQuery('.sub-menu').not(subMenu).stop(true, true).slideUp('fast');
+            jQuery('.menu-item-has-children').not(this).removeClass('open');
 
             // 切换当前子菜单的显示状态，使用 toggle 简化逻辑
             subMenu.slideToggle('slow');
+            jQuery(this).toggleClass('open');
         });
     });
 </script>

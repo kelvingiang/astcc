@@ -93,12 +93,8 @@ function get_guests_country()
 
 function Chang_Url()
 {
-    if ($_SERVER['HTTP_HOST'] === 'localhost') {
-        $url = 'http://localhost/astcc/';
-    } else {
-        $url = 'http://astcc24.net/';
-    }
-    return $url;
+    // [15/06/2026] Khắc phục chất lượng mã nguồn: Trả về home_url('/') động thay vì hardcode tên miền
+    return home_url('/');
 }
 
 // STRAT VOTE THE FUNCTION
@@ -198,6 +194,8 @@ function getVoteResult($kid)
 {
     global $wpdb;
     $table = $wpdb->prefix . 'vote';
+    // [15/06/2026] Khắc phục SQL Injection: Ép kiểu $kid về int
+    $kid = (int)$kid;
     $sql = "SELECT * FROM $table WHERE `kid` = $kid AND `status` = 1 ORDER BY `vote_total` DESC";
     $row = $wpdb->get_results($sql, ARRAY_A);
     return $row;
@@ -207,6 +205,8 @@ function getVoteListByKid($kid)
 {
     global $wpdb;
     $table = $wpdb->prefix . 'vote';
+    // [15/06/2026] Khắc phục SQL Injection: Ép kiểu $kid về int
+    $kid = (int)$kid;
     $sql = "SELECT * FROM $table WHERE `kid` = $kid AND `status` = 1";
     $row = $wpdb->get_results($sql, ARRAY_A);
     return $row;
@@ -216,7 +216,12 @@ function voteLogin($user, $pass)
 {
     global $wpdb;
     $table = $wpdb->prefix . 'guests';
-    $sql = "SELECT ID, full_name, barcode FROM $table WHERE `full_name` = '$user' AND `barcode` = '$pass' AND `status` = 1 AND `check_in` = 0";
+    // [15/06/2026] Khắc phục SQL Injection: Sử dụng prepared statements
+    $sql = $wpdb->prepare(
+        "SELECT ID, full_name, barcode FROM $table WHERE `full_name` = %s AND `barcode` = %s AND `status` = 1 AND `check_in` = 0",
+        $user,
+        $pass
+    );
     $row = $wpdb->get_row($sql, ARRAY_A);
     if (!empty($row)) {
         $_SESSION['voteLogin'] = $row;
@@ -231,6 +236,8 @@ function updateVoteCount($id)
     global $wpdb;
     //PLUS VOTE COUNT
     $table = $wpdb->prefix . 'vote';
+    // [15/06/2026] Khắc phục SQL Injection: Ép kiểu $id về int
+    $id = (int)$id;
     $updateSql = "UPDATE $table SET vote_total=vote_total + 1 WHERE ID=$id";
     $wpdb->query($updateSql);
 }
@@ -240,7 +247,9 @@ function userVoteSuccess()
     global $wpdb;
     // SET USER VOTED
     $table = $wpdb->prefix . 'guests';
-    $updateSql = "UPDATE $table SET check_in = 1 WHERE ID = " . $_SESSION['voteLogin']['ID'];
+    // [15/06/2026] Khắc phục SQL Injection: Ép kiểu ID về int và kiểm tra sự tồn tại
+    $user_id = isset($_SESSION['voteLogin']['ID']) ? (int)$_SESSION['voteLogin']['ID'] : 0;
+    $updateSql = "UPDATE $table SET check_in = 1 WHERE ID = $user_id";
     $wpdb->query($updateSql);
 
     unset($_SESSION['voteLogin']);
@@ -397,32 +406,44 @@ function get_workshop_uri($name = '')
 
 function upload_guests()
 {
-    return WP_CONTENT_DIR . DS . 'themes' . DS . 'blank' . DS . 'images' . DS . 'guests' . DS;
+    // [15/06/2026] Khắc phục lỗi logic: Sử dụng get_stylesheet_directory() động thay vì hardcode 'blank'
+    return get_stylesheet_directory() . DS . 'images' . DS . 'guests' . DS;
 }
 
 function upload_avatar()
 {
-    return WP_CONTENT_DIR . DS . 'themes' . DS . 'blank' . DS . 'images' . DS . 'avata' . DS;
+    // [15/06/2026] Khắc phục lỗi logic: Sử dụng get_stylesheet_directory() động thay vì hardcode 'blank'
+    return get_stylesheet_directory() . DS . 'images' . DS . 'avata' . DS;
 }
 
 function upload_article()
 {
-    return WP_CONTENT_DIR . DS . 'themes' . DS . 'blank' . DS . 'images' . DS . 'article' . DS;
+    // [15/06/2026] Khắc phục lỗi logic: Sử dụng get_stylesheet_directory() động thay vì hardcode 'blank'
+    return get_stylesheet_directory() . DS . 'images' . DS . 'article' . DS;
 }
 
 function get_guests($name)
 {
-    return WP_CONTENT_DIR . DS . 'themes' . DS . 'blank' . DS . 'images' . DS . 'guests' . DS . $name;
+    // [15/06/2026] Khắc phục lỗi logic: Sử dụng get_stylesheet_directory() động thay vì hardcode 'blank'
+    return get_stylesheet_directory() . DS . 'images' . DS . 'guests' . DS . $name;
 }
 
 function get_avata($name)
 {
-    return WP_CONTENT_DIR . DS . 'themes' . DS . 'blank' . DS . 'images' . DS . 'avata' . DS . $name;
+    // [15/06/2026] Khắc phục lỗi logic: Sử dụng get_stylesheet_directory() động thay vì hardcode 'blank'
+    return get_stylesheet_directory() . DS . 'images' . DS . 'avata' . DS . $name;
 }
 
 function dir_php_class($dir = '')
 {
-    return WP_CONTENT_DIR . DS . 'themes' . DS . 'blank' . DS . 'lib' . DS . 'class' . DS . $dir;
+    // [15/06/2026] Khắc phục lỗi logic: Sử dụng get_stylesheet_directory() động thay vì hardcode 'blank'
+    return get_stylesheet_directory() . DS . 'lib' . DS . 'class' . DS . $dir;
+}
+
+function import_file()
+{
+    // [15/06/2026] Khắc phục lỗi logic: Định nghĩa hàm import_file() bị thiếu để phục vụ import Excel
+    return get_stylesheet_directory() . DS . 'file' . DS;
 }
 
 class Common
@@ -471,11 +492,23 @@ function checkExists($field, $value, $error_mess)
 
     global $wpdb;
     $table = $wpdb->prefix . 'guests';
-    $sql = "SELECT * FROM $table WHERE  $strField = '" . $strValue . "'";
+    
+    // [15/06/2026] Khắc phục SQL Injection: Sử dụng whitelist cho tên cột và prepared statements cho giá trị
+    $allowed_fields = array('email', 'full_name', 'barcode', 'phone');
+    if (!in_array($strField, $allowed_fields)) {
+        return;
+    }
+
+    $sql = $wpdb->prepare("SELECT * FROM $table WHERE $strField = %s", $strValue);
     $row = $wpdb->get_row($sql, ARRAY_A);
-    if ($row['email'] == $_SESSION['email']) {
+    
+    if (empty($row)) {
+        return;
+    }
+    
+    if (isset($_SESSION['email']) && $row['email'] == $_SESSION['email']) {
         //  break;
-    } else if (count($row['email']) > 0) {
+    } else if (!empty($row['email'])) {
         $return['error'] = 'exists';
         $return['mess'] = $error_mess;
         return $return;
@@ -569,7 +602,7 @@ function set_custom_edit_columns($columns)
     unset($columns['date']);
     $columns['content'] = __('Content', 'your_text_domain');
     //$columns['publisher'] = __('Publisher', 'your_text_domain');
-    $columns['order'] = __('次序', 'your_text_domain');
+    // $columns['order'] = __('次序', 'your_text_domain');
     // $columns['home'] = __('首頁', 'your_text_domain');
 
     $columns['date'] = __('Create Date', 'suite');
@@ -644,8 +677,9 @@ if (!function_exists('mobile_menu')) {
 // DOI LOGO MAC DINH CUA WORDPRESS
 function custom_login_logo()
 {
+    // [15/06/2026] Khắc phục lỗi logic: Sử dụng get_stylesheet_directory_uri() động thay vì hardcode 'blank'
     echo '<style type="text/css">
-h1 a { background-image:url(' . WP_CONTENT_URL . '/themes/blank/images/logo.png) !important; 
+h1 a { background-image:url(' . get_stylesheet_directory_uri() . '/images/logo.png) !important; 
          background-size: 100px !important;
           width : 250px !important;
           height : 100px !important;
@@ -660,8 +694,8 @@ add_action('login_head', 'custom_login_logo');
 // Thêm vào cuối tệp functions.php của theme 2026
 
 function astcc_enqueue_news_script() {
-    // Chỉ tải script này trên trang sử dụng template 'page/news.php'
-    if ( is_page_template('page/news.php') ) {
+    // Chỉ tải script này trên trang sử dụng template 'page/news.php', 'page/news_young.php', 'page/news_other.php'
+    if ( is_page_template('page/news.php') || is_page_template('page/news_conference.php') || is_page_template('page/news_young.php') || is_page_template('page/news_other.php') ) {
         wp_enqueue_script(
             'infinite-scroll',
             get_template_directory_uri() . '/js/infinite-scroll.js',
@@ -670,15 +704,16 @@ function astcc_enqueue_news_script() {
             true
         );
 
-        // Lấy tổng số bài viết để biết khi nào dừng tải
-        $news_query = new WP_Query(array(
-            'post_type' => 'post',
-            'post_status' => 'publish',
-            'category_name' => 'news',
-            'posts_per_page' => -1,
-        ));
-        $total_posts = $news_query->found_posts;
-        wp_reset_postdata();
+        $category_slug = 'news';
+        if ( is_page_template('page/news_young.php') ) {
+            $category_slug = 'young';
+        } elseif ( is_page_template('page/news_other.php') ) {
+            $category_slug = 'member';
+        }
+
+        // [16/06/2026] Tối ưu hóa: Lấy trực tiếp số lượng bài viết từ category object
+        $cat_obj = get_category_by_slug($category_slug);
+        $total_posts = $cat_obj ? $cat_obj->count : 0;
 
         // Truyền biến tới JavaScript
         wp_localize_script(
@@ -690,6 +725,7 @@ function astcc_enqueue_news_script() {
                 'total_posts' => $total_posts,
                 'initial_posts' => 5, // Số bài viết tải ban đầu
                 'posts_per_page' => 2,   // Số bài viết tải mỗi lần cuộn
+                'category_slug' => $category_slug
             )
         );
     }
@@ -703,11 +739,12 @@ function astcc_load_more_news_posts() {
     // Đọc trực tiếp offset và limit từ yêu cầu AJAX
     $offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
     $limit = isset($_POST['limit']) ? intval($_POST['limit']) : 2;
+    $category_slug = isset($_POST['category_slug']) ? sanitize_text_field($_POST['category_slug']) : 'news';
 
     $args = array(
         'post_type' => 'post',
         'post_status' => 'publish',
-        'category_name' => 'news',
+        'category_name' => $category_slug,
         'posts_per_page' => $limit,
         'offset' => $offset,
         'orderby' => 'ID',
@@ -731,3 +768,89 @@ function astcc_load_more_news_posts() {
 }
 add_action('wp_ajax_load_more_news_posts', 'astcc_load_more_news_posts');
 add_action('wp_ajax_nopriv_load_more_news_posts', 'astcc_load_more_news_posts');
+
+// Enqueue infinite scroll script for single post pages
+function astcc_enqueue_single_post_script() {
+    if ( is_single() ) {
+        wp_enqueue_script(
+            'infinite-scroll-single',
+            get_template_directory_uri() . '/js/infinite-scroll-single.js',
+            array('jquery'),
+            '1.0',
+            true
+        );
+
+        $post_id = get_the_ID();
+        $cate = get_the_category();
+        $category_slug = !empty($cate) ? $cate[0]->slug : '';
+
+        $total_posts = 0;
+        if ($category_slug) {
+            $cat_obj = get_category_by_slug($category_slug);
+            // Tổng số bài trong category trừ đi bài hiện tại
+            $total_posts = $cat_obj ? max(0, $cat_obj->count - 1) : 0;
+        }
+
+        wp_localize_script(
+            'infinite-scroll-single',
+            'related_load_params',
+            array(
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('load_more_related_nonce'),
+                'total_posts' => $total_posts,
+                'initial_posts' => 5,
+                'posts_per_page' => 2,
+                'category_slug' => $category_slug,
+                'exclude_post_id' => $post_id
+            )
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'astcc_enqueue_single_post_script');
+
+// AJAX handler for loading more related posts
+function astcc_load_more_related_posts() {
+    check_ajax_referer('load_more_related_nonce', 'nonce');
+
+    $offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
+    $limit = isset($_POST['limit']) ? intval($_POST['limit']) : 2;
+    $category_slug = isset($_POST['category_slug']) ? sanitize_text_field($_POST['category_slug']) : '';
+    $exclude_post_id = isset($_POST['exclude_post_id']) ? intval($_POST['exclude_post_id']) : 0;
+
+    $args = array(
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'category_name' => $category_slug,
+        'posts_per_page' => $limit,
+        'offset' => $offset,
+        'orderby' => 'ID',
+        'order' => 'DESC',
+        'post__not_in' => array($exclude_post_id),
+    );
+
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            ?>
+            <div class="related-post-card reveal">
+                <div class="related-post-date-block">
+                    <span class="related-date-day"><?php echo get_the_date('d'); ?></span>
+                    <span class="related-date-month"><?php echo get_the_date('M'); ?></span>
+                </div>
+                <div class="related-post-content">
+                    <h4 class="related-post-card-title">
+                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                    </h4>
+                </div>
+            </div>
+            <?php
+        }
+        wp_reset_postdata();
+    }
+    wp_die();
+}
+add_action('wp_ajax_load_more_related_posts', 'astcc_load_more_related_posts');
+add_action('wp_ajax_nopriv_load_more_related_posts', 'astcc_load_more_related_posts');
+

@@ -30,6 +30,8 @@ jQuery(function($) {
         const lastArticleRect = lastArticle[0].getBoundingClientRect();
         const windowHeight = $(window).height();
 
+        const categorySlug = articleList.data('category') || news_load_params.category_slug || 'news';
+
         // Kiểm tra nếu điều kiện tải được đáp ứng
         if (lastArticleRect.bottom <= windowHeight + bottomOffset) {
             isLoading = true; // Đặt cờ đang tải để chặn các yêu cầu khác
@@ -42,37 +44,46 @@ jQuery(function($) {
                     action: 'load_more_news_posts',
                     offset: currentPostCount, // Gửi số bài đã có
                     limit: postsPerPage, // Gửi số lượng cần tải
-                    nonce: news_load_params.nonce
+                    nonce: news_load_params.nonce,
+                    category_slug: categorySlug
                 },
                 success: function(response) {
                     if (response.trim() !== '') {
-                        const newItems = $(response);
-                        articleList.append(newItems);
-                        // Cập nhật lại số lượng bài viết một cách chính xác
-                        currentPostCount += newItems.filter('.article_item').length;
+                        // [15/06/2026] Thêm độ trễ 1.5 giây để thấy rõ hiệu ứng loading tin tức
+                        setTimeout(function() {
+                            // Gán class 'reveal' để kích hoạt hiệu ứng slide-up và fade-in từ CSS
+                            const newItems = $(response).addClass('reveal');
+                            articleList.append(newItems);
+                            
+                            // [15/06/2026] Xóa bỏ class 'reveal' sau khi hiệu ứng kết thúc (800ms) để khôi phục hiệu ứng hover bình thường
+                            setTimeout(function() {
+                                newItems.removeClass('reveal');
+                            }, 800);
+                            
+                            // Cập nhật lại số lượng bài viết một cách chính xác
+                            currentPostCount += newItems.filter('.article_item').length;
+                            
+                            $('.loading-indicator').hide();
+                            isLoading = false;
+
+                            if (currentPostCount >= totalPosts) {
+                                // Đã tải hết, gỡ bỏ sự kiện scroll
+                                $(window).off('scroll.infinite', checkAndLoad);
+                            } else {
+                                // Gọi lại hàm kiểm tra sau một khoảng trễ ngắn
+                                setTimeout(checkAndLoad, 100);
+                            }
+                        }, 500);
                     } else {
-                        // Không còn bài viết, đánh dấu là đã tải hết
+                        $('.loading-indicator').hide();
+                        isLoading = false;
                         currentPostCount = totalPosts;
+                        $(window).off('scroll.infinite', checkAndLoad);
                     }
                 },
                 error: function() {
                     $('.loading-indicator').html('<p>Đã có lỗi xảy ra. Vui lòng thử lại.</p>').show();
-                },
-                complete: function() {
-                    isLoading = false; // Hoàn tất, cho phép yêu cầu tiếp theo
-
-                    if (currentPostCount >= totalPosts) {
-                        // Đã tải hết, ẩn chỉ báo và gỡ bỏ sự kiện scroll
-                        $('.loading-indicator').hide();
-                        $(window).off('scroll.infinite', checkAndLoad);
-                    } else {
-                        $('.loading-indicator').hide();
-                        // **QUAN TRỌNG**: Gọi lại hàm để kiểm tra sau một khoảng trễ ngắn.
-                        // Điều này giải quyết "tình trạng tranh chấp" (race condition) bằng cách cho trình duyệt
-                        // thời gian để render các mục mới. Do đó, lần kiểm tra tiếp theo sẽ có được
-                        // vị trí chính xác của `article_item` cuối cùng và tránh tải trùng lặp.
-                        setTimeout(checkAndLoad, 100);
-                    }
+                    isLoading = false;
                 }
             });
         }

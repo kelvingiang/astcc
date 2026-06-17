@@ -85,14 +85,14 @@
     }
 
     // Add a nice first-letter drop cap for the first paragraph
-    p:first-of-type::first-letter {
-        font-size: 4em;
-        font-weight: bold;
-        float: left;
-        line-height: 0.8;
-        margin-right: 0.1em;
-        color: rgb(2, 58, 122);
-        font-family: "Times New Roman", Times, serif;
-    }
+    // p:first-of-type::first-letter {
+    //     font-size: 4em;
+    //     font-weight: bold;
+    //     float: left;
+    //     line-height: 0.8;
+    //     margin-right: 0.1em;
+    //     color: rgb(2, 58, 122);
+    //     font-family: "Times New Roman", Times, serif;
+    // }
 }
 

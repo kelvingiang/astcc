@@ -49,7 +49,12 @@ if (isPost()) {
 // THONG SO id DUA CHUYEN TREN url DE LAY DONG DU LIEU CAN CHINH SUA
     $table = $wpdb->prefix . 'member';
     $pass = md5($_POST['txt-pass']);
-    $sql = "SELECT company_cn, contact_cn, password, ID, contact_email, serial FROM $table WHERE trash = 0 AND contact_email = '" . $_POST['txt-user'] . "' AND password = '$pass'";
+    // [15/06/2026] Khắc phục SQL Injection: Sử dụng $wpdb->prepare cho contact_email và password
+    $sql = $wpdb->prepare(
+        "SELECT company_cn, contact_cn, password, ID, contact_email, serial FROM $table WHERE trash = 0 AND contact_email = %s AND password = %s",
+        $_POST['txt-user'],
+        $pass
+    );
     $row = $wpdb->get_row($sql, ARRAY_A);
 
 

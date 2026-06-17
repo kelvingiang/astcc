@@ -4,45 +4,22 @@
  */
 get_header();
 ?>
-<div id="silder"><?php get_template_part('template/template', 'silder'); ?></div>
-<div class="row my-row">
-    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 ">
+<div class="astcc-page-container">
+    <div class="main-content">
         <div class='head-title'>
             <div class="title">
                 <h2 class="head"> <?php echo __('各會員體最新消息') ?></h2>
             </div>
         </div>
-        <div class="info-bg">
+        <div class="article-list" data-category="member">
             <?php
-
-            //===CAC THONG SO DUNG DE PHAN TRANG ============================               
-            $paged = max(1, get_query_var('page'));
-            $showNum = get_option('posts_per_page');
-            $offset = ($paged - 1) * $showNum;
-            // ==LAY TONG SO DONG DE PHAN TRANG  ============================================= 
-            $args = array(
-                'post_type' => 'post',
-                'post_status' => 'publish',
-                'category_name' => 'member',
-            );
-
-            $the_query = new WP_Query($args);
-            $totalpost = $the_query->found_posts;
-            wp_reset_postdata();
-            wp_reset_query();
-            //====================================================================
             $arr = array(
                 'post_type' => 'post',
                 'post_status' => 'publish',
                 'category_name' => 'member',
-                'posts_per_page' => $showNum,
-                'offset' => $offset,
-                'paged' => $paged,
-                // 'orderby'        => 'ID',    // 按照 ID 排序
-                // 'order'          => 'DESC',  // DESC 为倒序（从大到小），ASC 为正序（从小到大）
-                'orderby' => 'meta_value_num',
+                'posts_per_page' => 5, // Tải 5 tin tức đầu tiên
+                'orderby' => 'ID',
                 'order' => 'DESC',
-                'meta_key' => '_show_order',
             );
             $wp_query = new WP_Query($arr);
             if ($wp_query->have_posts()):
@@ -56,31 +33,42 @@ get_header();
             <?php
                 endwhile;
             endif;
+            wp_reset_postdata();
             ?>
-            <!-- =======PHAN TRANG ================================================-->
-            <div style="height: 30px">
+        </div>
+        <div class="loading-indicator" style="display: none; text-align: center; padding: 2rem;">
+            <!-- [15/06/2026] Sử dụng SVG Spinner tự xoay bằng CSS inline để chạy độc lập không phụ thuộc vào compile SASS -->
+            <svg class="spinner-svg" width="40" height="40" viewBox="0 0 50 50" style="animation: svg-rotate 2s linear infinite; display: inline-block; vertical-align: middle;">
+                <circle cx="25" cy="25" r="20" fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round" style="animation: svg-dash 1.5s ease-in-out infinite;"></circle>
+            </svg>
+            <style>
+                @keyframes svg-rotate {
+                    100% {
+                        transform: rotate(360deg);
+                    }
+                }
 
-                <?php
-                $ss = home_url('news');
+                @keyframes svg-dash {
+                    0% {
+                        stroke-dasharray: 1, 150;
+                        stroke-dashoffset: 0;
+                    }
 
-                $config = array(
-                    'current_page' => $paged, // Trang hiện tại
-                    'total_record' => $totalpost, // Tổng số record
-                    'limit' => $showNum, // limit
-                    'link_full' => 'index.php?page={page}', // Link full có dạng như sau: domain/com/page/{page}
-                    'link_first' => $ss, // Link trang đầu tiên
-                    'range' => 5 // Số button trang bạn muốn hiển thị 
-                );
-                require_once(DIR_CLASS . 'pagination.php');
-                $paging = new Pagination();
-                $paging->init($config);
-                echo $paging->html();
-                ?>
-            </div>
+                    50% {
+                        stroke-dasharray: 90, 150;
+                        stroke-dashoffset: -35;
+                    }
+
+                    100% {
+                        stroke-dasharray: 90, 150;
+                        stroke-dashoffset: -124;
+                    }
+                }
+            </style>
         </div>
     </div>
 
-    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+    <div class="sidebar-area">
         <?php get_sidebar() ?>
     </div>
 </div>

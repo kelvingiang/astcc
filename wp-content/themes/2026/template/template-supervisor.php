@@ -66,7 +66,7 @@
 
         if ($advisory_team_query->have_posts()) :
             ?>
-            <h3 class="widget-title advisory-title"><?php _e('顧問團隊', '2026'); ?></h3>
+            <!-- <h3 class="widget-title advisory-title"><?php //_e('顧問團隊', '2026'); ?></h3> -->
             <div class="swiper advisory-swiper">
                 <div class="swiper-wrapper">
                     <?php

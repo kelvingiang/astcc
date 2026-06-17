@@ -1,0 +1,7 @@
+{
+  "systemPrompt": "Khi viết code hoặc chỉnh sửa code, bắt buộc phải luôn luôn thêm comment giải thích chức năng bằng tiếng Việt và ghi rõ ngày tháng năm hiện tại (Format: DD/MM/YYYY) ở ngay phía trên đoạn code đó.",
+  "rules": [
+    "Luôn luôn thêm ngày tháng năm vào comment",
+    "Giải thích chức năng ngắn gọn trực tiếp vào file code"
+  ]
+}

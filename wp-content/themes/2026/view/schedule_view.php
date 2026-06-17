@@ -6,8 +6,9 @@ $lbl = '行事歷';
 $page =  getParams('page');
 $linkAdd  = admin_url('admin.php?page=' . $page . '&action=add');  // TAO LINH CHO ADD NEW
 $lblAdd    = '新增行事';
+
 if(getParams('msg') == 1){
-    $msg .= '<div class="updated notice notice-success is-dismissible"><p> 資料調整成功 </p></div>';
+    $msg = '<div class="updated notice notice-success is-dismissible"><p> 資料調整成功 </p></div>';
 }
 ?>
 <style type="text/css">

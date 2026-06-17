@@ -18,7 +18,9 @@
     // Thuộc tính cho hiệu ứng animation
     opacity: 0;
     transform: translateY(50px); // Bắt đầu ở vị trí thấp hơn 50px
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transition:
+        opacity 0.8s ease-out,
+        transform 0.8s ease-out;
 
     // Class được thêm bằng JavaScript khi footer xuất hiện trong màn hình
     &.is-visible {
@@ -51,7 +53,7 @@
 
         // Hiệu ứng gạch chân cho tiêu đề
         &::after {
-            content: '';
+            content: "";
             position: absolute;
             bottom: 0;
             left: 0;
@@ -73,13 +75,13 @@
             display: flex;
             align-items: flex-start;
 
-            i {
+            svg {
                 margin-right: 1rem;
                 color: #2563eb; // Màu icon xanh đậm (blue-600)
                 margin-top: 5px;
-                min-width: 18px;
-                text-align: center;
-                font-size: 1.1rem;
+                width: 18px;
+                height: 18px;
+                flex-shrink: 0;
             }
         }
 
@@ -94,7 +96,7 @@
             }
         }
     }
-    
+
     .footer-about p {
         color: #64748b; // Màu chữ phụ (slate-500)
     }
@@ -104,7 +106,7 @@
         text-align: center;
         font-size: 0.9rem;
         color: #64748b; // Màu chữ bản quyền (slate-500)
-        
+
         p {
             margin: 0;
             line-height: 1.8;

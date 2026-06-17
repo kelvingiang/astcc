@@ -1,5 +1,6 @@
 @use "./define.scss" as *;
 @use "./president.scss" as *;
+@use "./responsive.scss" as *;
 
 #header {
     display: flex;
@@ -28,11 +29,11 @@
                 /* 1. Tạo dải màu nền ánh kim (ngang) */
                 background-image: linear-gradient(
                     to right,
-                    #b8860b 0%, /* Màu Dark Goldenrod đậm ở 2 đầu */
-                    #ffd700 25%, /* Màu Gold ấm làm nền chính */ 
-                    #f5e873 50%, /* Màu Lemon Chiffon rất sáng ở giữa tạo highlight */
-                    #ffd700 75%, /* Quay lại Gold */ 
-                    #b8860b 100% /* Kết thúc bằng Dark Goldenrod */
+                    #b8860b 0%,
+                    /* Màu Dark Goldenrod đậm ở 2 đầu */ #ffd700 25%,
+                    /* Màu Gold ấm làm nền chính */ #f5e873 50%,
+                    /* Màu Lemon Chiffon rất sáng ở giữa tạo highlight */ #ffd700 75%,
+                    /* Quay lại Gold */ #b8860b 100% /* Kết thúc bằng Dark Goldenrod */
                 );
 
                 /* 2. Cắt nền theo hình chữ */
@@ -41,11 +42,40 @@
 
                 /* 3. Làm chữ trong suốt */
                 color: transparent;
+
+                @include Respond(md) {
+                    font-size: 1.5rem;
+                    letter-spacing: 0.3rem;
+                }
+
+                @include Respond(sm) {
+                    font-size: 1.25rem;
+                    letter-spacing: 0.2rem;
+                    padding: 0.1rem;
+                }
+
+                @include Respond(xs) {
+                    font-size: 1.05rem;
+                    letter-spacing: 0.15rem;
+                }
             }
             h2 {
                 font-size: 1rem;
                 font-weight: bold;
                 margin: 0;
+                
+                @include Respond(md) {
+                    font-size: 0.85rem;
+                }
+
+                @include Respond(sm) {
+                    font-size: 0.75rem;
+                    padding: 0.1rem;
+                }
+
+                @include Respond(xs) {
+                    font-size: 0.65rem;
+                }
                 background-image: linear-gradient(
                     to right,
                     #b8860b 0%,

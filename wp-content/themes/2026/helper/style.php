@@ -15,9 +15,9 @@ function suite_style()
 	// Main stylesheet
 	wp_enqueue_style('main-style', get_template_directory_uri() . '/style.css', array(), null, 'all');
 	// Custom styles
-	wp_enqueue_style('my-style', get_template_directory_uri() . '/style/my.css', array(), null, 'all');
+	wp_enqueue_style('my-style', get_template_directory_uri() . '/style/my.css', array(), filemtime(get_template_directory() . '/style/my.css'), 'all');
 	// Compiled SCSS
-	wp_enqueue_style('scss-style', get_template_directory_uri() . '/style/main.css', array(), null, 'all');
+	wp_enqueue_style('scss-style', get_template_directory_uri() . '/style/main.css', array(), filemtime(get_template_directory() . '/style/main.css'), 'all');
 
 	// --- Third-party Libraries ---
 	// SwiperJS for sliders
@@ -29,7 +29,7 @@ function suite_style()
 		// Superfish menu
 		wp_enqueue_style('superfish-style', get_template_directory_uri() . '/style/superfish.css', array(), null, 'all');
 		// jQuery UI
-		wp_enqueue_style('jquery-ui', get_template_directory_uri() . '/style/jquery-ui.min.css', array(), null, 'all');
+		//wp_enqueue_style('jquery-ui', get_template_directory_uri() . '/style/jquery-ui.min.css', array(), null, 'all');
 		
 	}
 
@@ -43,7 +43,7 @@ function suite_style()
 
 	// --- Main Theme Scripts (loaded in footer) ---
 	wp_enqueue_script('theme-main-js', get_template_directory_uri() . '/js/main.js', array('jquery'), '1.0.0', true);
-	wp_enqueue_script('infinite-scroll-js', get_template_directory_uri() . '/js/infinite-scroll.js', array('jquery'), '1.0.0', true);
+	// [15/06/2026] Loại bỏ nhúng 'infinite-scroll-js' toàn cục tại đây để tránh lỗi ReferenceError do thiếu 'news_load_params' trên các trang khác
 
 	// --- Conditional Scripts (loaded on all pages except 'check-in') ---
 	if (!is_page('check-in')) {
@@ -76,6 +76,7 @@ function admin_style()
 	wp_enqueue_script('admin-custom-script', get_template_directory_uri() . '/js/admin/custom.js', array('jquery'), null, true);
 	wp_enqueue_script('jquery-cookie', get_template_directory_uri() . '/js/admin/jquery.cookie.js', array('jquery'), null, true);
 	wp_enqueue_script('jquery-json', get_template_directory_uri() . '/js/admin/jquery.json.js', array('jquery'), null, true);
+	wp_enqueue_script('admin-jquery-ui-script', get_template_directory_uri() . '/js/jquery-ui.min.js', array('jquery'), null, true);
 }
 
 add_action('admin_enqueue_scripts', 'admin_style');

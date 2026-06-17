@@ -1,6 +1,6 @@
 <?php
 /*
-  Template Name: News Young
+  Template Name: News Conference
  */
 get_header();
 ?>
@@ -8,15 +8,15 @@ get_header();
     <div class="main-content">
         <div class='head-title'>
             <div class="title">
-                <h2 class="head"> <?php echo __('青商會最新消息') ?></h2>
+                <h2 class="head"> <?php echo __('會務資料') ?></h2>
             </div>
         </div>
-        <div class="article-list" data-category="young">
+        <div class="article-list" data-category="conferen">
             <?php
             $arr = array(
                 'post_type' => 'post',
                 'post_status' => 'publish',
-                'category_name' => 'young',
+                'category_name' => 'conferen',
                   'posts_per_page' => 5, // Tải 5 tin tức đầu tiên
                 'orderby' => 'ID',
                 'order' => 'DESC',

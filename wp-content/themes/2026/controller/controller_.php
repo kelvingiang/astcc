@@ -26,8 +26,8 @@ class Admin_Controller_Main
             'countries_controller' =>true, // phan hoi cac nuoc
             'commerce_controller' => true, // tong hoi cac nuoc
             'president_controller' => false,
-            'member_controller' => true,
-            'vote_controller' => true
+            'member_controller' => false,
+            'vote_controller' => false,
         );
         $login = wp_get_current_user();
 

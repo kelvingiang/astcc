@@ -3,85 +3,119 @@
   flex-direction: column;
   gap: 2rem; // Thêm khoảng cách giữa các bài viết
   margin-bottom: 2rem;
+}
 
-  .article_item {
-    background-color: #ffffff;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
-    border: 1px solid #eef2f7;
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
+.article_item {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
+  border: 1px solid #eef2f7;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+  }
+
+  // [15/06/2026] Hiệu ứng dịch chuyển lên, mờ và rõ dần cho tin tức mới tải thêm
+  &.reveal {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  // [15/06/2026] Chỉ áp dụng style cho tiêu đề bài viết (thẻ a là con trực tiếp), tránh ảnh hưởng đến các thẻ a khác bên trong nội dung (như .more-link)
+  > a {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgb(2, 58, 122);
+    text-decoration: none;
+    margin-bottom: 0.75rem;
+    display: inline-block;
+    transition: color 0.3s ease;
 
     &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+      color: rgb(148, 72, 2);
     }
+  }
 
-    a {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: rgb(2, 58, 122);
-      text-decoration: none;
-      margin-bottom: 0.75rem;
-      display: inline-block;
-      transition: color 0.3s ease;
-
-      &:hover {
-        color: rgb(148, 72, 2);
-      }
-    }
-
-    div {
-      color: #475569;
-      line-height: 1.7;
-      // Trích đoạn đơn giản - ẩn phần thừa
-      display: -webkit-box;
-      -webkit-line-clamp: 3; // Hiển thị 3 dòng
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
+  div {
+    color: #475569;
+    line-height: 1.7;
+    // Trích đoạn đơn giản - ẩn phần thừa
+    display: -webkit-box;
+    -webkit-line-clamp: 3; // Hiển thị 3 dòng
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 
 .loading-indicator {
   text-align: center;
   padding: 2rem;
-  font-size: 1.2rem;
-  font-weight: 500;
   color: #64748b;
 
-  // Hiệu ứng spinner đơn giản
-  p::after {
-    content: " .";
-    animation: dots 1.5s steps(5, end) infinite;
+  // [15/06/2026] Bỏ hiệu ứng ba dấu chấm động cũ và định dạng SVG Spinner xoay tròn
+  .spinner-svg {
+    animation: rotate 2s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+
+    circle {
+      stroke: #e1e1e2;
+      stroke-linecap: round;
+      animation: dash 1.5s ease-in-out infinite;
+    }
   }
 }
 
-@keyframes dots {
-  0%,
-  20% {
-    color: rgba(0, 0, 0, 0);
-    text-shadow:
-      0.25em 0 0 rgba(0, 0, 0, 0),
-      0.5em 0 0 rgba(0, 0, 0, 0);
-  }
-  40% {
-    color: #64748b;
-    text-shadow:
-      0.25em 0 0 rgba(0, 0, 0, 0),
-      0.5em 0 0 rgba(0, 0, 0, 0);
-  }
-  60% {
-    text-shadow:
-      0.25em 0 0 #64748b,
-      0.5em 0 0 rgba(0, 0, 0, 0);
-  }
-  80%,
+// [15/06/2026] Keyframes cho hiệu ứng xoay tròn và hiệu ứng vẽ đường viền SVG Spinner
+@keyframes rotate {
   100% {
-    text-shadow:
-      0.25em 0 0 #64748b,
-      0.5em 0 0 #64748b;
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+// [15/06/2026] Keyframes cho hiệu ứng slide-up, fade-in và làm rõ dần
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+// [15/06/2026] Cấu hình lại nút xem thêm (more-link): độc lập hoàn toàn, font chữ nhỏ lại và nằm ở góc dưới bên trái
+.more-link {
+  font-size: 1rem;
+  text-align: right;
+  margin-left: 20px;
+  margin-right: 0;
+  font-weight: normal;
+  color: #2e6987;
+  display: block;
+
+
+  &:hover {
+    color: #ccc;
   }
 }

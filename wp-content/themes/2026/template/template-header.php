@@ -54,21 +54,35 @@ document.addEventListener("DOMContentLoaded", function() {
     // Nếu không tồn tại 1 trong 2 menu trên trang thì dừng lại để tránh lỗi
     if (!menuMain || !menuSecond) return;
 
-    // Tính toán tọa độ dưới cùng của menu-main
-    // Bằng cách lấy khoảng cách từ top + chiều cao của chính nó
-    const triggerPoint = menuMain.offsetTop + menuMain.offsetHeight;
+    const mobileHeader = document.getElementById("mobile-header");
 
     // Lắng nghe sự kiện cuộn chuột
     window.addEventListener("scroll", function() {
         // Lấy vị trí cuộn hiện tại
         let scrollPosition = window.scrollY || document.documentElement.scrollTop;
 
-        // Nếu cuộn qua khỏi menu-main
-        if (scrollPosition > triggerPoint) {
-            menuSecond.classList.add("is-sticky");
-        } else {
-            // Nếu cuộn ngược lên lại đầu trang
-            menuSecond.classList.remove("is-sticky");
+        // Xử lý sticky cho desktop
+        if (menuMain && menuSecond) {
+            const triggerPoint = menuMain.offsetTop + menuMain.offsetHeight;
+            if (scrollPosition > triggerPoint) {
+                menuSecond.classList.add("is-sticky");
+            } else {
+                menuSecond.classList.remove("is-sticky");
+            }
+        }
+
+        // Xử lý sticky cho mobile
+        if (mobileHeader) {
+            // Lấy header-wrap để làm điểm kích hoạt
+            const headerWrap = document.getElementById("header-wrap");
+            if (headerWrap) {
+                const mobileTrigger = headerWrap.offsetTop + headerWrap.offsetHeight;
+                if (scrollPosition > mobileTrigger) {
+                    mobileHeader.classList.add("is-sticky");
+                } else {
+                    mobileHeader.classList.remove("is-sticky");
+                }
+            }
         }
     });
 });
