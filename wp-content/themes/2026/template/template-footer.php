@@ -2,7 +2,7 @@
 
 </div> <!-- end coontaineer -->
 <?php
-require_once(DIR_MODEL . 'model_visit.php');
+require_once(DIR_MODEL . 'model-visit.php');
 $model = new Model_Web_Visit;
 $model->web_visitor();
 $web_visit = $model->get_visitor_stats();

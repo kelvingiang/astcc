@@ -1,6 +1,7 @@
 @use "./define.scss" as *;
 @use "./responsive.scss" as *;
 
+// [2026-06-17]: Layout Container cho trang chi tiết
 .astcc-page-container.single-full-width {
   display: block !important;
   width: 100% !important;
@@ -13,7 +14,7 @@
   display: block;
 }
 
-
+// [2026-06-17]: Component Bài Viết (Article)
 .single-post-article {
   background-color: #ffffff;
   padding: 2.5rem;
@@ -31,6 +32,7 @@
     padding: 1.5rem;
   }
 
+  // --- Header bài viết ---
   .head-title {
     margin-bottom: 1.25rem;
     text-align: left;
@@ -49,6 +51,7 @@
     }
   }
 
+  // --- Meta bài viết ---
   .post-meta {
     display: flex;
     flex-wrap: wrap;
@@ -66,42 +69,43 @@
       flex-direction: column;
       align-items: flex-start;
     }
+  }
 
-    .meta-item {
-      display: inline-flex;
-      align-items: center;
+  // Khắc phục nest quá 3 cấp cho meta-item (chuyển ra ngang cấp post-meta)
+  .meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+
+    i {
+      color: $color-primary;
+      font-size: 0.95rem;
+    }
+
+    a {
+      color: $color-primary;
+      text-decoration: none;
+      transition: $transition-fast;
+
+      &:hover {
+        color: $linkColor;
+        text-decoration: underline;
+      }
+    }
+
+    &.date-meta {
+      color: #666;
+      font-weight: 600;
       gap: 0.5rem;
-      font-weight: 500;
 
-      i {
-        color: $color-primary;
-        font-size: 0.95rem;
-      }
-
-      a {
-        color: $color-primary;
-        text-decoration: none;
-        transition: $transition-fast;
-
-        &:hover {
-          color: $linkColor;
-          text-decoration: underline;
-        }
-      }
-
-      &.date-meta {
-     
-        color: #666;
-        font-weight: 600;
-        gap: 0.5rem;
-
-        svg {
-          stroke: #666;
-        }
+      svg {
+        stroke: #666;
       }
     }
   }
 
+  // --- Hình thu nhỏ ---
   .post-thumbnail {
     margin-bottom: 2.5rem;
     border-radius: 12px;
@@ -127,6 +131,7 @@
     }
   }
 
+  // --- Nội dung bài viết ---
   .content-style {
     font-family: $font-primary;
     font-size: 1.1rem;
@@ -140,17 +145,12 @@
 
     p {
       margin-bottom: 1.5rem;
-
       &:last-child {
         margin-bottom: 0;
       }
     }
 
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    h2, h3, h4, h5, h6 {
       font-family: $font-primary;
       color: $mainColor;
       font-weight: 700;
@@ -177,14 +177,12 @@
       }
     }
 
-    ul,
-    ol {
+    ul, ol {
       margin-bottom: 1.5rem;
       padding-left: 1.5rem;
 
       li {
         margin-bottom: 0.5rem;
-
         &:last-child {
           margin-bottom: 0;
         }
@@ -230,6 +228,7 @@
   }
 }
 
+// [2026-06-17]: Component Danh sách Bài Viết Liên Quan
 .single-article-list {
   background-color: #ffffff;
   padding: 2.5rem;
@@ -270,6 +269,7 @@
     margin-top: 1.5rem;
   }
 
+  // Khối Card hiển thị
   .related-post-card {
     background-color: #ffffff;
     border: 1px solid $border-color;
@@ -299,9 +299,7 @@
     &:hover {
       transform: translateY(-6px);
       border-color: rgba(37, 99, 235, 0.2);
-      box-shadow: 
-        0 15px 30px -10px rgba(15, 23, 42, 0.06), 
-        $shadow-glow;
+      box-shadow: 0 15px 30px -10px rgba(15, 23, 42, 0.06), $shadow-glow;
 
       &::before {
         opacity: 1;
@@ -325,66 +323,69 @@
       }
     }
 
-    .related-post-date-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 60px;
-      height: 60px;
-      min-width: 60px;
-      background: #f1f5f9;
-      border-radius: 8px;
-      transition: $transition-normal;
-
-      .related-date-day {
-        font-size: 1.35rem;
-        font-weight: 800;
-        color: $mainColor;
-        line-height: 1;
-        transition: $transition-fast;
-      }
-
-      .related-date-month {
-        font-size: 0.7rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        color: $text-secondary;
-        margin-top: 0.2rem;
-        line-height: 1;
-        transition: $transition-fast;
-      }
-    }
-
-    .related-post-content {
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-
-      .related-post-card-title {
-        font-size: 1.05rem;
-        font-weight: 700;
-        line-height: 1.45;
-        margin: 0;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-
-        a {
-          color: $text-primary;
-          text-decoration: none;
-          transition: $transition-fast;
-        }
-      }
-    }
-
     &.reveal {
       animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
   }
 
+  // Khối Ngày tháng bài liên quan (đưa ra ngoài card để giảm nesting > 3 cấp)
+  .related-post-date-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    background: #f1f5f9;
+    border-radius: 8px;
+    transition: $transition-normal;
+
+    .related-date-day {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: $mainColor;
+      line-height: 1;
+      transition: $transition-fast;
+    }
+
+    .related-date-month {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: $text-secondary;
+      margin-top: 0.2rem;
+      line-height: 1;
+      transition: $transition-fast;
+    }
+  }
+
+  // Khối Nội dung bài liên quan (đưa ra ngoài card để giảm nesting > 3 cấp)
+  .related-post-content {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .related-post-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.45;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+
+      a {
+        color: $text-primary;
+        text-decoration: none;
+        transition: $transition-fast;
+      }
+    }
+  }
+
+  // Thông báo trống & Loading
   .no-related {
     color: $text-muted;
     font-style: italic;
@@ -410,6 +411,7 @@
   }
 }
 
+// [2026-06-17]: Component Loading Animations
 @keyframes svg-rotate {
   100% {
     transform: rotate(360deg);
@@ -431,7 +433,7 @@
   }
 }
 
-// Supervisor Single Page Styling
+// [2026-06-17]: Component Chi tiết Lãnh đạo (Supervisor)
 .president_single {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
@@ -447,6 +449,7 @@
     transform: translateY(-5px);
   }
 
+  // --- Title & Subtitle ---
   .president_single_title {
     text-align: center;
     font-size: 2.5rem;
@@ -478,6 +481,7 @@
     }
   }
 
+  // --- Image ---
   .president_single_img {
     text-align: center;
     margin-bottom: 2.5rem;
@@ -498,6 +502,7 @@
     }
   }
 
+  // --- Content ---
   .president_single_content {
     font-size: 1.15rem;
     line-height: 1.8;

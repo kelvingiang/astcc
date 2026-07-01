@@ -4,6 +4,8 @@
  *  URL: html5blank.com | @html5blank
  *  Custom functions, support, custom post types and more.
  */
+
+require_once get_template_directory() . '/inc/init.php';
 // [15/06/2026] Khắc phục tương thích PHP 8: Khởi chạy Session thông qua hook 'init' để tránh lỗi gửi header sớm
 add_action('init', function() {
     if (!session_id()) {
@@ -16,13 +18,11 @@ define('HELPER', get_stylesheet_directory() . '/helper');
 require_once (HELPER . '/style.php');
 require_once (HELPER . '/define.php');
 require_once (HELPER . '/function.php');
-require_once (HELPER . '/list.php');
 require_once (HELPER . '/require.php');
-//
 //
 
 //CHUC NANG SEARCH TU TABLE POSTSMETA
-require_once (HELPER . '/search_by_meta_value.php');
+require_once (HELPER . '/search-by-meta-value.php');
 new Admin_Search_By_Meta_Value();
 
 require_once (DIR_CLASS . 'html.php');

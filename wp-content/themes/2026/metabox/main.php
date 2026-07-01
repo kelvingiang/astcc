@@ -33,7 +33,7 @@ class Admin_metabox {
 
     public function job_title() {
         if ($this->_metabox_options['metabox_job_title'] == true) {
-            require_once (DIR_METABOX . 'job_title.php');
+            require_once (DIR_METABOX . 'job-title.php');
             new Admin_Metabox_Job_Title();
         }
     }

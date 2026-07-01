@@ -21,6 +21,7 @@ error_log
 /wp-content/et-cache/
 /wp-content/backups/
 /wp-content/uploads/
+/wp-content/vendor/
 
 # --- 4. 插件與主題管理 ---
 # 這裡改為忽略目錄下的內容，但允許 Git 進入目錄掃描
@@ -33,6 +34,8 @@ error_log
 # --- 5. [關鍵] 保留你的開發項目 ---
 !/wp-content/themes/2026/
 !/wp-content/themes/2026/**
+# 排除 qrcode 目錄
+/wp-content/themes/2026/images/qrcode/
 
 # --- 6. 開發工具與系統快取 ---
 .DS_Store
