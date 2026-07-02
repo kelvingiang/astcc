@@ -383,6 +383,13 @@ tr.report:nth-child(odd) {
   display: none;
 }
 
+.my_active {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: rgb(129, 2, 2);
+}
+
 .row-one-column {
   margin: 1rem 1rem 0.8rem;
 }

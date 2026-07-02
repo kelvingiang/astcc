@@ -33,7 +33,7 @@ $note = "";
 
 if (isset($id) && $id != '') {
     require_once(DIR_MODEL . 'model-schedule.php');
-    $model = new Admin_Model_Schedule();
+    $model = new Model_Schedule();
     $data  = $model->get_item($id);
     if (is_array($data)) {
         $title = $data['title'];

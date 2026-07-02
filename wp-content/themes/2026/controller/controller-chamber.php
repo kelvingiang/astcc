@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Controller_Chamber
+class Controller_Chamber
 {
 
     public function __construct()

@@ -30,7 +30,11 @@ jQuery(function($) {
         const lastArticleRect = lastArticle[0].getBoundingClientRect();
         const windowHeight = $(window).height();
 
-        const categorySlug = articleList.data('category') || news_load_params.category_slug || 'news';
+        let categorySlug = articleList.data('category');
+        if (categorySlug === undefined || categorySlug === '') {
+            categorySlug = news_load_params.category_slug !== undefined ? news_load_params.category_slug : 'news';
+        }
+        const postType = articleList.data('type') || news_load_params.post_type || 'post';
 
         // Kiểm tra nếu điều kiện tải được đáp ứng
         if (lastArticleRect.bottom <= windowHeight + bottomOffset) {
@@ -45,7 +49,8 @@ jQuery(function($) {
                     offset: currentPostCount, // Gửi số bài đã có
                     limit: postsPerPage, // Gửi số lượng cần tải
                     nonce: news_load_params.nonce,
-                    category_slug: categorySlug
+                    category_slug: categorySlug,
+                    post_type: postType
                 },
                 success: function(response) {
                     if (response.trim() !== '') {

@@ -110,11 +110,8 @@ class Model_Check_In_Setting
     {
         global $wpdb;
         $table_guests = $wpdb->prefix . 'guests';
-        // $table_member = $wpdb->prefix . 'member';
         //$barcode = $this->AttendTime();
         $guestsList = array();
-        // $memberList = array();
-
 
         foreach ($this->AttendTime() as $val) {
             //           if($val['kind'] == 'g'){
@@ -122,13 +119,6 @@ class Model_Check_In_Setting
             $row = $wpdb->get_results($sql, ARRAY_A);
             array_push($row, array("Time" => $val['time'], "Date" => $val['date']));
             $guestsList[] = $row;
-            //                }
-            //           if($val['kind'] == 'm'){
-            //                 $sql2 = "SELECT full_name AS Name, country AS Country,  position AS Position, phone AS Phone, email AS Email, barcode AS Barcode  FROM $table_member WHERE  barcode =" . $val['barcode'];
-            //                 $row2 = $wpdb->get_results($sql2, ARRAY_A);
-            //                  array_push($row2, array("Time" => $val['time'], "Date" => $val['date'], "Kind" => $val['kind']));
-            //                  $memberList[] = $row2;
-            //                }
         }
 
 
@@ -140,7 +130,7 @@ class Model_Check_In_Setting
 
         $this->_attenList = $guestsList;
 
-        // return array_merge($guestsList,$memberList);
+        // return $guestsList;
 
     }
 

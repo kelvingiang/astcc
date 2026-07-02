@@ -1,5 +1,5 @@
 <?php
-class Admin_Controller_Countries{
+class Controller_Countries{
     public  function __construct() {
         add_action('init', array($this, 'register_post'));
         add_action('manage_edit-countries_columns', array($this, 'manage_cols'));

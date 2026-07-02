@@ -93,7 +93,7 @@ class Model_Check_In_Event_Function
         $trash = $arrData['action'] == 'trash' ? '1' : '0';
         if (!is_array($arrData['id'])) {
             $data = array('trash' => $trash);
-            $where = array('ID' => absint($arrData['id'][0]));
+            $where = array('ID' => absint($arrData['id']));
             $wpdb->update($this->tbl_event, $data, $where);
         } else {
             $arrData['id'] = array_map('absint', $arrData['id']);

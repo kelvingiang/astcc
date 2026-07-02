@@ -11,6 +11,7 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
+
         .logo-img {
             width: 80px;
             margin-top: 0.5rem;
@@ -26,14 +27,14 @@
                 font-size: 1.8rem;
                 font-weight: bold;
                 letter-spacing: 0.4rem;
-                /* 1. Tạo dải màu nền ánh kim (ngang) */
+                /* 1. Tạo dải màu nền nổi bật, hợp với nền sáng */
                 background-image: linear-gradient(
                     to right,
-                    #b8860b 0%,
-                    /* Màu Dark Goldenrod đậm ở 2 đầu */ #ffd700 25%,
-                    /* Màu Gold ấm làm nền chính */ #f5e873 50%,
-                    /* Màu Lemon Chiffon rất sáng ở giữa tạo highlight */ #ffd700 75%,
-                    /* Quay lại Gold */ #b8860b 100% /* Kết thúc bằng Dark Goldenrod */
+                    #023a7a 0%,   /* Xanh đậm thương hiệu */
+                    #1e40af 25%,  /* Xanh hoàng gia */
+                    #2563eb 50%,  /* Xanh dương sáng */
+                    #1e40af 75%,
+                    #023a7a 100%
                 );
 
                 /* 2. Cắt nền theo hình chữ */
@@ -78,11 +79,11 @@
                 }
                 background-image: linear-gradient(
                     to right,
-                    #b8860b 0%,
-                    /* Màu Dark Goldenrod đậm ở 2 đầu */ #ffd700 25%,
-                    /* Màu Gold ấm làm nền chính */ #f5e873 50%,
-                    /* Màu Lemon Chiffon rất sáng ở giữa tạo highlight */ #ffd700 75%,
-                    /* Quay lại Gold */ #b8860b 100% /* Kết thúc bằng Dark Goldenrod */
+                    #023a7a 0%,   /* Xanh đậm thương hiệu */
+                    #1e40af 25%,  /* Xanh hoàng gia */
+                    #2563eb 50%,  /* Xanh dương sáng */
+                    #1e40af 75%,
+                    #023a7a 100%
                 );
 
                 /* 2. Cắt nền theo hình chữ */

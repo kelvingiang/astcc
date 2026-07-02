@@ -1,6 +1,6 @@
 <?php
-require_once DIR_MODEL . 'model-check-in-report.php';
-$model = new Model_Check_In_Report();
+require_once DIR_MODEL . 'model-check-in-event-function.php';
+$model = new Model_Check_In_Event_Function();
 $id = getParams('id');
 $page = getParams('page');
 $data = $model->ReportJoinViewByID($id);

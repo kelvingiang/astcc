@@ -91,3 +91,17 @@ function download_list()
 
     return $arr;
 }
+
+function setQRCode($code)
+{
+    $length = 9;
+    $characters = '0123456789';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    // $t = time();
+    // $cc = substr($t, -9);
+    return $code . $randomString;
+}

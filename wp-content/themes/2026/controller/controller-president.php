@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Controller_President {
+class Controller_President {
 
     public function __construct() {
         add_action('init', array($this, 'register_post'));

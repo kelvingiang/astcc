@@ -80,5 +80,3 @@ $web_visit = $model->get_visitor_stats();
 
 <?php wp_footer(); ?>
 
-<?php
-// require_once DIR_CLASS . 'my-popup.php';

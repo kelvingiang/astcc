@@ -9,32 +9,30 @@ define('DIR_CONTROLLER', THEME_URL . DS . 'controller' . DS);
 define('DIR_MODEL', THEME_URL . DS . 'model' . DS);
 define('DIR_VIEW', THEME_URL . DS . 'view' . DS);
 define('DIR_METABOX', THEME_URL . DS . 'metabox' . DS);
-define('DIR_COUNTER', THEME_URL . DS . 'counter' . DS);
+
 define('DIR_VALIDATE', THEME_URL . DS . 'validates');
-define('DIR_CLASS', THEME_URL . DS . 'class' . DS);
-define('DIR_HTML', DIR_CLASS . 'html');
-define('DIR_BARCODE', DIR_CLASS . 'barcode' . DS);
-define('DIR_IMAGES', THEME_URL . DS . 'images' . DS);
+
+
 define('DIR_IMAGES_BARCODE', THEME_URL . DS . 'images' . DS . 'barcode' . DS);
-define('DIR_IMAGES_QRCODE_NAME', THEME_URL . DS . 'images' . DS . 'qrcode-name' . DS);
+
 define('DIR_IMAGES_QRCODE', THEME_URL . DS . 'images' . DS . 'qrcode' . DS);
 define('DIR_IMAGES_GUESTS', THEME_URL . DS . 'images' . DS . 'guests' . DS);
-define('DIR_IMAGES_MEMBER', THEME_URL . DS . 'images' . DS . 'member' . DS);
+
 define('DIR_IMAGES_VOTE', THEME_URL . DS . 'images' . DS . 'vote' . DS);
-define('DIR_EXPORT', THEME_URL . DS . 'export' . DS);
-define('DIR_QRCODE', DIR_CLASS . 'qrcode' . DS);
+
+
+define('DIR_IMPORT', THEME_URL . DS . 'import' . DS);
+
 
 
 
 // PART TRUC TIEP
 // [15/06/2026] Khắc phục lỗi logic: Sử dụng dấu '/' thay vì 'DS' (DIRECTORY_SEPARATOR) cho đường dẫn URL để tránh lỗi hiển thị trên Windows
 define('THEME_PART', get_template_directory_uri() . '/');
-define('PART_ICON', THEME_PART . 'icon/');
-define('PART_IMAGES_BARCODE', THEME_PART . 'barcode/');
-define('PART_IMAGES_VOTE', THEME_PART . 'images/vote/');
-define('PART_IMAGES_QRCODE', THEME_PART . 'images/qrcode/');
+define('PART_ICON', THEME_PART . 'images/icon/');
+
 define('PART_IMAGES', THEME_PART . 'images/');
-define('PART_FILE', THEME_PART . 'file/');
+
 
 
 

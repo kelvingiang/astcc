@@ -10,6 +10,7 @@ jQuery(function($) {
     const postsPerPage = parseInt(related_load_params.posts_per_page, 10);
     const totalPosts = parseInt(related_load_params.total_posts, 10);
     const categorySlug = related_load_params.category_slug;
+    const postType = related_load_params.post_type || 'post';
     const excludePostId = parseInt(related_load_params.exclude_post_id, 10);
 
     let currentPostCount = initialPosts;
@@ -41,9 +42,10 @@ jQuery(function($) {
                     action: 'load_more_related_posts',
                     offset: currentPostCount,
                     limit: postsPerPage,
+                    nonce: related_load_params.nonce,
                     category_slug: categorySlug,
-                    exclude_post_id: excludePostId,
-                    nonce: related_load_params.nonce
+                    post_type: postType,
+                    exclude_post_id: excludePostId
                 },
                 success: function(response) {
                     if (response.trim() !== '') {

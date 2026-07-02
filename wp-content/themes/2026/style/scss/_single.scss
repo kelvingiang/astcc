@@ -5,7 +5,7 @@
 .astcc-page-container.single-full-width {
   display: block !important;
   width: 100% !important;
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 2rem auto;
 }
 
@@ -40,10 +40,36 @@
     .head {
       font-size: 2.25rem;
       font-weight: 800;
-      color: $mainColor;
       line-height: 1.35;
       letter-spacing: -0.02em;
       margin: 0;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 0.5rem;
+
+      color: $mainColor;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: rgba(15, 23, 42, 0.08);
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0; // Left-aligned in single post
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, $linkColor 0%, $mainColor 100%);
+        border-radius: 4px;
+        z-index: 1;
+      }
 
       @include Respond(sm) {
         font-size: 1.75rem;

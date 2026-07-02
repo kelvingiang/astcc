@@ -5,7 +5,7 @@ if (!class_exists('WP_List_Table')) {
     require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php ';
 }
 
-class Admin_Model_Schedule extends WP_List_Table
+class Model_Schedule extends WP_List_Table
 {
 
     private $_pre_page = 30;
@@ -153,18 +153,20 @@ class Admin_Model_Schedule extends WP_List_Table
     public function extra_tablenav($which)
     {
         if ($which == 'top') {
-            $htmlObj = new MyHtml();
-
             $filterVal = @$_REQUEST['filter_status'];
-            $options['data'] = array(
+            $data = array(
                 '0' => '狀態篩選',
                 'active' => '顯示',
                 'inactive' => '隱藏'
             );
 
-            $slbFilter = $htmlObj->selectbox('filter_status', $filterVal, array(), $options);
-            $attr = array('id' => 'filter_action', 'class' => 'button');
-            $btnFilter = $htmlObj->button('filter_action', '篩選', $attr);
+            $slbFilter = '<select name="filter_status" id="filter_status">';
+            foreach ($data as $key => $val) {
+                $selected = ($filterVal == $key) ? 'selected="selected"' : '';
+                $slbFilter .= '<option value="' . esc_attr($key) . '" ' . $selected . '>' . esc_html($val) . '</option>';
+            }
+            $slbFilter .= '</select>';
+            $btnFilter = '<input type="submit" name="filter_action" id="filter_action" class="button" value="' . esc_attr('篩選') . '" />';
 
             echo '<div class="alignleft action bulkactions">' . $slbFilter . $btnFilter . '</div>';
         }

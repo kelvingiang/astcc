@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Controller_Conference {
+class Controller_Conference {
 
     public function __construct() {
         add_action('init', array($this, 'register_post'));
@@ -43,7 +43,7 @@ class Admin_Controller_Conference {
             'query_var' => true,
             'rewrite' => true,
             'capability_type' => 'post',
-            'has_archive' => true,
+            'has_archive' => false,
             'hierarchical' => false,
             'menu_position' => 6,
             'supports' => array('title', 'thumbnail', 'editor'),

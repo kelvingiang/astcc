@@ -466,45 +466,6 @@ a#back-top img:hover {
 }
 
 
-/** Pagination */
-
-.pagination {
-    background: #e7e6e5;
-    background: rgba(255, 255, 255, 0.35);
-    padding: 7px 10px 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-}
-
-.pagination .page-numbers {
-    padding: 3px 7px;
-    font-size: 15px;
-    font-weight: bold;
-    border: 1px #d3d1d1 solid;
-    border-radius: 3px;
-    text-decoration: none;
-}
-
-.pagination .page-numbers:hover {
-    background: #d3d1d1;
-    color: white;
-}
-
-.pagination .dots {
-    border: 0 !important;
-}
-
-.pagination .dots:hover {
-    background: white !important;
-    color: black;
-}
-
-.pagination .current {
-    color: black;
-    background: #d3d1d1;
-}
-
 
 /*PHAN CHAY SAN O DUOI TRONG TRANG INDEX SIDEBAR*/
 

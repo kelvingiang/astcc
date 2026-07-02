@@ -2,7 +2,7 @@
 
 require_once (DIR_MODEL . 'model-vote.php');
 
-class Admin_Controller_Vote {
+class Controller_Vote {
 
     public function __construct() {
         add_action('admin_menu', array($this, 'AddToMenu'));
@@ -82,7 +82,7 @@ class Admin_Controller_Vote {
         $action = $_GET['action'];
 
         if (isPost()) {
-            $model = new Admin_Model_Vote();
+            $model = new Model_Vote();
             $errors = array();
             $fileName = $_POST['hid_img'];
 
@@ -124,7 +124,7 @@ class Admin_Controller_Vote {
 // XOA DU LIEU
     public function deleteAction() {
         $arrParam = getParams();
-        $model = new Admin_Model_Vote();
+        $model = new Model_Vote();
         $model->deleteItem($arrParam);
 
         $paged = max(1, $arrParam['paged']);
@@ -141,7 +141,7 @@ class Admin_Controller_Vote {
 //        } else {
 //            wp_verify_nonce('_wpnonce');
 //        }
-        $model = new Admin_Model_Vote();
+        $model = new Model_Vote();
         $model->restoreItem($arrParams);
         $paged = max(1, $arrParams['paged']);
         $url = 'admin.php?page=' . $_REQUEST['page'] . '&paged=' . $paged . '&msg=1';
@@ -150,7 +150,7 @@ class Admin_Controller_Vote {
 
     public function trashAction() {
         $arrParams = getParams();
-        $model = new Admin_Model_Vote();
+        $model = new Model_Vote();
         $model->trashItem($arrParams);
         // TRA VE TRANG MAC DINH
         $paged = max(1, $arrParams['paged']);
@@ -159,7 +159,7 @@ class Admin_Controller_Vote {
     }
 
     public function getItem($id) {
-        $model = new Admin_Model_Vote();
+        $model = new Model_Vote();
         return $model->getItem($id);
     }
 

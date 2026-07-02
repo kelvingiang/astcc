@@ -1,7 +1,7 @@
 <?php
 $page = getParams('page');
 require_once ( DIR_MODEL . 'model-kind.php');
-$model = new Admin_Model_Kind();
+$model = new Model_Kind();
 $item = $model->get_item(getParams('id'));
 
 /* ========== start  lay tat ca id trong bang member ========= */

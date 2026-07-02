@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Controller_Commerce
+class Controller_Commerce
 {
 
     public function __construct()

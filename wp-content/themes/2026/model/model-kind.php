@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Model_Kind {
+class Model_Kind {
 
     private $table;
 

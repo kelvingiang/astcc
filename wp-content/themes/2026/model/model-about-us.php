@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Model_About_Us {
+class Model_About_Us {
 
     public function __construct() {
         

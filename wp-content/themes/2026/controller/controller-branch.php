@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Controller_Branch
+class Controller_Branch
 {
     private  $prefix_name = '_branch_order';
     public function __construct()

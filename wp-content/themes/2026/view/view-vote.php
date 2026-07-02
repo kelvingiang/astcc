@@ -1,7 +1,7 @@
 <?php
 //
 require_once(DIR_MODEL . 'model-vote.php');
-$showlist = new Admin_Model_Vote();
+$showlist = new Model_Vote();
 $showlist->prepare_items();
 $lbl = '';
 $page = getParams('page');

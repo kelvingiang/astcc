@@ -1,6 +1,6 @@
 <?php
 require_once(DIR_MODEL.'model-schedule.php');
-$showlist = new Admin_Model_Schedule();
+$showlist = new Model_Schedule();
 $showlist->prepare_items();
 $lbl = '行事歷';
 $page =  getParams('page');

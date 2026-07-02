@@ -101,15 +101,15 @@ class Controller_Check_In_Setting
             // }
             if (empty($errors)) {
                 // $path = WP_CONTENT_DIR . DS . 'themes' . DS . '2020' . DS . 'file' . DS;
-                move_uploaded_file($file_tmp, (DIR_FILE . $file_name));
+                move_uploaded_file($file_tmp, (DIR_IMPORT . $file_name));
 
-                $excelList = DIR_FILE . $file_name;
+                $excelList = DIR_IMPORT . $file_name;
 
                 $this->_model->ImportMember($excelList);
                 toBack(1);
             }
         }
-        require_once(DIR_VIEW . 'view-member-import.php');
+        require_once(DIR_VIEW . 'view-guests-import.php');
     }
 
     public function CreateQRCodeAction()

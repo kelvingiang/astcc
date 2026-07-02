@@ -93,7 +93,7 @@ $sf-text-hover-color: $mainColor;
                 position: relative;
                 color: $sf-text-color;
                 font-weight: 700;
-                font-size: 1.05rem;
+                font-size: 1.3rem;
                 padding: 12px 20px;
                 text-decoration: none;
                 display: block;
@@ -180,8 +180,8 @@ $sf-text-hover-color: $mainColor;
 
                     a {
                         padding: 12px 25px !important;
-                        font-size: 0.95rem;
-                        font-weight: 500 !important;
+                        font-size: 1.2rem;
+                        font-weight: bold !important;
                         color: #475569 !important;
                         transition: all 0.2s ease;
                         

@@ -1,6 +1,6 @@
 <?php
 require_once (DIR_MODEL . 'model-check-in.php');
-$model = new Admin_Model_Check_In();
+$model = new Model_Check_In();
 $model->prepare_items();
 $lbl = '';
 $page = getParams('page');

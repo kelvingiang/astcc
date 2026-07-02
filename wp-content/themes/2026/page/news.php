@@ -11,7 +11,7 @@ get_header();
                 <h2 class="head"> <?php echo __('Asian News Information') ?></h2>
             </div>
         </div>
-        <div class="article-list" data-category="news">
+        <div class="article-list" data-category="news" data-type="post">
             <?php
             $arr = array(
                 'post_type' => 'post',

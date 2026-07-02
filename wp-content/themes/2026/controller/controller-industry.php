@@ -2,7 +2,7 @@
 
 require_once (DIR_MODEL . 'model-kind.php');
 
-class Admin_Controller_Industry {
+class Controller_Industry {
 
     private $model;
 
@@ -22,7 +22,7 @@ class Admin_Controller_Industry {
 
     public function dispatchActive() {
 
-        $this->model = new Admin_Model_kind();
+        $this->model = new Model_kind();
 
         $action = getParams('action');
         switch ($action) {

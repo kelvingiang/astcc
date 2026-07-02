@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Controller_About_Us {
+class Controller_About_Us {
 
     public function __construct() {
         add_action('admin_menu', array($this, 'AddToMenu'));
@@ -50,7 +50,7 @@ class Admin_Controller_About_Us {
         }
         if (isPost()) {
             require_once(DIR_MODEL . 'model-about-us.php');
-            $model = new Admin_Model_About_Us();
+            $model = new Model_About_Us();
             $model->Save($_POST);
         }
         require_once ( DIR_VIEW . 'view-about-us.php');

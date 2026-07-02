@@ -20,72 +20,7 @@ function Chang_Url()
 // STRAT VOTE THE FUNCTION
 //==== FUNCTIONS  IS FOR VOTE ============================================
 
-function VoteExportToExcel($kid)
-{
-    require_once DIR_CLASS . 'PHPExcel.php';
-    $exExport = new PHPExcel();
 
-    // TAO COT TITLE
-    $exExport->setActiveSheetIndex(0);
-    $sheet = $exExport->getActiveSheet()->setTitle("check in");
-    $sheet->setCellValue('A1', '姓名');
-    $sheet->setCellValue('B1', '公司名稱');
-    $sheet->setCellValue('C1', '票數');
-
-    // set kich thuoc cot  
-    $sheet->getColumnDimension('A')->setWidth(10);
-    $sheet->getColumnDimension('B')->setAutoSize(true);
-    $sheet->getColumnDimension('C')->setWidth(15);
-
-    // set chieu cao cua dong
-    $sheet->getRowDimension('1')->setRowHeight(30);
-    // set to dam chu
-    $sheet->getStyle('A')->getFont()->setBold(TRUE);
-    $sheet->getStyle('A1:C1')->getFont()->setBold(TRUE);
-    // set nen backgroup cho dong
-    $sheet->getStyle('A1:C1')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('0008bdf8');
-    // set chu canh giua
-    $sheet->getStyle('A1:C1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-    $sheet->getStyle('A1:C1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-
-
-    // TAO NOI DUNG CHEN TU DONG 2
-    $i = 2;
-    $list = getVoteResult($kid);
-
-    foreach ($list as $row) {
-        $exExport->setActiveSheetIndex(0)
-            ->setCellValueExplicit('A' . $i, $row['name'])
-            ->setCellValue('B' . $i, $row['company'])
-            ->setCellValueExplicit('C' . $i, $row['vote_total'], PHPExcel_Cell_DataType::TYPE_STRING);
-        $i++;
-        // phan set border 
-        $styleArray = array(
-            'borders' => array(
-                'allborders' => array(
-                    'style' => PHPExcel_Style_Border::BORDER_THIN
-                )
-            )
-        );
-        //cho tat ca 
-        $sheet->getStyle('A1:' . 'C' . ($i - 1))->applyFromArray($styleArray);
-    }
-
-    // TAO FILE EXCEL VA SAVE LAI THEO PATH
-    //$objWriter = PHPExcel_IOFactory::createWriter($exExport, 'Excel2007');
-    //$full_path = DIR_EXPORT . date("YmdHis") . '_report.xlsx'; //duong dan file
-    //$objWriter->save($full_path);
-    // TAO FILE EXCEL VA DOWN TRUC TIEP XUONG CLINET
-    $kidID = $kid == 1 ? "lishi" : 'jianshi';
-    $filename = $kidID . '_vote_' . date("ymdHis") . '.xlsx';
-    $objWriter = PHPExcel_IOFactory::createWriter($exExport, 'Excel2007');
-    header('Content-Type: application/vnd.ms-excel');
-    header("Content-Disposition: attachment;filename=$filename");
-    header('Cache-Control: max-age=0');
-    ob_end_clean();
-    //        ob_start();
-    $objWriter->save('php://output');
-}
 
 function OptionVoteTotal()
 {
@@ -307,7 +242,7 @@ function get_image($name = '')
 
 function get_icon($name = '')
 {
-    return get_template_directory_uri() . '/icon/' . $name;
+    return get_template_directory_uri() . '/images/icon/' . $name;
 }
 
 function get_lib_uri($name = '')
@@ -315,10 +250,7 @@ function get_lib_uri($name = '')
     return get_template_directory_uri() . '/lib/' . $name;
 }
 
-function get_workshop_uri($name = '')
-{
-    return get_template_directory_uri() . '/lib/PHPImageWorkshop/' . $name;
-}
+
 
 // ==== get path ============
 // path de upload file den thu muc mong muon
@@ -614,8 +546,8 @@ add_action('login_head', 'custom_login_logo');
 // Thêm vào cuối tệp functions.php của theme 2026
 
 function astcc_enqueue_news_script() {
-    // Chỉ tải script này trên trang sử dụng template 'page/news.php', 'page/news_young.php', 'page/news_other.php'
-    if ( is_page_template('page/news.php') || is_page_template('page/news_conference.php') || is_page_template('page/news_young.php') || is_page_template('page/news_other.php') ) {
+    // Chỉ tải script này trên trang sử dụng template 'page/news.php', 'page/news-young.php', 'page/news-other.php'
+    if ( is_page_template('page/news.php') || is_page_template('page/news-conference.php') || is_page_template('page/news-young.php') || is_page_template('page/news-other.php') || is_page_template('page/other.php') || is_page_template('page/conference.php') ) {
         wp_enqueue_script(
             'infinite-scroll',
             get_template_directory_uri() . '/js/infinite-scroll.js',
@@ -625,15 +557,35 @@ function astcc_enqueue_news_script() {
         );
 
         $category_slug = 'news';
-        if ( is_page_template('page/news_young.php') ) {
+        $post_type = 'post';
+        $initial_posts = 5;
+
+        if ( is_page_template('page/news-young.php') ) {
             $category_slug = 'young';
-        } elseif ( is_page_template('page/news_other.php') ) {
+        } elseif ( is_page_template('page/news-other.php') ) {
             $category_slug = 'member';
+        } elseif ( is_page_template('page/other.php') ) {
+            $category_slug = 'other';
+            $post_type = 'conference';
+            $initial_posts = 2; // other.php ban đầu load 2 bài
+        } elseif ( is_page_template('page/conference.php') ) {
+            $category_slug = '';
+            $post_type = 'conference';
+            $initial_posts = 5;
         }
 
-        // [16/06/2026] Tối ưu hóa: Lấy trực tiếp số lượng bài viết từ category object
-        $cat_obj = get_category_by_slug($category_slug);
-        $total_posts = $cat_obj ? $cat_obj->count : 0;
+        // Tối ưu hóa: Lấy trực tiếp số lượng bài viết từ object
+        if ($post_type === 'conference') {
+            if (!empty($category_slug)) {
+                $term = get_term_by('slug', $category_slug, 'conference_cate');
+                $total_posts = $term ? $term->count : 0;
+            } else {
+                $total_posts = wp_count_posts('conference')->publish;
+            }
+        } else {
+            $cat_obj = get_category_by_slug($category_slug);
+            $total_posts = $cat_obj ? $cat_obj->count : 0;
+        }
 
         // Truyền biến tới JavaScript
         wp_localize_script(
@@ -643,51 +595,15 @@ function astcc_enqueue_news_script() {
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'nonce' => wp_create_nonce('load_more_posts_nonce'),
                 'total_posts' => $total_posts,
-                'initial_posts' => 5, // Số bài viết tải ban đầu
+                'initial_posts' => $initial_posts, // Số bài viết tải ban đầu
                 'posts_per_page' => 2,   // Số bài viết tải mỗi lần cuộn
-                'category_slug' => $category_slug
+                'category_slug' => $category_slug,
+                'post_type' => $post_type
             )
         );
     }
 }
 add_action('wp_enqueue_scripts', 'astcc_enqueue_news_script');
-
-// Hàm xử lý AJAX để tải thêm bài viết
-function astcc_load_more_news_posts() {
-    check_ajax_referer('load_more_posts_nonce', 'nonce');
-
-    // Đọc trực tiếp offset và limit từ yêu cầu AJAX
-    $offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
-    $limit = isset($_POST['limit']) ? intval($_POST['limit']) : 2;
-    $category_slug = isset($_POST['category_slug']) ? sanitize_text_field($_POST['category_slug']) : 'news';
-
-    $args = array(
-        'post_type' => 'post',
-        'post_status' => 'publish',
-        'category_name' => $category_slug,
-        'posts_per_page' => $limit,
-        'offset' => $offset,
-        'orderby' => 'ID',
-        'order' => 'DESC',
-    );
-
-    $query = new WP_Query($args);
-
-    if ($query->have_posts()) {
-        while ($query->have_posts()) {
-            $query->the_post();
-            ?>
-            <div class="article_item">
-                <a href="<?php the_permalink(); ?>"><?php the_title() ?></a>
-                <div><?php echo get_the_content(); ?></div>
-            </div>
-            <?php
-        }
-    }
-    wp_die(); // Bắt buộc phải có để kết thúc AJAX đúng cách
-}
-add_action('wp_ajax_load_more_news_posts', 'astcc_load_more_news_posts');
-add_action('wp_ajax_nopriv_load_more_news_posts', 'astcc_load_more_news_posts');
 
 // Enqueue infinite scroll script for single post pages
 function astcc_enqueue_single_post_script() {
@@ -701,14 +617,26 @@ function astcc_enqueue_single_post_script() {
         );
 
         $post_id = get_the_ID();
-        $cate = get_the_category();
-        $category_slug = !empty($cate) ? $cate[0]->slug : '';
-
+        $post_type = get_post_type($post_id);
+        
+        $category_slug = '';
         $total_posts = 0;
-        if ($category_slug) {
-            $cat_obj = get_category_by_slug($category_slug);
-            // Tổng số bài trong category trừ đi bài hiện tại
-            $total_posts = $cat_obj ? max(0, $cat_obj->count - 1) : 0;
+
+        if ($post_type === 'conference') {
+            $terms = get_the_terms($post_id, 'conference_cate');
+            if (!empty($terms) && !is_wp_error($terms)) {
+                $category_slug = $terms[0]->slug;
+                $total_posts = max(0, $terms[0]->count - 1);
+            } else {
+                $total_posts = max(0, wp_count_posts('conference')->publish - 1);
+            }
+        } else {
+            $cate = get_the_category();
+            if (!empty($cate)) {
+                $category_slug = $cate[0]->slug;
+                $cat_obj = get_category_by_slug($category_slug);
+                $total_posts = $cat_obj ? max(0, $cat_obj->count - 1) : 0;
+            }
         }
 
         wp_localize_script(
@@ -721,6 +649,7 @@ function astcc_enqueue_single_post_script() {
                 'initial_posts' => 5,
                 'posts_per_page' => 2,
                 'category_slug' => $category_slug,
+                'post_type' => $post_type,
                 'exclude_post_id' => $post_id
             )
         );
@@ -728,49 +657,4 @@ function astcc_enqueue_single_post_script() {
 }
 add_action('wp_enqueue_scripts', 'astcc_enqueue_single_post_script');
 
-// AJAX handler for loading more related posts
-function astcc_load_more_related_posts() {
-    check_ajax_referer('load_more_related_nonce', 'nonce');
-
-    $offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
-    $limit = isset($_POST['limit']) ? intval($_POST['limit']) : 2;
-    $category_slug = isset($_POST['category_slug']) ? sanitize_text_field($_POST['category_slug']) : '';
-    $exclude_post_id = isset($_POST['exclude_post_id']) ? intval($_POST['exclude_post_id']) : 0;
-
-    $args = array(
-        'post_type' => 'post',
-        'post_status' => 'publish',
-        'category_name' => $category_slug,
-        'posts_per_page' => $limit,
-        'offset' => $offset,
-        'orderby' => 'ID',
-        'order' => 'DESC',
-        'post__not_in' => array($exclude_post_id),
-    );
-
-    $query = new WP_Query($args);
-
-    if ($query->have_posts()) {
-        while ($query->have_posts()) {
-            $query->the_post();
-            ?>
-            <div class="related-post-card reveal">
-                <div class="related-post-date-block">
-                    <span class="related-date-day"><?php echo get_the_date('d'); ?></span>
-                    <span class="related-date-month"><?php echo get_the_date('M'); ?></span>
-                </div>
-                <div class="related-post-content">
-                    <h4 class="related-post-card-title">
-                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                    </h4>
-                </div>
-            </div>
-            <?php
-        }
-        wp_reset_postdata();
-    }
-    wp_die();
-}
-add_action('wp_ajax_load_more_related_posts', 'astcc_load_more_related_posts');
-add_action('wp_ajax_nopriv_load_more_related_posts', 'astcc_load_more_related_posts');
 

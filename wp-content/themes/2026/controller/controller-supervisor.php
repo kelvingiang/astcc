@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Controller_Supervisor
+class Controller_Supervisor
 {
     private $prefix_name = 'option_supervisor_cate_';
     private $prefix_tax = 'supervisor_cate';

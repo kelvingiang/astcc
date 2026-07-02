@@ -154,9 +154,37 @@
 // and are kept separate to avoid breaking existing pages.
 .page-template-page-president-previous-php {
   .head-title .head {
-    color: rgb(2, 58, 122);
     font-weight: 700;
     letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.8rem;
+
+    color: rgb(2, 58, 122);
+
+    // Animated underline removed. Using Corporate Dual-Line Accent.
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: rgba(15, 23, 42, 0.08);
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, rgb(148, 72, 2) 0%, rgb(2, 58, 122) 100%);
+      border-radius: 4px;
+      z-index: 1;
+    }
   }
   .info-bg { // This class is used in president-past.php
     background-color: #fff;

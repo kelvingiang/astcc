@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class Admin_Controller_Check_In {
+class Controller_Check_In {
 
     // [18/06/2026] Refactor: Tạo property chứa model để tái sử dụng, tránh lặp lại require_once nhiều lần. (DRY)
     private $model;
@@ -15,8 +15,8 @@ class Admin_Controller_Check_In {
 
     private function getModel() {
         if ($this->model === null) {
-            require_once(DIR_MODEL . 'model-check-in.php');
-            $this->model = new Admin_Model_Check_In();
+            require_once(DIR_MODEL . 'model-check-in-function.php');
+            $this->model = new Model_Check_In_Function();
         }
         return $this->model;
     }

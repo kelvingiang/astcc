@@ -1,6 +1,6 @@
 <?php
 // chen cai thu vien upload img
-use PHPImageWorkshop\ImageWorkshop;
+
 
 class Model_Check_In_Function
 {
@@ -73,17 +73,50 @@ class Model_Check_In_Function
         global $wpdb;
         $eventActive = $this->getEventActive();
         if ($arrData['check'] == 0) {
+            $dataGuest = array('check_in' => '1');
+            $whereGuest = array('ID' => $arrData['id']);
+            $wpdb->update($this->_table_guests, $dataGuest, $whereGuest);
+
             $data = array(
                 'guests_id' => $arrData['id'],
                 'event_id' => $eventActive['ID'],
                 'time' => date('H:i:s'),
                 'date' => date('m-d-Y'),
             );
+            // Re-add barcode if it was passed
+            if (isset($arrData['barcode'])) {
+                $data['barcode'] = $arrData['barcode'];
+            }
             $wpdb->insert($this->_table_check_in, $data);
         } elseif ($arrData['check'] == 1) {
+            $dataGuest = array('check_in' => '0');
+            $whereGuest = array('ID' => $arrData['id']);
+            $wpdb->update($this->_table_guests, $dataGuest, $whereGuest);
+
             // XOA GUESTS CHECK IN
             $where = array('guests_id' => absint($arrData['id']), 'event_id' => $eventActive['ID']);
             $wpdb->delete($this->_table_check_in, $where);
+        }
+    }
+
+    public function uncheckinItem($arrData = array(), $option = array())
+    {
+        global $wpdb;
+        if (!is_array($arrData['id'])) {
+            $data = array('check_in' => 0);
+            $where = array('ID' => absint($arrData['id']));
+            $wpdb->update($this->_table_guests, $data, $where);
+            // XOA GUESTS CHECK IN
+            $where2 = array('guests_id' => absint($arrData['id']));
+            $wpdb->delete($this->_table_check_in, $where2);
+        } else {
+            $arrData['id'] = array_map('absint', $arrData['id']);
+            $ids = join(',', $arrData['id']);
+            $sql = "UPDATE $this->_table_guests SET `check_in` = '0'  WHERE ID IN ($ids)";
+            $wpdb->query($sql);
+            // XOA GUESTS CHECK IN
+            $sql2 = "DELETE FROM $this->_table_check_in WHERE guests_id IN ($ids)";
+            $wpdb->query($sql2);
         }
     }
 
@@ -137,6 +170,10 @@ class Model_Check_In_Function
             $cc = substr($t, -9);
             $barcode = $selCountry . $cc;
 
+            $function_qrcode_path = get_template_directory() . '/inc/code/function-qrcode.php';
+            if (file_exists($function_qrcode_path)) {
+                require_once($function_qrcode_path);
+            }
             create_QRCode($barcode, $arrData['txt_fullname'] ?? '', 0);
         } else {
 
@@ -144,8 +181,12 @@ class Model_Check_In_Function
 
                 $t = time();
                 $cc = substr($t, -9);
-                // $barcode = $selCountry . $cc;
-                $barcode = setQRCode($selCountry);
+                $barcode = $selCountry . $cc;
+
+                $function_qrcode_path = get_template_directory() . '/inc/code/function-qrcode.php';
+                if (file_exists($function_qrcode_path)) {
+                    require_once($function_qrcode_path);
+                }
                 create_QRCode($barcode, $arrData['txt_fullname'] ?? '', 0);
 
                 $file = DIR_IMAGES_QRCODE . $hiddenBarcode . '.png';

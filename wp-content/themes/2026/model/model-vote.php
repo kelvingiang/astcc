@@ -5,7 +5,7 @@ if (!class_exists('WP_List_Table')) {
     require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
-class Admin_Model_Vote extends WP_List_Table {
+class Model_Vote extends WP_List_Table {
 
     private $_pre_page = 30;
     private $_sql;
@@ -207,7 +207,7 @@ class Admin_Model_Vote extends WP_List_Table {
 
     public function extra_tablenav($which) {
         /*       if ($which == 'top') {
-          //            $htmlObj = new MyHtml();
+
           //
           //            $filterVal = @$_REQUEST['filter_status'];
           //            $options['data'] = array(

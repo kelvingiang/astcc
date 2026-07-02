@@ -1,14 +1,14 @@
 <?php
 
 // chen cai thu vien upload img
-use PHPImageWorkshop\ImageWorkshop;
+
 
 // KIEM TRA  WP_List_Table CO TON TAI CHUA NEU CHUA SE INCLUSE VAO
 if (!class_exists('WP_List_Table')) {
     require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php ';
 }
 
-class Admin_Model_Check_In extends WP_List_Table {
+class Model_Check_In extends WP_List_Table {
 
     private $_pre_page = 30;
     private $_sql;
@@ -213,26 +213,19 @@ class Admin_Model_Check_In extends WP_List_Table {
     // CAC ITEM TRONG SECLETBOX TRONG PHAN FILTER
     public function extra_tablenav($which) {
         if ($which == 'top') {
-            //  require_once (DIR_CLASS.'html.php');
-            $htmlObj = new MyHtml();
-
             $filterVal = @$_REQUEST['filter_country'];
-//            $options['data'] = array(
-//                '0' => 'status filter',
-//                'active' => 'Active',
-//                'inactive' => 'Inactive'
-//            );
-//            foreach (get_guests_country() as $key => $val){
-//                $options[$key,$val];
-//            }
             $dd = array('0' => __('Select Country'));
             $country = $dd + get_guests_country();
-            $options['data'] = $country;
+            $data = $country;
 
+            $slbFilter = '<select name="filter_country" id="filter_country">';
+            foreach ($data as $key => $val) {
+                $selected = ($filterVal == $key) ? 'selected="selected"' : '';
+                $slbFilter .= '<option value="' . esc_attr($key) . '" ' . $selected . '>' . esc_html($val) . '</option>';
+            }
+            $slbFilter .= '</select>';
 
-            $slbFilter = $htmlObj->selectbox('filter_country', $filterVal, array(), $options);
-            $attr = array('id' => 'filter_action', 'class' => 'button');
-            $btnFilter = $htmlObj->button('filter_action', __('Filter'), $attr);
+            $btnFilter = '<input type="submit" name="filter_action" id="filter_action" class="button" value="' . esc_attr(__('Filter')) . '" />';
 
             echo '<div class="alignleft action bulkactions">' . $slbFilter . $btnFilter . '</div>';
         }
@@ -318,314 +311,6 @@ class Admin_Model_Check_In extends WP_List_Table {
     //CAC COLUMN MAC DINH KHI LOAD TRANG SE SHOW LEN 
     public function column_default($item, $column_name) {
         return $item[$column_name];
-    }
-
-    //CAC FUNCTION XU LY DATA  
-
-    public function get_item($arrData = array(), $option = array()) {
-        global $wpdb;
-        $id = absint($arrData['id']);
-        $table = $wpdb->prefix . 'guests';
-        $sql = "SELECT * FROM $table WHERE ID = $id";
-        $row = $wpdb->get_row($sql, ARRAY_A);
-        return $row;
-    }
-
-    public function trashItem($arrData = array(), $option = array()) {
-        global $wpdb;
-
-        $table = $wpdb->prefix . 'guests';
-        // KIEM TRA PHAN  CÓ PHAN DANG CHUOI HAY KHONG
-        if (!is_array($arrData['id'])) {
-            $data = array('status' => 0);
-            $where = array('id' => absint($arrData['id']));
-            $wpdb->update($table, $data, $where);
-        } else {
-            $arrData['id'] = array_map('absint', $arrData['id']);
-            $ids = join(',', $arrData['id']);
-            $sql = "UPDATE $table SET `status` =  '0'   WHERE ID IN ($ids)";
-            $wpdb->query($sql);
-        }
-    }
-
-    public function restoreItem($arrData = array(), $option = array()) {
-        global $wpdb;
-
-        $table = $wpdb->prefix . 'guests';
-        // KIEM TRA PHAN DELETE CÓ PHAN DANG CHUOI HAY KHONG
-        if (!is_array($arrData['id'])) {
-            $data = array('status' => 1);
-            $where = array('id' => absint($arrData['id']));
-            $wpdb->update($table, $data, $where);
-        } else {
-            $arrData['id'] = array_map('absint', $arrData['id']);
-            $ids = join(',', $arrData['id']);
-            $sql = "UPDATE $table SET `status` =  '1'   WHERE ID IN ($ids)";
-            $wpdb->query($sql);
-        }
-    }
-
-    public function uncheckinItem($arrData = array(), $option = array()) {
-        global $wpdb;
-        $table = $wpdb->prefix . 'guests';
-        $table2 = $wpdb->prefix . 'guests_check_in';
-        if (!is_array($arrData['id'])) {
-            $data = array('check_in' => 0);
-            $where = array('ID' => absint($arrData['id']));
-            $wpdb->update($table, $data, $where);
-            // XOA GUESTS CHECK IN
-            $where2 = array('guests_id' => absint($arrData['id']));
-            $wpdb->delete($table2, $where2);
-        } else {
-            $arrData['id'] = array_map('absint', $arrData['id']);
-            $ids = join(',', $arrData['id']);
-            $sql = "UPDATE $table SET `check_in` = '0'  WHERE ID IN ($ids)";
-            $wpdb->query($sql);
-            // XOA GUESTS CHECK IN
-            $sql2 = "DELETE FROM $table2 WHERE guests_id IN ($ids)";
-            $wpdb->query($sql2);
-        }
-    }
-
-    public function checkin($arrData = array(), $option = array()) {
-        global $wpdb;
-        $table = $wpdb->prefix . 'guests';
-        $table2 = $wpdb->prefix . 'guests_check_in';
-        // CHECK IN
-        if ($arrData['check'] == 0) {
-            $data = array('check_in' => '1');
-            $where = array('ID' => $arrData['id']);
-            $wpdb->update($table, $data, $where);
-
-            $data2 = array(
-                'guests_id' => $arrData['id'],
-                'barcode' => $arrData['barcode'],
-                'time' => date('H:i:s'),
-                'date' => date('m-d-Y'),
-                    //  'kind' => 'g',
-            );
-            $wpdb->insert($table2, $data2);
-        }
-    }
-
-    public function deleteItem($arrData = array(), $option = array()) {
-        global $wpdb;
-        $table = $wpdb->prefix . 'guests';
-        $this->deleteImg($arrData['id']);
-
-        if (!is_array($arrData['id'])) {
-            $where = array('ID' => absint($arrData['id']));
-            $wpdb->delete($table, $where);
-        } else {
-            $arrData['id'] = array_map('absint', $arrData['id']);
-            $ids = join(',', $arrData['id']);
-            $sql = "DELETE FROM $table  WHERE ID IN ($ids)";
-            $wpdb->query($sql);
-        }
-    }
-
-    private function deleteImg($arrID) {
-        global $wpdb;
-        $table = $wpdb->prefix . 'guests';
-        if (!is_array($arrID)) {
-            // [15/06/2026] Khắc phục SQL Injection: Ép kiểu sang int cho $arrID
-            $arrID = (int)$arrID;
-            $sql = "SELECT * FROM $table WHERE ID =" . $arrID;
-            $row = $wpdb->get_row($sql, ARRAY_A);
-            //            XOA HINH TRONG FOLDER
-            if (!empty($row['img'])) {
-                unlink(DIR_IMAGES_GUESTS . $row['img']);
-            }
-            if (!empty($row['barcode'])) {
-                unlink(DIR_IMAGES_BARCODE . $row['barcode'] . '.png');
-            }
-        } else {
-            foreach ($arrID as $key) {
-                // [15/06/2026] Khắc phục SQL Injection: Ép kiểu sang int cho $key
-                $key = (int)$key;
-                $sql = "SELECT * FROM $table WHERE ID =" . $key;
-                $row = $wpdb->get_row($sql, ARRAY_A);
-                // XOA HINH CUA GUESTS
-                if (!empty($row['img'])) {
-                    unlink(DIR_IMAGES_GUESTS . $row['img']);
-                }
-                if (!empty($row['barcode'])) {
-                    unlink(DIR_IMAGES_BARCODE . $row['barcode'] . '.png');
-                }
-            }
-        }
-    }
-
-    public function saveItem($arrData = array(), $option = array()) {
-        global $wpdb;
-        $table = $wpdb->prefix . 'guests';
-
-
-        if (isset($arrData['hidden_barcode']) and empty($arrData['hidden_barcode'])) {
-            $barcode = $this->createQRcode($arrData['sel_country']);
-        } else {
-            if ($arrData['sel_country'] != $arrData['hidden_country']) {
-                $barcode = $this->createQRcode($arrData['sel_country']);
-                // delete the old barcode picture 
-                if (is_file(DIR_IMAGES_QRCODE . $arrData['hidden_barcode'] . '.png')) {
-                    unlink(DIR_IMAGES_QRCODE . $arrData['hidden_barcode'] . '.png');
-                }
-            } else {
-                $barcode = $arrData['hidden_barcode'];
-            }
-        }
-
-        if (!empty($_FILES['guests_img']['name'])) {
-
-            $file_name = $_FILES['guests_img']['name'];
-            $file_size = $_FILES['guests_img']['size'];
-            $file_tmp = $_FILES['guests_img']['tmp_name'];
-            $file_type = $_FILES['guests_img']['type'];
-
-            $file_trim = ((explode('.', $_FILES['guests_img']['name'])));
-            $trim_name = strtolower($file_trim[0]);
-            $trim_type = strtolower($file_trim[1]);
-            // $name = 'hinh';
-            if (!empty($arrData['hidden_barcode'])) {
-                $cus_name = $arrData['hidden_barcode'] . '.' . $trim_type;  //tao name moi cho file tranh trung va mat file
-            } else {
-                $cus_name = $barcode . '.' . $trim_type;
-            }
-            $extensions = array("jpeg", "jpg", "png", "bmp");
-            if (in_array($trim_type, $extensions) === false) {
-                self::$_error[] = "上傳照片檔案是 JPEG , PNG , BMP.";
-            }
-            if ($file_size > 2097152) {
-                //         if ($file_size > 152) {
-                self::$_error[] = '上傳檔案容量不可大於 2 MB';
-            }
-            // [15/06/2026] Khắc phục lỗi logic: Sử dụng hàm upload_guests() động thay vì hardcode '2020'
-            $path = upload_guests();
-
-            if (empty($this->_error) == true) {
-                if (is_file(DIR_IMAGES_GUESTS . $arrData['hidden_img'])) {
-                    unlink(DIR_IMAGES_GUESTS . $arrData['hidden_img']);
-                }
-                //=== upload hinh ==============================
-                move_uploaded_file($file_tmp, ( $path . $cus_name));
-
-                require_once (DIR_CLASS . 'PHPImageWorkshop/autoload.php');
-
-                $pathImg = $path . $cus_name;
-
-                $layer = ImageWorkshop::initFromPath($pathImg);
-                //  $layer->cropMaximumInPixel(0, 0, "MM"); // cat hinh dua vao phan W hay H nho nhat de tao thanh hinh vuong
-                $layer->resizeInPixel(350, NULL, true); // sau khi tao thanh hinh vuong resize la kinh thuoc minh mong muon
-                // phan save hinh 
-                $dirPath = $path;
-
-                $filename = $cus_name; // save ten trung de xoa hinh moi up len
-                $createFolders = FALSE;  //FALSE khong tao thu muc moi
-                $backgroundColor = null; // transparent, only for PNG (otherwise it will be white if set null)
-                $imageQuality = 100; // useless for GIF, usefull for PNG and JPEG (0 to 100%)
-                $layer->save($dirPath, $filename, $createFolders, $backgroundColor, $imageQuality);
-            }
-        } else {
-            $cus_name = $arrData['hidden_img'];
-        }
-        // phan update password
-//        if ($arrData['txt_password'] == $arrData['hidden_password']) {
-//            $pass = $arrData['txt_password'];
-//        } else {
-//            $pass = md5($arrData['txt_password']);
-//        }
-
-        if (isset($arrData['txt_appcode'])) {
-            $appCode = $arrData['txt_appcode'];
-        } else {
-            $appCode = $arrData['hidden_appcode'];
-        }
-
-        $data1 = array(
-            'full_name' => $arrData['txt_fullname'],
-            'barcode' => $barcode,
-            'app_code' => $appCode,
-            'country' => $arrData['sel_country'],
-            'position' => $arrData['txt_position'],
-            'email' => $arrData['txt_email'],
-            'phone' => $arrData['txt_phone'],
-            'img' => $cus_name,
-            'note' => $arrData['txt_note'],
-                // 'password' => $pass,
-        );
-
-        $data2 = array(
-            'barcode' => $barcode,
-            'app_code' => $appCode,
-            'full_name' => $arrData['txt_fullname'],
-            'country' => $arrData['sel_country'],
-            'position' => $arrData['txt_position'],
-            'email' => $arrData['txt_email'],
-            'phone' => $arrData['txt_phone'],
-            'check_in' => '0',
-            'img' => $cus_name,
-            'note' => $arrData['txt_note'],
-            'create_date' => date('d-m-Y'),
-            'status' => '1',
-                //  'password' => $pass,
-        );
-
-
-        if (!empty($arrData['hidden_ID'])) {
-            $where = array('ID' => absint($arrData['hidden_ID']));
-            $wpdb->update($table, $data1, $where);
-        } else {
-            $wpdb->insert($table, $data2);
-        }
-        if ($arrData['hidden_password'] != $pass) {
-            $mailTo = $arrData['txt_email'];
-            $name = $arrData['txt_fullname'];
-            $password = $arrData['txt_password'];
-            registrySendMail($mailTo, $name, $password);
-        }
-    }
-
-    private function createBarcode($aa) {
-        // TAO BARCODE
-//            $aa = $arrData['sel_country'];
-        $t = time();
-        $cc = substr($t, -9);
-        $bar = $aa . $cc;
-        require_once ( DIR_BARCODE . 'BarcodeGenerator.php');
-        require_once ( DIR_BARCODE . 'BarcodeGeneratorPNG.php');
-        $generatorPNG = new Picqer\Barcode\BarcodeGeneratorPNG();
-        file_put_contents(DIR_IMAGES_BARCODE . $bar . '.png', $generatorPNG->getBarcode($bar, $generatorPNG::TYPE_CODE_128, 2, 30));
-        return $bar;
-    }
-
-    //TAO QRCODE
-    public function createQRcode($code) {
-        // $PNG_TEMP_DIR = dirname(__FILE__).DIRECTORY_SEPARATOR.'temp'.DIRECTORY_SEPARATOR;
-        require_once ( DIR_QRCODE . 'qrlib.php');
-        //   if (!file_exists($PNG_TEMP_DIR))
-        //   mkdir($PNG_TEMP_DIR);
-        $t = time();
-        $cc = substr($t, -9);
-        $filename = $code . $cc;
-
-        $filepath = DIR_IMAGES_QRCODE . $filename . '.png';
-        // L M Q H
-        $errorCorrectionLevel = "L";
-        // size 1 - 10
-        $matrixPointSize = 3;
-        QRcode::png($filename, $filepath, $errorCorrectionLevel, $matrixPointSize, 2);
-
-        // DOI TEN FILE THEO KIEU CHU HOA
-        // $newName =  iconv('UTF-8','BIG5',DIR_IMAGES_BARCODE.$name.'-'.$filename .'.png');
-        // $oldName  =  iconv('UTF-8','BIG5', $filepath);
-        // rename($oldName , $newName);     
-
-        return $filename;
-    }
-
-    public function getError() {
-        $ss = $this->_error;
-        return $ss;
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Controller_Schedule {
+class Controller_Schedule {
 
     public function __construct() {
         add_action('admin_menu', array($this, 'AddToMenu'));
@@ -94,7 +94,7 @@ class Admin_Controller_Schedule {
                 $formaData = $validates->getFormdata();
 
                 require_once (DIR_MODEL . 'model-schedule.php');
-                $save = new Admin_Model_Schedule();
+                $save = new Model_Schedule();
                 $save->save_item($formaData);
 
 
@@ -127,7 +127,7 @@ class Admin_Controller_Schedule {
                 require_once (DIR_MODEL . 'model-schedule.php');
                 $formaData = $validates->getFormdata();
 // GOI DE function save_item DE UPDATE DU LLEU
-                $save = new Admin_Model_Schedule();
+                $save = new Model_Schedule();
                 $save->save_item($formaData);
       
             }
@@ -135,7 +135,7 @@ class Admin_Controller_Schedule {
 // CHUA SUBMIT DATA GET
 //   echo 'phuong thuc get';
             require_once (DIR_MODEL . 'model-schedule.php');
-            $getID = new Admin_Model_Schedule();
+            $getID = new Model_Schedule();
             $data = $getID->get_item(getParams());  // bien data nay chuyen chuyen du lieu sang trang form va do du lieu vao cac textbox 
         }
 //SHOW PHAN FORM DU LIEU
@@ -153,7 +153,7 @@ class Admin_Controller_Schedule {
             wp_verify_nonce('_wpnonce');
         }
         require_once (DIR_MODEL . 'schedule_model.php');
-        $model = new Admin_Model_Schedule();
+        $model = new Model_Schedule();
         $model->deleteItem($arrParam);
         $paged = max(1, $arrParam['paged']);
         $url = 'admin.php?page=' . $_REQUEST['page'] . '&msg=1';
@@ -173,7 +173,7 @@ class Admin_Controller_Schedule {
 
 // GOI DEN MODEL 
         require_once (DIR_MODEL . 'model-schedule.php');
-        $model = new Admin_Model_Schedule();
+        $model = new Model_Schedule();
         $model->changeStatus($arrParam);
 
         $paged = max(1, $arrParam['paged']);
@@ -183,7 +183,7 @@ class Admin_Controller_Schedule {
 
     public function sendMailAction() {
         require_once (DIR_MODEL . 'model-schedule.php');
-        $model = new Admin_Model_Schedule();
+        $model = new Model_Schedule();
         // SESION DUOC TAO TREN HAM addAction
         $model->sendMail($_SESSION['sendMailContent']);
     }

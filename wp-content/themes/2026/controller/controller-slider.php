@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Controller_Slider {
+class Controller_Slider {
 
     public function __construct() {
         add_action('init', array($this, 'register_post'));
