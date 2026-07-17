@@ -12,7 +12,6 @@ class Controller_Main
     public function __construct()
     {
         $default_option = array(
-            'industry_controller' => true,
             'link_friend_controller' => true,
             'about_us_controller' => true,
             'slider_controller' => true,
@@ -27,6 +26,7 @@ class Controller_Main
             'commerce_controller' => true,
             'conference_controller' => true,
             //=======================================================
+            'industry_controller' => false,
             'countries_controller' => false,
             'link_business_controller' => false,
             'advertising_controller' => false,

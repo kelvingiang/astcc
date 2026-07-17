@@ -58,7 +58,7 @@
             <input type="text" name="txt-email" id="txt-email" class="email" value="<?php echo get_option('contact_us_email') ?>" />
         </div>
     </div>
-    <div class="meta-row-two-column">
+    <!-- <div class="meta-row-two-column">
         <div class="col">
             <div class="title-cell">
                 <label><?php echo __('Maps X'); ?></label>
@@ -73,6 +73,33 @@
             </div>
             <div class="text-cell">
                 <input type="text" name="txt-map-y" id="txt-map-y" class="type-number-dot" value="<?php echo get_option('map_y') ?>" />
+            </div>
+        </div>
+    </div> -->
+
+        <div class="meta-row-three-column">
+        <div class="col">
+            <div class="title-cell">
+                <label><?php echo __('屆'); ?></label>
+            </div>
+            <div class="text-cell">
+                <input type="text" name="txt-about-us-year" id="txt-about-us-year" class="type-number-dot" value="<?php echo get_option('about_us_year') ?>" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="title-cell">
+                <label><?php echo __('國家'); ?></label>
+            </div>
+            <div class="text-cell">
+                <input type="text" name="txt-about-us-country" id="txt-about-us-country" class="type-number-dot" value="<?php echo get_option('about_us_country') ?>" />
+            </div>
+        </div>
+          <div class="col">
+            <div class="title-cell">
+                <label><?php echo __('理監事'); ?></label>
+            </div>
+            <div class="text-cell">
+                <input type="text" name="txt-about-us-board" id="txt-about-us-board" class="type-number-dot" value="<?php echo get_option('about_us_board') ?>" />
             </div>
         </div>
     </div>

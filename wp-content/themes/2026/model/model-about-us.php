@@ -15,8 +15,9 @@ class Model_About_Us {
         update_option("contact_us_phone", $arr['txt-phone']);
         update_option("contact_us_fax", $arr['txt-fax']);
         update_option("contact_us_email", $arr['txt-email']);
-        update_option("map_x", $arr['txt-map-x']);
-        update_option("map_y", $arr['txt-map-y']);
+        update_option("about_us_year", $arr['txt-about-us-year']);
+        update_option("about_us_country", $arr['txt-about-us-country']);
+        update_option("about_us_board", $arr['txt-about-us-board']);
         update_option("contact_us_maps_link", $arr['txt-maps-link']);
 
         update_post_meta(1, '_info_charter', $arr['info-charter']);

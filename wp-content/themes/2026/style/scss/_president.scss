@@ -46,8 +46,8 @@
 }
 
 .president_current_item_img {
-  width: 250px;
-  height: 250px;
+  width: 250px; // 2026-07-17 - @author: Gemini Code Assist - Đặt chiều rộng để tính tỷ lệ
+  aspect-ratio: 4 / 6; // 2026-07-17 - @author: Gemini Code Assist - Đảm bảo tỷ lệ khung hình 4:6
   margin: 0 auto 1rem;
   border-radius: 12px;
   overflow: hidden;
@@ -100,7 +100,7 @@
   border: 1px solid #eef2f7;
   border-radius: 8px;
   padding: 0.5rem;
-  width: 220px;
+  width: 250px;
   background-color: #fdfdfd;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
   transition: all 0.3s ease;
@@ -123,8 +123,8 @@
 }
 
 .president_advisory_item_img {
-  width: 180px;
-  height: 180px;
+  width: 230px;
+  aspect-ratio: 4 / 6;
   margin: 0 auto 0.8rem;
   border-radius: 10px;
   overflow: hidden;
