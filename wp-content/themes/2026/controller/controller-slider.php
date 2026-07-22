@@ -46,10 +46,12 @@ class Controller_Slider {
     public function manage_cols($columns) {
         //  $title_label = _x('標題', 'suite');
         //  $date_label = _x($columns['date'], 'suite'); // get data form columns defauld;
+        unset($columns['date']);
+        unset($columns['content']);
 
         $columns['title']; // 
         $columns['slide_img'] = _x('照片', 'suite');
-        unset($columns['date']);
+        
         $columns['order'] = _x('次序', 'suite');
         $columns['date'] = _x('日期', 'suite');
 

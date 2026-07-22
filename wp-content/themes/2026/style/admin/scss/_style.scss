@@ -1,7 +1,16 @@
 .column-supervisor_image {
-    min-width: 150px;
+    width: 60px;
     img {
+        /* 22/07/2026: Đặt chiều rộng 50px, chiều cao tự động theo tỷ lệ gốc */
         width: 50px;
+        height: auto;
+
+        /* Ngăn chặn Flexbox hoặc Grid của theme/plugin ghi đè làm méo ảnh */
+        object-fit: contain;
+
+        /* Tối ưu UI: Xóa khoảng trắng thừa (magic space) mặc định dưới đáy thẻ inline */
+        display: block;
+        max-width: 100%;
     }
 }
 
@@ -15,6 +24,53 @@
 
 .column-current {
     min-width: 50px;
+}
+
+.column-date {
+    width: 90px !important;
+}
+
+.column-img {
+    width: 100px;
+}
+
+.column-fullname {
+    width: 90px;
+}
+
+.column-order {
+    width: 70px;
+}
+.column-country,
+.column-position,
+.column-checkin,
+.column-home {
+    width: 80px;
+}
+
+.column-taxonomy-conference_cate,
+.column-barcode,
+.column-phone {
+    width: 100px;
+}
+
+.column-title {
+    width: 350px;
+}
+
+.column-email {
+    width: 210px;
+}
+
+.column-rank_math_seo_details {
+    width: 200px;
+}
+.column-categories {
+    width: 100px !important;
+}
+
+.column-job_title {
+    width: 80px !important;
 }
 
 .type-date {
@@ -37,23 +93,20 @@
     clear: both;
 }
 
-
-
 .admin-link {
     font-weight: bold;
-    color: #2AA1FC;
+    color: #2aa1fc;
     font-size: 15px;
 }
 
 .admin-link:hover {
-    color: #035CAF;
+    color: #035caf;
 }
-
 
 /* B  ----- product post style------------ */
 
 .label-bold {
-    font-weight: bold
+    font-weight: bold;
 }
 
 .label-admin {
@@ -68,7 +121,7 @@
 }
 
 .txt-pro-name {
-    width: 80%
+    width: 80%;
 }
 
 .content {
@@ -81,19 +134,17 @@
     width: 96%;
 }
 
-
 /*E ---------------------------*/
 
 h3.admin-title {
     font-size: 14px !important;
-    color: #0354A5;
+    color: #0354a5;
 }
 
 .admin-title {
     font-weight: 600;
     margin-right: 5px;
 }
-
 
 /*--------  B  phan tap -------------*/
 
@@ -111,8 +162,8 @@ h3.admin-title {
     height: 30px;
     line-height: 2.5;
     text-align: center;
-    text-shadow: #00C;
-    border: 1px #FFF solid;
+    text-shadow: #00c;
+    border: 1px #fff solid;
     margin-bottom: 0px;
     border-radius: 5px 5px 0 0;
     cursor: pointer;
@@ -140,9 +191,7 @@ h3.admin-title {
     display: none;
 }
 
-
 /* ------ E ----------- */
-
 
 /* -- B --- member metabox*/
 
@@ -161,12 +210,9 @@ h3.admin-title {
     float: left;
 }
 
-
 /*---E  member matebox------------*/
 
-
 /* --B -- phan cloumn  trong  */
-
 
 /* phan acive cua column */
 
@@ -190,12 +236,12 @@ span.num {
 
 span.num-active {
     background: #708858;
-    width: 50px
+    width: 50px;
 }
 
 span.num-inactive {
     background: #885858;
-    width: 50px
+    width: 50px;
 }
 
 a:active,
@@ -207,9 +253,7 @@ a:focus {
     border-bottom: 1px #333 dotted !important;
 }
 
-
 /* --E-- phan cloumn  trong  */
-
 
 /* PHAN STYLE COLUMN CUA POST TYPE FORUM
 #post-1794 > .column-content{ width: 330px; }
@@ -219,7 +263,6 @@ a:focus {
 #post-1794 > .column-tags{ width: 30px;}
 #post-1794 > .column-category{ width: 100px !important;}
 #post-1794 > .column-author{ width: 50px !important;} */
-
 
 /* l================== GRID TRONG ADMIN===============*/
 
@@ -232,9 +275,8 @@ a:focus {
 }
 
 #the-list tr:hover {
-    background-color: #E8F6FF;
+    background-color: #e8f6ff;
 }
-
 
 /* PHAN SUA GIRD TRONG ADMIN */
 
@@ -245,7 +287,6 @@ a:focus {
 .widefat th {
     vertical-align: middle !important;
 }
-
 
 /* popup */
 
@@ -258,7 +299,6 @@ a:focus {
 .ui-datepicker-year {
     display: none;
 }
-
 
 /*  26/04/16 AN DI PHAN UPDATE WORDPRESS TRONG ADMIN */
 
@@ -281,49 +321,15 @@ a:focus {
 tr.report {
     height: 40px;
     border-bottom: #000 solid 1px;
-    font-size: 15px
+    font-size: 15px;
 }
 
 tr.report:nth-child(even) {
-    background: #DEE1E5
+    background: #dee1e5;
 }
 
 tr.report:nth-child(odd) {
-    background: #FFF
-}
-
-.column-img {
-    width: 100px;
-}
-
-.column-fullname {
-    width: 90px;
-}
-
-.column-order,
-.column-country,
-.column-position,
-.column-checkin,
-.column-home {
-    width: 80px;
-}
-
-.column-taxonomy-conference_cate,
-.column-barcode,
-.column-phone {
-    width: 100px;
-}
-
-.column-title {
-    width: 350px;
-}
-
-.column-email {
-    width: 210px
-}
-
-.column-supervisor_image {
-    width: 30px;
+    background: #fff;
 }
 
 #show-img {
@@ -338,7 +344,6 @@ tr.report:nth-child(odd) {
     width: 350px;
     background-size: 350px 250px;
 }
-
 
 /* == BO CUC ============================================================================================== */
 
@@ -390,12 +395,12 @@ tr.report:nth-child(odd) {
     width: 100%;
 }
 
-.text-cell>input[type='text'] {
+.text-cell > input[type="text"] {
     width: 80%;
     height: 35px;
 }
 
-.title-cell>label {
+.title-cell > label {
     font-weight: 700;
     color: #666;
     font-size: 15px;
@@ -414,8 +419,8 @@ tr.report:nth-child(odd) {
     display: none;
 }
 
-.my_active{
-    width:20px;
+.my_active {
+    width: 20px;
     height: 20px;
     border-radius: 50%;
     background-color: rgb(129, 2, 2);

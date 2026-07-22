@@ -11,7 +11,7 @@ class Metabox_Country {
         $id = 'admin-metabox-country';
         $title = '國 家';
         $callback = array($this, 'display');
-        add_meta_box($id, $title, $callback, array('post', 'conference'));
+        add_meta_box($id, $title, $callback, array('conference'));
     }
 
     public function display($post) {

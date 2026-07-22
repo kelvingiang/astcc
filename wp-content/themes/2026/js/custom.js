@@ -13,17 +13,17 @@ jQuery(document).ready(function() {
 
     jQuery('.selectmenu').selectmenu({});
 
-    jQuery('.MyDate').datepicker({
-        dateFormat: 'dd-mm-yy',
-        changeMonth: true,
-        changeYear: true
-    });
+    // jQuery('.MyDate').datepicker({
+    //     dateFormat: 'dd-mm-yy',
+    //     changeMonth: true,
+    //     changeYear: true
+    // });
 
-    jQuery('.MyDateNoYear').datepicker({
-        dateFormat: 'dd-mm',
-        changeMonth: true,
-        changeYear: false
-    });
+    // jQuery('.MyDateNoYear').datepicker({
+    //     dateFormat: 'dd-mm',
+    //     changeMonth: true,
+    //     changeYear: false
+    // });
 
     jQuery('.email').focusout(function(e) {
         var email = document.getElementById('txt_email');

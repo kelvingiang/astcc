@@ -1,9 +1,17 @@
 @charset "UTF-8";
 .column-supervisor_image {
-  min-width: 150px;
+  width: 60px;
 }
 .column-supervisor_image img {
+  /* 22/07/2026: Đặt chiều rộng 50px, chiều cao tự động theo tỷ lệ gốc */
   width: 50px;
+  height: auto;
+  /* Ngăn chặn Flexbox hoặc Grid của theme/plugin ghi đè làm méo ảnh */
+  -o-object-fit: contain;
+     object-fit: contain;
+  /* Tối ưu UI: Xóa khoảng trắng thừa (magic space) mặc định dưới đáy thẻ inline */
+  display: block;
+  max-width: 100%;
 }
 
 .column-taxonomy-supervisor_cate {
@@ -16,6 +24,55 @@
 
 .column-current {
   min-width: 50px;
+}
+
+.column-date {
+  width: 90px !important;
+}
+
+.column-img {
+  width: 100px;
+}
+
+.column-fullname {
+  width: 90px;
+}
+
+.column-order {
+  width: 70px;
+}
+
+.column-country,
+.column-position,
+.column-checkin,
+.column-home {
+  width: 80px;
+}
+
+.column-taxonomy-conference_cate,
+.column-barcode,
+.column-phone {
+  width: 100px;
+}
+
+.column-title {
+  width: 350px;
+}
+
+.column-email {
+  width: 210px;
+}
+
+.column-rank_math_seo_details {
+  width: 200px;
+}
+
+.column-categories {
+  width: 100px !important;
+}
+
+.column-job_title {
+  width: 80px !important;
 }
 
 .type-date {
@@ -40,12 +97,12 @@
 
 .admin-link {
   font-weight: bold;
-  color: #2AA1FC;
+  color: #2aa1fc;
   font-size: 15px;
 }
 
 .admin-link:hover {
-  color: #035CAF;
+  color: #035caf;
 }
 
 /* B  ----- product post style------------ */
@@ -81,7 +138,7 @@
 /*E ---------------------------*/
 h3.admin-title {
   font-size: 14px !important;
-  color: #0354A5;
+  color: #0354a5;
 }
 
 .admin-title {
@@ -104,8 +161,8 @@ h3.admin-title {
   height: 30px;
   line-height: 2.5;
   text-align: center;
-  text-shadow: #00C;
-  border: 1px #FFF solid;
+  text-shadow: #00c;
+  border: 1px #fff solid;
   margin-bottom: 0px;
   border-radius: 5px 5px 0 0;
   cursor: pointer;
@@ -209,7 +266,7 @@ a:focus {
 }
 
 #the-list tr:hover {
-  background-color: #E8F6FF;
+  background-color: #e8f6ff;
 }
 
 /* PHAN SUA GIRD TRONG ADMIN */
@@ -256,45 +313,11 @@ tr.report {
 }
 
 tr.report:nth-child(even) {
-  background: #DEE1E5;
+  background: #dee1e5;
 }
 
 tr.report:nth-child(odd) {
-  background: #FFF;
-}
-
-.column-img {
-  width: 100px;
-}
-
-.column-fullname {
-  width: 90px;
-}
-
-.column-order,
-.column-country,
-.column-position,
-.column-checkin,
-.column-home {
-  width: 80px;
-}
-
-.column-taxonomy-conference_cate,
-.column-barcode,
-.column-phone {
-  width: 100px;
-}
-
-.column-title {
-  width: 350px;
-}
-
-.column-email {
-  width: 210px;
-}
-
-.column-supervisor_image {
-  width: 30px;
+  background: #fff;
 }
 
 #show-img {

@@ -159,12 +159,12 @@ function h($value)
             'Sun': '星期天'
         };
 
-        $('.datepicker').datepicker({
+        jQuery('.datepicker').datepicker({
             dateFormat: 'dd/mm/yy',
             showAnim: 'show',
             onSelect: function(dateText) {
-                var $parentDiv = $(this).closest('.row-three-column');
-                var selDate = $(this).datepicker('getDate');
+                var $parentDiv = jQuery(this).closest('.row-three-column');
+                var selDate = jQuery(this).datepicker('getDate');
                 var dayShort = selDate.toDateString().split(' ')[0]; // 'Mon', 'Tue', ...
                 var dayOfWeek = weekdayMap[dayShort] || '';
 
@@ -172,6 +172,8 @@ function h($value)
             },
             onClose: closeDatePicker_datepicker_1
         });
+
+       
     });
 
     function closeDatePicker_datepicker_1() {

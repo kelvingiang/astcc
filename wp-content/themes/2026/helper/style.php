@@ -48,7 +48,7 @@ function suite_style()
 	// --- Conditional Scripts (loaded on all pages except 'check-in') ---
 	if (!is_page('check-in')) {
 		// jQuery UI
-		wp_enqueue_script('jquery-ui', get_template_directory_uri() . '/js/jquery-ui.min.js', array('jquery'), null, true);
+		// wp_enqueue_script('jquery-ui', get_template_directory_uri() . '/js/jquery-ui.min.js', array('jquery'), null, true);
 		// Custom theme scripts
 		wp_enqueue_script('custom-script', get_template_directory_uri() . '/js/custom.js', array('jquery'), null, true);
 		// Superfish menu
@@ -66,17 +66,21 @@ function admin_style()
 {
 	/* style */
 	wp_enqueue_style('admin-custom-style', get_template_directory_uri() . '/style/admin/admin-style.css', array(), '1.0.0');
-	wp_enqueue_style('jquery-ui-style', get_template_directory_uri() . '/style/jquery-ui.min.css', array(), null, 'all');
+	// wp_enqueue_style('jquery-ui-style', get_template_directory_uri() . '/style/jquery-ui.min.css', array(), null, 'all');
 
 	/* script */
 	wp_enqueue_script('jquery-ui-core');
 	wp_enqueue_script('jquery-ui-tabs');
+	// Ngày: 22/07/2026
+	// Chức năng: Đăng ký thêm datepicker và selectmenu của WP Core để sửa lỗi "is not a function" trong tap.js và custom.js
+	wp_enqueue_script('jquery-ui-datepicker');
+	wp_enqueue_script('jquery-ui-selectmenu');
 
-	wp_enqueue_script('admin-tap-script', get_template_directory_uri() . '/js/admin/tap.js', array('jquery', 'jquery-ui-tabs'), null, true);
-	wp_enqueue_script('admin-custom-script', get_template_directory_uri() . '/js/admin/custom.js', array('jquery'), null, true);
+	wp_enqueue_script('admin-tap-script', get_template_directory_uri() . '/js/admin/tap.js', array('jquery', 'jquery-ui-tabs', 'jquery-ui-datepicker'), null, true);
+	wp_enqueue_script('admin-custom-script', get_template_directory_uri() . '/js/admin/custom.js', array('jquery', 'jquery-ui-selectmenu'), null, true);
 	wp_enqueue_script('jquery-cookie', get_template_directory_uri() . '/js/admin/jquery.cookie.js', array('jquery'), null, true);
 	wp_enqueue_script('jquery-json', get_template_directory_uri() . '/js/admin/jquery.json.js', array('jquery'), null, true);
-	wp_enqueue_script('admin-jquery-ui-script', get_template_directory_uri() . '/js/jquery-ui.min.js', array('jquery'), null, true);
+	// wp_enqueue_script('admin-jquery-ui-script', get_template_directory_uri() . '/js/jquery-ui.min.js', array('jquery'), null, true);
 }
 
 add_action('admin_enqueue_scripts', 'admin_style');

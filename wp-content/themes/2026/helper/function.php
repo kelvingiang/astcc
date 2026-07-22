@@ -683,3 +683,18 @@ function display_webp_in_media_library( $result, $path ) {
     return $result;
 }
 add_filter( 'file_is_displayable_image', 'display_webp_in_media_library', 10, 2 );
+
+// Ngày: 22/07/2026
+// Chức năng: Rút gọn định dạng hiển thị trong cột Ngày tháng (Date) của danh sách bài viết trong admin thành dạng ngắn nhất (VD: 2024/10/16)
+function astcc_shorten_post_date_column( $t_time, $post, $column_name, $mode ) {
+    if ( 'date' === $column_name ) {
+        // Ghi đè định dạng dài dòng mặc định bằng định dạng ngắn gọn Y/m/d
+        $t_time = get_the_time( 'Y/m/d', $post );
+    }
+    return $t_time;
+}
+add_filter( 'post_date_column_time', 'astcc_shorten_post_date_column', 10, 4 );
+
+// Date: 2026-07-22
+// Function: Vô hiệu hóa internal sitemap cache của Rank Math để đảm bảo Googlebot luôn nhận dữ liệu live, tránh lỗi HTTP 404 ẩn
+add_filter( 'rank_math/sitemap/enable_caching', '__return_false');

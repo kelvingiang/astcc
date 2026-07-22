@@ -16,11 +16,9 @@
     <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/images/touch.png?v=2">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="google-site-verification" content="3CFT6aP41yw0zYmOmbqUHSdWgHrzXvuCl7phgyCHLLk" />
-    <!--[if lt IE 9]>
-        <script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/html5.js"></script>
-        <![endif]-->
-    <!-- them jquery tu google    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
+   
+    <meta name="google-site-verification" content="Y-oXHA_6B0gaudFE2Mghki7C-mDqtdEPCewvobHM_lU" />
+ 
     <meta name="geo.region" content="VN" />
     <meta name="geo.position" content="10.725377;106.720064" />
     <meta name="ICBM" content="10.725377, 106.720064" />
@@ -42,6 +40,7 @@
 
         gtag('config', 'G-Z3304RSFQ8');
     </script>
+
 </head>
 
 <body <?php body_class(); ?>>
