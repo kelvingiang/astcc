@@ -6,12 +6,8 @@
         Purpose of the stylesheet follows.
 */
 
-root {
-    display: block;
-}
+/* [15/06/2026] Khắc phục chất lượng mã nguồn: Loại bỏ code CSS Bootstrap đã bị comment-out */
 
-
-// [15/06/2026] Khắc phục chất lượng mã nguồn: Loại bỏ code CSS Bootstrap đã bị comment-out
 
 .list_style {
     list-style: none;
@@ -384,7 +380,7 @@ textarea#comment {
     height: 40px;
     margin-top: 0px;
     border-radius: 5px 5px 0 0;
-    background-color: background;
+    background-color: #0170ba;
     color: white;
     font-size: 15px;
     font-weight: bold;

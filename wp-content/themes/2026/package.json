@@ -1,0 +1,11 @@
+{
+  "name": "astcc-theme-2026",
+  "private": true,
+  "devDependencies": {
+    "sass": "^1.75.0"
+  },
+  "scripts": {
+    "build:css": "sass style/main.scss style/main.css && sass --style=compressed style/main.scss style/main.min.css && sass style/admin/admin-style.scss style/admin/admin-style.css && sass --style=compressed style/admin/admin-style.scss style/admin/admin-style.min.css",
+    "watch:css": "sass --watch style/main.scss:style/main.css style/main.scss:style/main.min.css style/admin/admin-style.scss:style/admin/admin-style.css style/admin/admin-style.scss:style/admin/admin-style.min.css"
+  }
+}

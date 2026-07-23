@@ -81,12 +81,22 @@ $sf-text-hover-color: $mainColor;
 .primary-menu {
     z-index: 1000;
     
+    > ul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
     ul {
         margin: 0 !important;
+        padding: 0;
+        list-style: none;
         
         li {
             background-color: transparent !important;
             border: none !important;
+            position: relative; // Thêm position relative cho dropdown con
             
             // 1. Style mặc định cho thẻ <a>
             a {
@@ -116,35 +126,48 @@ $sf-text-hover-color: $mainColor;
                     transition: width 0.3s ease;
                     border-radius: 3px 3px 0 0;
                 }
+            }
 
-                // Mũi tên Superfish
-                &.sf-with-ul {
-                    padding-right: 2.2rem !important;
+            // Mũi tên cho mục có menu con (cấp 1)
+            &.menu-item-has-children > a {
+                display: flex;
+                align-items: center;
+                gap: 6px; // Khoảng cách giữa chữ và mũi tên
 
-                    &::after {
-                        border-top-color: $sf-text-color !important;
-                        margin-top: -2px;
-                        transition: border-top-color 0.3s ease;
-                    }
+                &::after {
+                    content: "";
+                    display: inline-block;
+                    margin-top: 4px; // Điều chỉnh nhẹ cho cân đối
+                    border: 4px solid transparent;
+                    border-top-color: $sf-text-color;
+                    transition: border-color 0.3s ease;
                 }
             }
 
             // 2. Style khi Hover vào thẻ <li>
-            &:hover > a,
-            &.sfHover > a {
+            &:hover > a {
                 color: $sf-text-hover-color !important;
                 
                 &::before {
                     width: 70%;
                 }
+            }
 
-                &.sf-with-ul::after {
-                    border-top-color: $sf-text-hover-color !important;
-                }
+            &.menu-item-has-children:hover > a::after {
+                border-top-color: $sf-text-hover-color !important;
+            }
+
+            // Hiển thị menu con khi hover
+            &:hover > ul {
+                display: block;
             }
 
             // 3. Style riêng cho Menu con (Sub-menu)
             ul {
+                display: none; // Ẩn mặc định
+                position: absolute; // Hiển thị đè lên các nội dung dưới
+                top: 100%;
+                left: 0;
                 min-width: 240px;
                 background: #fff !important;
                 margin-top: 0px !important;
@@ -160,7 +183,7 @@ $sf-text-hover-color: $mainColor;
                 li {
                     border-bottom: none !important;
                     transition: background-color 0.2s ease;
-                    position: relative;
+                    position: relative; // Cấp 3
 
                     // Thanh màu bên trái sẽ hiện ra khi hover
                     &::before {
@@ -184,17 +207,27 @@ $sf-text-hover-color: $mainColor;
                         font-weight: bold !important;
                         color: #475569 !important;
                         transition: all 0.2s ease;
+                        white-space: nowrap; // Không cho chữ xuống hàng
                         
                         // Tắt hiệu ứng gạch dưới ở menu con
                         &::before {
                             display: none;
                         }
+                    }
 
-                        &.sf-with-ul::after {
-                            border-left-color: #475569 !important;
-                            border-top-color: transparent !important;
-                            margin-top: -5px;
+                    // Mũi tên menu cấp 2 trở lên
+                    &.menu-item-has-children > a {
+                        padding-right: 2.2rem !important;
+
+                        &::after {
+                            content: "";
+                            position: absolute;
                             right: 15px;
+                            top: 50%;
+                            margin-top: -4px;
+                            border: 4px solid transparent;
+                            border-left-color: #475569;
+                            transition: border-color 0.3s ease;
                         }
                     }
                     
@@ -202,17 +235,24 @@ $sf-text-hover-color: $mainColor;
                         background-color: #f8fafc !important;
                     }
 
-                    &:hover::before, &.sfHover::before {
+                    &:hover::before {
                         transform: scaleY(1);
                     }
 
-                    &:hover > a, &.sfHover > a {
+                    &:hover > a {
                         color: $mainColor !important;
                         padding-left: 32px !important; // Hiệu ứng trượt nhẹ sang phải
+                    }
 
-                        &.sf-with-ul::after {
-                            border-left-color: $mainColor !important;
-                        }
+                    &.menu-item-has-children:hover > a::after {
+                        border-left-color: $mainColor !important;
+                    }
+
+                    // Hiển thị menu cấp 3 khi hover cấp 2
+                    &:hover > ul {
+                        display: block;
+                        top: 0;
+                        left: 100%; // Đẩy sang phải
                     }
                 }
             }

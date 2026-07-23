@@ -507,7 +507,7 @@ if (!function_exists('suite_menu')) {
             'theme_location' => $slug, // chon menu dc thiet lap truoc
             'container' => 'nav', // tap html chua menu nay
             'container_class' => $slug, // class cua mennu
-            'items_wrap' => '<nav class=' . $slug . '><ul id="%1$s" class="%2$s sf-menu">%3$s</ul></nav>'
+            'items_wrap' => '<nav class=' . $slug . '><ul id="%1$s" class="%2$s">%3$s</ul></nav>'
         );
         wp_nav_menu($menu);
     }

@@ -7,8 +7,7 @@
   width: 50px;
   height: auto;
   /* Ngăn chặn Flexbox hoặc Grid của theme/plugin ghi đè làm méo ảnh */
-  -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
   /* Tối ưu UI: Xóa khoảng trắng thừa (magic space) mặc định dưới đáy thẻ inline */
   display: block;
   max-width: 100%;
@@ -516,3 +515,5 @@ h2.hndle {
   font-size: 10px;
   color: #999;
 }
+
+/*# sourceMappingURL=admin-style.css.map */
