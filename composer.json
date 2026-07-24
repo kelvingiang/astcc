@@ -1,6 +1,7 @@
 {
     "require": {
-        "phpoffice/phpspreadsheet": "^2.1"
+        "phpoffice/phpspreadsheet": "^5.9",
+        "endroid/qr-code": "^6.1"
     },
     "config": {
         "vendor-dir": "wp-content/vendor"
