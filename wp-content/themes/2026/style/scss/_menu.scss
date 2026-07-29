@@ -1,3 +1,5 @@
+// 2026-07-29: Thêm module sass:color để dùng color.scale() thay lighten() deprecated
+@use "sass:color";
 @use "./define.scss" as *;
 
 /* ==========================================================================
@@ -193,7 +195,7 @@ $sf-text-hover-color: $mainColor;
                         top: 15%;
                         height: 70%;
                         width: 4px;
-                        background: linear-gradient(to bottom, lighten($mainColor, 15%) 0%, $mainColor 100%);
+                        background: linear-gradient(to bottom, color.scale($mainColor, $lightness: 15%) 0%, $mainColor 100%);
                         transform: scaleY(0);
                         transform-origin: center;
                         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);

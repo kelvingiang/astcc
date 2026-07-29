@@ -1,3 +1,5 @@
+// 2026-07-29: Thêm module sass:color để dùng color.scale() thay lighten() deprecated
+@use "sass:color";
 @use "./define.scss" as *;
 
 #mobile-header {
@@ -37,7 +39,7 @@
     justify-content: center;
     height: 50px;
     cursor: pointer;
-    background: linear-gradient(135deg, $mainColor 0%, lighten($mainColor, 15%) 100%);
+    background: linear-gradient(135deg, $mainColor 0%, color.scale($mainColor, $lightness: 15%) 100%);
     color: white;
     font-weight: bold;
     font-size: 1.15rem;

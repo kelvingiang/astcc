@@ -698,3 +698,19 @@ add_filter( 'post_date_column_time', 'astcc_shorten_post_date_column', 10, 4 );
 // Date: 2026-07-22
 // Function: Vô hiệu hóa internal sitemap cache của Rank Math để đảm bảo Googlebot luôn nhận dữ liệu live, tránh lỗi HTTP 404 ẩn
 add_filter( 'rank_math/sitemap/enable_caching', '__return_false');
+
+
+// 2026-07-28
+// Chức năng: Ngăn chặn tải script Analytics của Rank Math trên các trang không phải là Post/Page 
+// để tối ưu hiệu suất admin và tránh lỗi 404 REST API (post/undefined).
+add_action( 'admin_enqueue_scripts', function() {
+    // Lấy thông tin màn hình hiện tại trong WP Admin
+    $screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+    
+    // Nếu không nằm trong màn hình chỉnh sửa post/page thông thường, hủy tải script
+    if ( $screen && ! in_array( $screen->base, array( 'post', 'edit' ), true ) ) {
+        // Hủy đăng ký các script gọi API không cần thiết của Rank Math
+        wp_dequeue_script( 'rank-math-analyzer' );
+        wp_dequeue_script( 'rank-math-analytic' );
+    }
+}, 999 );

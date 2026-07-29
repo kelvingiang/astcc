@@ -1,3 +1,5 @@
+// 2026-07-29: Thêm module sass:color để dùng color.scale() thay lighten() deprecated
+@use "sass:color";
 @use "./define.scss" as *;
 @use "./responsive.scss" as *;
 
@@ -8,7 +10,7 @@
 .my_month {
     display: inline-flex;
     align-items: center;
-    background: linear-gradient(135deg, $mainColor 0%, lighten($mainColor, 15%) 100%);
+    background: linear-gradient(135deg, $mainColor 0%, color.scale($mainColor, $lightness: 15%) 100%);
     color: white;
     margin: 10px 0 15px 0;
     padding: 8px 25px 8px 20px;
@@ -47,7 +49,7 @@
     &:hover {
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
         transform: translateY(-3px);
-        border-left-color: lighten($mainColor, 15%);
+        border-left-color: color.scale($mainColor, $lightness: 15%);
     }
 
     .schedule_title {

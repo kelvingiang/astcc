@@ -70,17 +70,23 @@
                                 }
 
                          ?>
-                                <div class="president_previous_item">
+                                <?php
+                                // [28/07/2026] Dùng tag động: có content → <a> (có hover), không có → <div>
+                                $has_content = !empty(get_the_content());
+                                $tag         = $has_content ? 'a' : 'div';
+                                $link_attr   = $has_content ? 'href="' . esc_url(get_permalink()) . '"' : '';
+                                ?>
+                                <<?php echo $tag; ?> <?php echo $link_attr; ?> class="president_previous_item">
                                     <div class="president_item_img">
-                                        <img src="<?php echo $imgUrl ?>" alt="<?php the_title(); ?>" />
+                                        <img src="<?php echo esc_url($imgUrl); ?>" alt="<?php the_title(); ?>" />
                                     </div>
 
                                     <div class="president_previous_item_link">
                                         <p class="title"> <?php the_title() ?></p>
-                                        <p class="job"><?php echo get_post_meta(get_the_ID(), '_metabox_job_title', true) ?></p>
+                                        <p class="job"><?php echo esc_html(get_post_meta(get_the_ID(), '_metabox_job_title', true)) ?></p>
                                     </div>
 
-                                </div>
+                                </<?php echo $tag; ?>>
                         <?php
                             endwhile;
                             wp_reset_postdata();

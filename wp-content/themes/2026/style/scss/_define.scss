@@ -1,5 +1,7 @@
 // System variables & Design Tokens for Aether Digital
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+// 2026-07-29: Self-host font Outfit thay vì dùng Google Fonts CDN
+//             Xem chi tiết trong style/scss/_fonts.scss
+@use 'fonts';
 
 $mainColor: rgb(2, 58, 122);
 $linkColor: rgb(148, 72, 2);

@@ -58,7 +58,7 @@
                                         <span class="month-year"><?php echo get_the_date('Y-m'); ?></span>
                                     </div>
                                     <div class="news-info">
-                                        <h4 class="news-title"><?php echo esc_html(get_the_title()); ?></h4>
+                                        <h3 class="news-title"><?php echo esc_html(get_the_title()); ?></h3>
                                         <span class="news-readmore">閱讀更多 <i class="fa fa-angle-right"></i></span>
                                     </div>
                                 </a>

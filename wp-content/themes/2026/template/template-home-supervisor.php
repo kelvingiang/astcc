@@ -30,7 +30,9 @@
         ?>
                 <div class="service-card reveal">
                     <div class="home_president_current_item_img">
-                        <img src="<?php echo esc_url($imgUrl); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" fetchpriority="high" />
+                        <a href="<?php the_permalink(); ?>">
+                            <img src="<?php echo esc_url($imgUrl); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" fetchpriority="high" />
+                        </a>
                     </div>
                     <div class="home_president_current_item_name">
                         <?php echo esc_html(get_post_meta(get_the_ID(), '_metabox_job_title', true)); ?>

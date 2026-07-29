@@ -1,6 +1,7 @@
 <?php get_header(); ?>
 
-	<main role="main">
+	<!-- 2026-07-29: Thêm id="primary" class="site-main" cho chuẩn SEO semantic HTML5 -->
+	<main id="primary" class="site-main" role="main">
 		<!-- section -->
 		<section>
 

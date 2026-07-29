@@ -1,6 +1,8 @@
 <?php get_header(); ?>
 
+<!-- 2026-07-29: Thêm <main> semantic HTML5 để chuẩn SEO -->
 <!-- [02/07/2026] Cập nhật giao diện trang 404 để hiển thị thân thiện và đẹp mắt hơn khi người dùng truy cập link hỏng -->
+<main id="primary" class="site-main" role="main">
 <div class="astcc-page-container single-full-width">
     <div class="sing-content" style="text-align: center; padding: 80px 15px;">
         <article id="post-404">
@@ -17,5 +19,6 @@
         </article>
     </div>
 </div>
+</main><!-- #primary -->
 
 <?php get_footer(); ?>

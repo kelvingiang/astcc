@@ -13,7 +13,7 @@
     <div id="header">
         <div id="header-wrap">
             <a href="<?php echo home_url() ?>">
-                <img src="<?php echo get_image('astcc-logo.png') ?>"
+                <img src="<?php echo get_image('astcc-logo.webp') ?>"
                     class="logo-img"
                     alt="ctcvn_logo"
                     title="ctcvn_logo" />
@@ -29,7 +29,7 @@
 
         <div id="menu-second">
             <a href="<?php echo home_url() ?>">
-                <img src="<?php echo get_image('astcc-logo.png') ?>"
+                <img src="<?php echo get_image('astcc-logo.webp') ?>"
                     class="logo-img"
                     alt="ctcvn_logo"
                     title="ctcvn_logo" />

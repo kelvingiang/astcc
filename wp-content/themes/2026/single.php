@@ -1,5 +1,7 @@
 <?php get_header(); ?>
 
+<!-- 2026-07-29: Thêm <main> semantic HTML5 để chuẩn SEO -->
+<main id="primary" class="site-main" role="main">
 <div class="astcc-page-container single-full-width">
     <div class="sing-content">
         <?php if (have_posts()): while (have_posts()) : the_post(); ?>
@@ -85,5 +87,6 @@
         </div>
     </div>
 </div>
+</main><!-- #primary -->
 
 <?php get_footer(); ?>

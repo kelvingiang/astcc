@@ -55,8 +55,9 @@
     border: 1px solid #ffffff;
     transition: all 0.3s ease;
     margin-bottom: 1rem;
+    position: relative;
 
-    &:hover {
+    &[href]:hover {
         background-color: #f0f5ff;
         border-color: #dbeafe;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
@@ -64,14 +65,16 @@
     }
 
     &__img {
-        width: 200px; // Tăng kích thước ảnh
-        height: 200px; // Tăng kích thước ảnh
+        // [28/07/2026] Đổi sang tỷ lệ 6:4 (3:2) thay vì vuông 200×200
+        width: 100%;
+        aspect-ratio: 4 / 6; // [28/07/2026] Tỷ lệ đứng: width 4, height 6
+
         flex-shrink: 0;
-        border-radius: 10px; // Bo góc 10px
+        border-radius: 10px;
         overflow: hidden;
         border: 2px solid #fff;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        margin-bottom: 0.5rem; // Khoảng cách dưới ảnh
+        margin-bottom: 0.5rem;
 
         img {
             width: 100%;
@@ -81,16 +84,42 @@
     }
 
     &__info {
+        position: absolute;
+        // Căn lọt lòng vừa khít bên trong viền trắng 2px của bức ảnh
+        bottom: calc(1.5rem + 2px); 
+        left: calc(1rem + 2px);
+        right: calc(1rem + 2px);
+        
+        // Dùng hiệu ứng chuyển sắc (Gradient) từ đen (đáy) mờ dần lên trên
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%);
+        padding: 2.5rem 0.5rem 0.8rem 0.5rem; // Padding trên lớn để gradient tan từ từ vào ảnh
+        
+        border-radius: 0 0 8px 8px; // Chuyển bo góc chỉ ở dưới đáy cho khớp viền
+        border: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: none;
+        z-index: 2;
+
+        display: flex;
+        flex-wrap: wrap; 
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem; 
+
         .name {
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: #1e293b;
-            margin: 0 0 0.2rem 0;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff; // Chuyển chữ thành màu trắng để nổi trên nền đen
+            margin: 0;
+            text-align: center;
         }
         .job {
-            font-size: 0.85rem;
-            color: #64748b;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: #e2e8f0; // Trắng xám nhạt
             margin: 0;
+            text-align: center;
         }
     }
 }
@@ -114,47 +143,48 @@
 }
 
 /* Tái định dạng advisory-card để giống supervisor-card nhưng nhỏ hơn */
-.advisory-card {
-    display: flex;
-    flex-direction: column; /* BẮT BUỘC: Giữ bố cục hình trên, chữ dưới */
-    align-items: center;
-    text-align: center;
-    justify-content: center; /* Căn giữa nội dung trong card */
-    gap: 0.5rem; /* Khoảng cách giữa ảnh và chữ */
-    padding: 0.5rem;
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-    border:1px solid #fff;
-    background-color: #f8fafc;
+// .advisory-card {
+//     display: flex;
+//     flex-direction: column; /* BẮT BUỘC: Giữ bố cục hình trên, chữ dưới */
+//     align-items: center;
+//     text-align: center;
+//     justify-content: center; /* Căn giữa nội dung trong card */
+//     gap: 0.5rem; /* Khoảng cách giữa ảnh và chữ */
+//     padding: 0.5rem;
+//     width: 100%;
+//     height: 100%;
+//     border-radius: 12px;
+//     border:1px solid #fff;
+//     background-color: #f8fafc;
 
-}
+// }
 
-.advisory-card__img {
-    width: 200px; /* Tăng kích thước ảnh lên đáng kể */
-    height: 200px; /* Giữ tỷ lệ vuông */
-    flex-shrink: 0;
-    border-radius: 10px; /* Bo tròn ảnh để tạo cảm giác mềm mại, sang trọng */
-    overflow: hidden;
-    border: 3px solid #fff; /* Thêm viền trắng */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ */
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-}
+// .advisory-card__img {
+//     // [28/07/2026] Đổi sang tỷ lệ 6:4 (3:2) thay vì vuông 200×200
+//     width: 100%;
+//     aspect-ratio: 4 / 6; // [28/07/2026] Tỷ lệ đứng: width 4, height 6
+//     flex-shrink: 0;
+//     border-radius: 10px;
+//     overflow: hidden;
+//     border: 3px solid #fff;
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//     img {
+//         width: 100%;
+//         height: 100%;
+//         object-fit: cover;
+//     }
+// }
 
-.advisory-card__info {
-    .name {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #1e293b;
-        margin: 0 0 0.2rem 0;
-    }
-    .job {
-        font-size: 0.85rem;
-        color: #64748b;
-        margin: 0;
-    }
-}
+// .advisory-card__info {
+//     .name {
+//         font-size: 1rem;
+//         font-weight: 600;
+//         color: #1e293b;
+//         margin: 0 0 0.2rem 0;
+//     }
+//     .job {
+//         font-size: 0.85rem;
+//         color: #64748b;
+//         margin: 0;
+//     }
+// }

@@ -2,10 +2,17 @@
   "name": "astcc-theme-2026",
   "private": true,
   "devDependencies": {
-    "sass": "^1.75.0"
+    "esbuild": "^0.28.1",
+    "sass": "^1.75.0",
+    "swiper": "^14.0.7",
+    "terser": "^5.49.0"
   },
   "scripts": {
-    "build:css": "sass style/main.scss style/main.css && sass --style=compressed style/main.scss style/main.min.css && sass style/admin/admin-style.scss style/admin/admin-style.css && sass --style=compressed style/admin/admin-style.scss style/admin/admin-style.min.css",
-    "watch:css": "sass --watch style/main.scss:style/main.css style/main.scss:style/main.min.css style/admin/admin-style.scss:style/admin/admin-style.css style/admin/admin-style.scss:style/admin/admin-style.min.css"
+    "build:css":    "sass style/main.scss style/main.css && sass --style=compressed style/main.scss style/main.min.css && sass style/admin/admin-style.scss style/admin/admin-style.css && sass --style=compressed style/admin/admin-style.scss style/admin/admin-style.min.css",
+    "build:js":     "npx terser js/custom.js --compress --mangle --output js/custom.min.js",
+    "build:swiper": "node build-swiper.mjs",
+    "build":        "npm run build:css && npm run build:js && npm run build:swiper",
+    "watch:css":    "sass --watch style/main.scss:style/main.css style/main.scss:style/main.min.css style/admin/admin-style.scss:style/admin/admin-style.css style/admin/admin-style.scss:style/admin/admin-style.min.css",
+    "watch:js":     "node -e \"const{execSync:e}=require('child_process'),fs=require('fs');let t;fs.watch('js/custom.js',()=>{clearTimeout(t);t=setTimeout(()=>{try{e('npm run build:js',{stdio:'inherit'})}catch(e){}},200)});\""
   }
 }

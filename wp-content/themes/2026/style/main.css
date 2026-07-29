@@ -1,5 +1,22 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap");
+/* latin-ext */
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("fonts/outfit-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("fonts/outfit-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 .president-page-wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -52,7 +69,8 @@
 .president_current_item_img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .president_current_item_link {
@@ -128,7 +146,8 @@
 .president_advisory_item_img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .president_advisory_item_name {
@@ -230,7 +249,8 @@
 .page-template-page-president-previous-php .president-card .president-card-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .page-template-page-president-previous-php .president-card .president-card-link {
   text-decoration: none;
@@ -378,7 +398,8 @@
 .president_item_img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 50%;
   border: 3px solid #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -990,15 +1011,11 @@ input[type=url],
 select,
 textarea {
   border: 1px solid #ddd;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
   background-color: #fff;
   color: #333 !important;
-  -webkit-transition: 0.05s border-color ease-in-out;
   transition: 0.05s border-color ease-in-out;
   padding: 5px 10px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
   border-radius: 5px;
   height: 30px;
   width: 95%;
@@ -1012,8 +1029,6 @@ input[type=reset] {
      background-image: -ms-linear-gradient(top, #51a818, #3d8010);
      background-image: -o-linear-gradient(top, #51a818, #3d8010);
      background-image: linear-gradient(to bottom, #51a818, #3d8010);*/
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
   border-radius: 3px;
   font-family: Arial;
   /* font-size: 12px;*/
@@ -1263,8 +1278,6 @@ textarea#comment {
   font-weight: 400;
   background: #c6250a;
   /* transition */
-  -webkit-transition: 1s;
-  -moz-transition: 1s;
   transition: 1s;
 }
 
@@ -1348,15 +1361,10 @@ a#back-top img:hover {
   float: left;
   width: 100%;
   background: #ffffff;
-  background: #ffffff -moz-linear-gradient(top, #fcfcfc 0%, #ffffff 100%);
   /* FF3.6+ */
-  background: #ffffff -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
   /* Chrome,Safari4+ */
-  background: #ffffff -webkit-linear-gradient(top, #fcfcfc 0%, #ffffff 100%);
   /* Chrome10+,Safari5.1+ */
-  background: #ffffff -o-linear-gradient(top, #fcfcfc 0%, #ffffff 100%);
   /* Opera11.10+ */
-  background: #ffffff -ms-linear-gradient(top, #fcfcfc 0%, #ffffff 100%);
   /* IE10+ */
   background: #ffffff linear-gradient(top, #fcfcfc 0%, #ffffff 100%);
   /* W3C */
@@ -1770,7 +1778,8 @@ ul.list li div {
 .national-member-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .national-member-info .name {
@@ -2088,7 +2097,7 @@ ul.list li div {
   top: 15%;
   height: 70%;
   width: 4px;
-  background: linear-gradient(to bottom, rgb(1.2681846932%, 36.7773561037%, 77.3592662872%) 0%, rgb(2, 58, 122) 100%);
+  background: linear-gradient(to bottom, rgb(2.9338709677, 85.0822580645, 178.9661290323) 0%, rgb(2, 58, 122) 100%);
   transform: scaleY(0);
   transform-origin: center;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2175,7 +2184,7 @@ ul.list li div {
   justify-content: center;
   height: 50px;
   cursor: pointer;
-  background: linear-gradient(135deg, rgb(2, 58, 122) 0%, rgb(1.2681846932%, 36.7773561037%, 77.3592662872%) 100%);
+  background: linear-gradient(135deg, rgb(2, 58, 122) 0%, rgb(2.9338709677, 85.0822580645, 178.9661290323) 100%);
   color: white;
   font-weight: bold;
   font-size: 1.15rem;
@@ -2288,7 +2297,7 @@ ul.list li div {
 .my_month {
   display: inline-flex;
   align-items: center;
-  background: linear-gradient(135deg, rgb(2, 58, 122) 0%, rgb(1.2681846932%, 36.7773561037%, 77.3592662872%) 100%);
+  background: linear-gradient(135deg, rgb(2, 58, 122) 0%, rgb(2.9338709677, 85.0822580645, 178.9661290323) 100%);
   color: white;
   margin: 10px 0 15px 0;
   padding: 8px 25px 8px 20px;
@@ -2325,7 +2334,7 @@ ul.list li div {
 .schedule-item:hover {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   transform: translateY(-3px);
-  border-left-color: rgb(1.2681846932%, 36.7773561037%, 77.3592662872%);
+  border-left-color: rgb(2.9338709677, 85.0822580645, 178.9661290323);
 }
 .schedule-item .schedule_title {
   margin-bottom: 20px;
@@ -2724,11 +2733,12 @@ ul.list li div {
   left: 0;
   z-index: 0;
 }
-#services .service-card .home_president_current_item_img img {
+#services .service-card .home_president_current_item_img a img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border: none;
   border-radius: 0;
   transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
@@ -2907,7 +2917,8 @@ ul.list li div {
   width: 100%;
   height: auto;
   max-height: 550px;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   display: block;
   transition: transform 0.5s ease;
 }
@@ -3286,7 +3297,8 @@ ul.list li div {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .swiper-slide-caption {
@@ -3406,11 +3418,14 @@ ul.list li div {
 }
 @media (min-width: 768px) {
   .history-content-panel {
-    column-count: 2;
-    column-gap: 1.5rem;
+    -moz-column-count: 2;
+         column-count: 2;
+    -moz-column-gap: 1.5rem;
+         column-gap: 1.5rem;
   }
   .history-content-panel.one-column {
-    column-count: 1;
+    -moz-column-count: 1;
+         column-count: 1;
   }
 }
 .history-content-panel p {
@@ -3426,7 +3441,8 @@ ul.list li div {
 }
 @media (min-width: 768px) {
   .history-content-panel h1, .history-content-panel h2, .history-content-panel h3, .history-content-panel h4, .history-content-panel h5, .history-content-panel h6 {
-    column-span: all;
+    -moz-column-span: all;
+         column-span: all;
   }
 }
 .history-content-panel h2 {
@@ -3524,16 +3540,17 @@ ul.list li div {
   border: 1px solid #ffffff;
   transition: all 0.3s ease;
   margin-bottom: 1rem;
+  position: relative;
 }
-.supervisor-card:hover {
+.supervisor-card[href]:hover {
   background-color: #f0f5ff;
   border-color: #dbeafe;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
   transform: translateY(-5px);
 }
 .supervisor-card__img {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  aspect-ratio: 4/6;
   flex-shrink: 0;
   border-radius: 10px;
   overflow: hidden;
@@ -3544,18 +3561,41 @@ ul.list li div {
 .supervisor-card__img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.supervisor-card__info {
+  position: absolute;
+  bottom: calc(1.5rem + 2px);
+  left: calc(1rem + 2px);
+  right: calc(1rem + 2px);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%);
+  padding: 2.5rem 0.5rem 0.8rem 0.5rem;
+  border-radius: 0 0 8px 8px;
+  border: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
 }
 .supervisor-card__info .name {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin: 0 0 0.2rem 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  text-align: center;
 }
 .supervisor-card__info .job {
-  font-size: 0.85rem;
-  color: #64748b;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #e2e8f0;
   margin: 0;
+  text-align: center;
 }
 
 /*==================================================
@@ -3576,48 +3616,6 @@ ul.list li div {
 }
 
 /* Tái định dạng advisory-card để giống supervisor-card nhưng nhỏ hơn */
-.advisory-card {
-  display: flex;
-  flex-direction: column; /* BẮT BUỘC: Giữ bố cục hình trên, chữ dưới */
-  align-items: center;
-  text-align: center;
-  justify-content: center; /* Căn giữa nội dung trong card */
-  gap: 0.5rem; /* Khoảng cách giữa ảnh và chữ */
-  padding: 0.5rem;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  border: 1px solid #fff;
-  background-color: #f8fafc;
-}
-
-.advisory-card__img {
-  width: 200px; /* Tăng kích thước ảnh lên đáng kể */
-  height: 200px; /* Giữ tỷ lệ vuông */
-  flex-shrink: 0;
-  border-radius: 10px; /* Bo tròn ảnh để tạo cảm giác mềm mại, sang trọng */
-  overflow: hidden;
-  border: 3px solid #fff; /* Thêm viền trắng */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ */
-}
-.advisory-card__img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.advisory-card__info .name {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin: 0 0 0.2rem 0;
-}
-.advisory-card__info .job {
-  font-size: 0.85rem;
-  color: #64748b;
-  margin: 0;
-}
-
 .article-list {
   display: flex;
   flex-direction: column;
@@ -3753,7 +3751,7 @@ ul.list li div {
   border-color: #dbeafe;
 }
 .friend-link-item:hover .friend-link-link .friend-link-icon {
-  background: linear-gradient(135deg, rgb(2, 58, 122) 0%, rgb(1.2681846932%, 36.7773561037%, 77.3592662872%) 100%);
+  background: linear-gradient(135deg, rgb(2, 58, 122) 0%, rgb(2.9338709677, 85.0822580645, 178.9661290323) 100%);
   color: #fff;
   transform: rotate(-10deg) scale(1.1);
 }
@@ -3832,7 +3830,7 @@ ul.list li div {
   border-color: #dbeafe;
 }
 .download-item:hover .download-link .download-icon {
-  background: linear-gradient(135deg, rgb(2, 58, 122) 0%, rgb(1.2681846932%, 36.7773561037%, 77.3592662872%) 100%);
+  background: linear-gradient(135deg, rgb(2, 58, 122) 0%, rgb(2.9338709677, 85.0822580645, 178.9661290323) 100%);
   color: #fff;
   transform: scale(1.1);
 }
@@ -3887,5 +3885,3 @@ ul.list li div {
   height: 36px;
   border-radius: 50%;
 }
-
-/*# sourceMappingURL=main.css.map */

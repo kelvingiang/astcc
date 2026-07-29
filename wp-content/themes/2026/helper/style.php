@@ -14,13 +14,13 @@ function suite_style()
 	wp_enqueue_style('scss-style', get_template_directory_uri() . '/style/main.min.css', array(), filemtime(get_template_directory() . '/style/main.min.css'), 'all');
 
 	// --- Third-party Libraries ---
-	// SwiperJS for sliders
-	wp_enqueue_style('swiper-css', 'https://unpkg.com/swiper/swiper-bundle.min.css');
-	// JAVASCRIPT
+	// 2026-07-29: Self-host Swiper (custom build: Core + Navigation + Autoplay only)
+	// Giảm từ ~43 KiB (CDN full bundle) xuống ~22 KiB sau gzip.
+	// Rebuild khi cần: npm run build:swiper
+	wp_enqueue_style('swiper-css', get_template_directory_uri() . '/js/swiper.min.css', array(), filemtime(get_template_directory() . '/js/swiper.min.css'));
 
 	// --- Third-party Libraries (loaded in footer) ---
-	// SwiperJS for sliders
-	wp_enqueue_script('swiper-js', 'https://unpkg.com/swiper/swiper-bundle.min.js', array(), null, true);
+	wp_enqueue_script('swiper-js', get_template_directory_uri() . '/js/swiper.custom.min.js', array(), filemtime(get_template_directory() . '/js/swiper.custom.min.js'), true);
 
 	// --- Main Theme Scripts (loaded in footer) ---
 	wp_enqueue_script('theme-main-js', get_template_directory_uri() . '/js/main.js', array('jquery'), '1.0.0', true);
@@ -28,7 +28,9 @@ function suite_style()
 
 	// --- Conditional Scripts (loaded on all pages except 'check-in') ---
 	if (!is_page('check-in')) {
-		wp_enqueue_script('custom-script', get_template_directory_uri() . '/js/custom.js', array('jquery'), null, true);
+		// 2026-07-29: Dùng custom.min.js (đã minify) để tối ưu tốc độ tải trang.
+		// filemtime() tự động bust cache khi file được build lại.
+		wp_enqueue_script('custom-script', get_template_directory_uri() . '/js/custom.min.js', array('jquery'), filemtime(get_template_directory() . '/js/custom.min.js'), true);
 	}
 }
 

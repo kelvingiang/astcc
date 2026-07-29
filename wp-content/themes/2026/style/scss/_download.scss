@@ -1,3 +1,5 @@
+// 2026-07-29: Thêm module sass:color để dùng color.scale() thay lighten() deprecated
+@use "sass:color";
 @use "./define.scss" as *;
 @use "./responsive.scss" as *;
 
@@ -28,7 +30,7 @@
 
         .download-link {
             .download-icon {
-                background: linear-gradient(135deg, $mainColor 0%, lighten($mainColor, 15%) 100%);
+                background: linear-gradient(135deg, $mainColor 0%, color.scale($mainColor, $lightness: 15%) 100%);
                 color: #fff;
                 transform: scale(1.1);
             }
