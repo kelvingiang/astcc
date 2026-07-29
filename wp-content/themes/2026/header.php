@@ -6,6 +6,15 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- 2026-07-29: Preload font Outfit Latin (self-hosted) để trình duyệt tải song song với HTML.
+         Tránh việc phải chờ CSS parse xong mới phát hiện font → giảm LCP ~200-300ms.
+         crossorigin bắt buộc vì font được tải bằng anonymous CORS request. -->
+    <link rel="preload"
+          href="<?php echo esc_url( get_template_directory_uri() ); ?>/style/fonts/outfit-latin.woff2"
+          as="font"
+          type="font/woff2"
+          crossorigin>
+
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
     <link href="//www.google-analytics.com" rel="dns-prefetch">
